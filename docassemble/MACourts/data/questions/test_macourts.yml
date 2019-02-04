@@ -5,33 +5,32 @@ modules:
   - docassemble.webapp.playground
 ---
 mandatory: True
+code: |
+  go_on
+  saved_courts
+  if saved_courts.ready():
+    results
+  else:
+    waiting
+---
 question: Press continue
 field: go_on
 ---
-code: |
-  #district_courts = get_courts_from_massgov_url('https://www.mass.gov/orgs/district-court/locations')
-  
-  # housing_courts = get_courts_from_massgov_url('https://www.mass.gov/orgs/housing-court/locations')
-  
-  #PlaygroundSection('sources').write_file('playground_district.json',district_courts)
-  # m = save_courts_to_file()
-
-  # test = Address()
-  # test.geolocate("50 State St., P.O. Box 2421, Springfield, MA 01102")
-  
-  save_courts_to_file()
-  saved_courts = True
+code: |  
+  saved_courts = background_action('bg_task')
 ---
-mandatory: True
+event: save_courts
+code: |
+  save_courts_to_file()
+---
+question: |
+  Still waiting
+field: waiting
+reload: True
+---
+event: results
 question: |
   Results
-subquestion: |
-  
-  `{repr(district_courts)}`
-  
-  `{repr(housing_courts)}`
-  
-  `{vars(test)}`
-  
-  ${saved_courts}
+subquestion: |  
+  ${saved_courts.get()}
   

@@ -45,7 +45,7 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
     return out
 
 setup(name='docassemble.MACourts',
-      version='0.0.1',
+      version='0.0.2',
       description=('List Massachusetts Courts in Docassemble'),
       long_description='A utility package that includes JSON files representing all of the courts in Massachusetts.\r\n\r\nCourts automatically scraped from Mass.gov and geocoded with Google Maps, so addresses\r\nmay not always be properly entered (esp. for PO Boxes)',
       long_description_content_type='text/markdown',
