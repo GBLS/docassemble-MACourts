@@ -1,0 +1,50 @@
+---
+modules:
+  - .macourts
+---
+objects:
+  - my_courts: MACourtList.using(courts=True)
+  - my_address: Address
+---
+mandatory: True
+code: |
+  my_courts
+  default_court = my_courts.matching_housing_court(my_address)
+---
+mandatory: True
+question: |
+  Test
+subquestion: |
+  % for court in my_courts:
+  * ${court.name}
+      * ${court.address.on_one_line()}
+      * ${str(court.description.encode("utf8").replace('\n','').replace('\r','').split(', '))[1:-1]}
+      * ${court.address.county}
+  %endfor
+field: saw_list
+---
+question: |
+  Address
+fields:
+  - Address: my_address.address
+    address autocomplete: True
+  - City: my_address.city
+  - State: my_address.state
+  - Zip: my_address.zip
+  - County: my_address.county
+---
+question: Results
+subquestion: |
+  ${my_courts.matching_housing_court(my_address)}
+field: x
+---
+mandatory: True
+question: |
+  Defaulting court
+subquestion: |
+  ${my_courts.matching_housing_court(my_address)}
+fields:
+  - The court: match_court
+    datatype: object
+    default: default_court
+    choices: my_courts

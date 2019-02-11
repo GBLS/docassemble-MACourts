@@ -1,0 +1,42 @@
+---
+modules:
+  - .macourts
+  - docassemble.base.util
+  - docassemble.webapp.playground
+---
+mandatory: True
+code: |
+  go_on
+  # test_write()
+  # save_courts_to_file()
+  saved_courts
+  if saved_courts.ready():
+    results
+  else:
+    waiting
+  results
+---
+question: Press continue to begin caching the court list
+field: go_on
+---
+code: |  
+  saved_courts = background_action('save_courts')
+---
+event: save_courts
+code: |
+  background_response(save_courts_to_file())
+  # background_response(test_write())
+---
+question: |
+  Downloading court list
+subquestion: |
+  This page will reload when the files are saved. Just wait here.
+field: waiting
+reload: True
+---
+event: results
+question: |
+  Results
+subquestion: |  
+  ${saved_courts.get()}
+  
