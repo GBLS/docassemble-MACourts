@@ -31,7 +31,7 @@ question: |
   Downloading court list
 subquestion: |
   This page will reload when the files are saved. Just wait here.
-field: waiting
+event: waiting
 reload: True
 ---
 event: results

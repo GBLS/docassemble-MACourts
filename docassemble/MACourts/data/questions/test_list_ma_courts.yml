@@ -3,13 +3,14 @@ modules:
   - .macourts
 ---
 objects:
-  - my_courts: MACourtList.using(courts=True)
+  - my_courts: MACourtList
   - my_address: Address
 ---
 mandatory: True
 code: |
   my_courts
-  default_court = my_courts.matching_housing_court(my_address)
+  my_courts.load_courts(['probate_and_family_courts'],data_path='data/sources/') # Test with the local copy
+  #default_court = my_courts.matching_housing_court(my_address)
 ---
 mandatory: True
 question: |
@@ -38,7 +39,7 @@ subquestion: |
   ${my_courts.matching_housing_court(my_address)}
 field: x
 ---
-mandatory: True
+#mandatory: True
 question: |
   Defaulting court
 subquestion: |
