@@ -4,8 +4,12 @@ from docassemble.base.legal import Court
 import io, json, sys, requests, bs4, re, os #, cbor
 from docassemble.webapp.playground import PlaygroundSection
 import usaddress
+from uszipcode import SearchEngine
+
+__all__= ['get_courts_from_massgov_url','save_courts_to_file']
 
 def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=True):
+    searcher = SearchEngine(simple_zipcode=True)
     """Load specified court directory page on Mass.gov and returns an MACourtList
     Properties include name, phone, fax, address, description (usually includes cities or county served), latitude, longitude
     """
@@ -30,6 +34,7 @@ def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=Tr
         address = Address()
         orig_address = marker['infoWindow']['address'] # The geolocate method does _not_ work with PO Boxes (silently discards)
         clean_address = re.sub(r' *PO Box .*?,',"",orig_address)
+        clean_address = re.sub(r' *P.O. Box .*?,',"",orig_address)
         has_po_box = not clean_address == orig_address # We want to track if there was a PO Box where mail should be delivered
         address.address = orig_address
 
@@ -62,9 +67,11 @@ def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=Tr
             'PlaceName': 'city',
             'StateName': 'state',
             'ZipCode': 'zip',
-            }
-
-        address_parts = usaddress.tag(orig_address, tag_mapping=tag_mapping) 
+            } 
+        try:
+            address_parts = usaddress.tag(orig_address, tag_mapping=tag_mapping) 
+        except usaddress.RepeatedLabelError as e :
+            address_parts = usaddress.tag(clean_address, tag_mapping=tag_mapping)
 
         try:
             if address_parts[1].lower() == 'street address':
@@ -74,6 +81,9 @@ def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=Tr
                 address.city = address_parts[0].get('city')
                 address.state = address_parts[0].get('state')
                 address.zip = address_parts[0].get('zip')
+                zipinfo = searcher.by_zipcode(address.zip)
+                address.county = zipinfo.county
+                del zipinfo
             else:
                 raise Exception('We expected a Street Address. Fall back to Google Geolocation')
         except:
@@ -192,7 +202,6 @@ def save_courts_to_file():
             'land_court', 'https://www.mass.gov/orgs/land-court/locations'
         ]
     ]
-
     sources = PlaygroundSection('sources')
     for court in courts:
         jdata = json.dumps(get_courts_from_massgov_url(court[1]))
@@ -205,8 +214,7 @@ def save_courts_to_file():
     #     f = open(fpath, 'w')
     #     f.write(jdata)
     #     f.close()
-    sources.finalize()
-
+    #sources.finalize()
 
 def test_write():
     area = PlaygroundSection('sources').get_area()

@@ -8,8 +8,10 @@ mandatory: True
 code: |
   go_on
   # test_write()
-  # save_courts_to_file()
+  save_courts_to_file()
   saved_courts
+  # waiting
+  
   if saved_courts.ready():
     results
   else:
@@ -20,6 +22,9 @@ question: Press continue to begin caching the court list
 field: go_on
 ---
 code: |  
+  #save_courts_to_file()
+  #saved_courts = True
+  
   saved_courts = background_action('save_courts')
 ---
 event: save_courts
