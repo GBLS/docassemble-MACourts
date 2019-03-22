@@ -6,7 +6,7 @@ from docassemble.webapp.playground import PlaygroundSection
 import usaddress
 from uszipcode import SearchEngine
 
-__all__= ['get_courts_from_massgov_url','save_courts_to_file']
+__all__= ['get_courts_from_massgov_url','save_courts_to_file','MACourt','MACourtList']
 
 def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=True):
     searcher = SearchEngine(simple_zipcode=True)
@@ -27,7 +27,7 @@ def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=Tr
         for item in jdata['locations']['imagePromos']['items']:
             description = ''
             if item['title']['text'] in html_name:
-                name = item['title']['text']
+                name = item['title']['text'].rstrip()
                 description = item['description']['richText']['rteElements'][0]['data']['rawHtml']['content']['#context']['value']
                 break
 
@@ -70,8 +70,8 @@ def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=Tr
             } 
         try:
             address_parts = usaddress.tag(orig_address, tag_mapping=tag_mapping) 
-        except usaddress.RepeatedLabelError as e :
-            address_parts = usaddress.tag(clean_address, tag_mapping=tag_mapping)
+        except usaddress.RepeatedLabelError:
+            address_parts = usaddress.tag(clean_address, tag_mapping=tag_mapping) # Discard the PO box entry if necessary - not a valid address
 
         try:
             if address_parts[1].lower() == 'street address':
@@ -85,7 +85,7 @@ def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=Tr
                 address.county = zipinfo.county
                 del zipinfo
             else:
-                raise Exception('We expected a Street Address. Fall back to Google Geolocation')
+                raise Exception('We expected a Street Address.')
         except:
             address.address = orig_address
             #address.geolocate(self.elements.get('full_address',''))
@@ -140,7 +140,7 @@ def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=Tr
                 'address': "4040 Mystic Valley Parkway",
                 'state': "MA",
                 'zip': "02155",
-                'county': "Middlesex",
+                'county': "Middlesex County",
                 'orig_address':  "4040 Mystic Valley Parkway, Medford, MA 02155"
             },
             'location': {
@@ -163,7 +163,7 @@ def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=Tr
                 'unit': "Courtroom 540 - 5th Floor",
                 'state': "MA",
                 'zip': "01801",
-                'county': "Middlesex",
+                'county': "Middlesex County",
                 'orig_address':  "200 Trade Center, Courtroom 540 - 5th Floor, Woburn, MA 01801"
             },
             'location': {
