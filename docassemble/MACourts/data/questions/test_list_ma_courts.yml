@@ -1,6 +1,6 @@
 ---
 modules:
-  - .macourts
+  - docassemble.MACourts.macourts
 ---
 objects:
   - my_courts: MACourtList
