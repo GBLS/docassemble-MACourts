@@ -1,5 +1,5 @@
 from docassemble.base.core import DAObject, DAList, DADict
-from docassemble.base.util import path_and_mimetype, Address, LatitudeLongitude, DAStaticFile, text_type, PY2, PY3
+from docassemble.base.util import path_and_mimetype, Address, LatitudeLongitude, DAStaticFile, text_type, PY2
 from docassemble.base.legal import Court
 import io, json, sys, requests, bs4, re, os #, cbor
 from docassemble.webapp.playground import PlaygroundSection
