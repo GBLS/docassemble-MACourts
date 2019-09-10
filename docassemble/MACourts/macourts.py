@@ -326,7 +326,7 @@ class MACourtList(DAList):
     def matching_housing_court(self, address):
         """Return the MACourt representing the Housing Court serving the given address""" 
         court_name = self.matching_housing_court_name(address)
-        return next ((court for court in self.elements if court.name.rtrim() == court_name), None)
+        return next ((court for court in self.elements if court.name.rstrip() == court_name), None)
 
     def matching_housing_court_name(self,address):
         """Returns the name of the MACourt representing the housing court that covers the specified address.
