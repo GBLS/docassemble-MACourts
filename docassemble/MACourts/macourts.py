@@ -6,7 +6,7 @@ from docassemble.webapp.playground import PlaygroundSection
 import usaddress
 from uszipcode import SearchEngine
 
-__all__= ['get_courts_from_massgov_url','save_courts_to_file','MACourt','MACourtList','PY2','PY3']
+__all__= ['get_courts_from_massgov_url','save_courts_to_file','MACourt','MACourtList','PY2'] 
 
 def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=True):
     searcher = SearchEngine(simple_zipcode=True)
