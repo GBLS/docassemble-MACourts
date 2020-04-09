@@ -78,11 +78,11 @@ def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=Tr
                 address.address = address_parts[0].get('address')
                 if address_parts[0].get('unit'):
                     address.unit = address_parts[0].get('unit')
-                address.city = address_parts[0].get('city')
+                address.city.lower() = address_parts[0].get('city')
                 address.state = address_parts[0].get('state')
                 address.zip = address_parts[0].get('zip')
                 zipinfo = searcher.by_zipcode(address.zip)
-                address.county = zipinfo.county
+                address.county.lower() = zipinfo.county
                 del zipinfo
             else:
                 raise Exception('We expected a Street Address.')
@@ -93,13 +93,13 @@ def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=Tr
         if not hasattr(address,'address'):
             address.address = ''
         if not hasattr(address, 'city'):
-            address.city = ''
+            address.city.lower() = ''
         if not hasattr(address, 'state'):
             address.state = ''
         if not hasattr(address, 'zip'):
             address.zip = ''
         if not hasattr(address, 'county'):
-            address.county = ''
+            address.county.lower() = ''
         #if not hasattr(address, 'unit'):
             #address.unit = ''                    
 
@@ -111,11 +111,11 @@ def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=Tr
             'phone':marker['infoWindow']['phone'],
             'fax':marker['infoWindow']['fax'],
             'address': {
-                'city': address.city,
+                'city': address.city.lower(),
                 'address': address.address,
                 'state': address.state,
                 'zip': address.zip,
-                'county': address.county,
+                'county': address.county.lower(),
                 'orig_address':  orig_address # the one-line original address, which may include a PO Box
             },
             'location': {
@@ -290,10 +290,10 @@ class MACourtList(DAList):
             court.description = item.get('description')
 
             court.address.address = item['address']['address']
-            court.address.city = item['address']['city']
+            court.address.city.lower() = item['address']['city']
             court.address.state = item['address']['state']
             court.address.zip = item['address']['zip']
-            court.address.county = item['address']['county']
+            court.address.county.lower() = item['address']['county']
             court.address.orig_address = item['address'].get('orig_address')            
         
     def load_courts_from_file(self, json_path, data_path='docassemble.MACourts:data/sources/'):
@@ -317,68 +317,71 @@ class MACourtList(DAList):
             court.description = item.get('description')
 
             court.address.address = item['address']['address']
-            court.address.city = item['address']['city']
+            court.address.city.lower() = item['address']['city']
             court.address.state = item['address']['state']
             court.address.zip = item['address']['zip']
-            court.address.county = item['address']['county']
+            court.address.county.lower() = item['address']['county']
             court.address.orig_address = item['address'].get('orig_address')
 
     def matching_housing_court(self, address):
         """Return the MACourt representing the Housing Court serving the given address""" 
         court_name = self.matching_housing_court_name(address)
-        return next ((court for court in self.elements if court.name.rstrip() == court_name), None)
+        return next ((court for court in self.elements if court.name.rstrip().lower() == court_name.lower()), None)
 
     def matching_housing_court_name(self,address):
         """Returns the name of the MACourt representing the housing court that covers the specified address.
         Harcoded and must be updated if court jurisdictions or names change. Address must specify county attribute"""
-        if (not hasattr(address, 'county')) or (address.county.strip() == ''):
+        if (not hasattr(address, 'county')) or (address_to_compare.county.lower().strip() == ''):
             return ''
-        if (address.county == "Suffolk County") or (address.city in ["Newton","Brookline"]):
+        if hasattr(address, 'norm') and hasattr(address.norm, 'city') and hasattr(address.norm, 'county'):
+            address_to_compare = address.norm
+        else:
+            address_to_compare = address
+        if (address_to_compare.county.lower() == "suffolk county") or (address_to_compare.city.lower() in ["newton","brookline"]):
             local_housing_court = "Eastern Housing Court"
-        elif address.city in ["Arlington","Belmont","Cambridge","Medford","Somerville"]:
+        elif address_to_compare.city.lower() in ["arlington","belmont","cambridge","medford","somerville"]:
             local_housing_court = "Eastern Housing Court - Middlesex Session"
-        elif address.city in ["Ashfield", "Bernardston", "Buckland", "Charlemont", "Colrain", "Conway", "Deerfield", "Erving", "Gill", "Greenfield", "Hawley", "Heath", "Leverett", "Leyden", "Monroe", "Montague", "New Salem", "Northfield", "Orange", "Rowe", "Shelburne", "Shutesbury", "Sunderland", "Warwick", "Wendell", "Whately"]:
+        elif address_to_compare.city.lower() in ["ashfield", "bernardston", "buckland", "charlemont", "colrain", "conway", "deerfield", "erving", "gill", "greenfield", "hawley", "heath", "leverett", "leyden", "monroe", "montague", "new salem", "northfield", "orange", "rowe", "shelburne", "shutesbury", "sunderland", "warwick", "wendell", "whately"]:
             local_housing_court = "Western Housing Court - Greenfield Session"
-        elif address.city in ['Amherst', 'Belchertown', 'Chesterfield', 'Cummington', 'Easthampton', 'Goshen', 'Granby', 'Hadley', 'Hatfield', 'Huntington', 'Middlefield', 'Northampton', 'Pelham', 'Plainfield', 'South Hadley', 'Southampton', 'Ware', 'Westhampton', 'Williamsburg','Worthington']:
+        elif address_to_compare.city.lower() in ['amherst', 'belchertown', 'chesterfield', 'cummington', 'easthampton', 'goshen', 'granby', 'hadley', 'hatfield', 'huntington', 'middlefield', 'northampton', 'pelham', 'plainfield', 'south hadley', 'southampton', 'ware', 'westhampton', 'williamsburg','worthington']:
             local_housing_court = "Western Housing Court - Hadley Session"
-        elif address.county == "Berkshire":
+        elif address_to_compare.county.lower() == "berkshire":
             local_housing_court = "Western Housing Court - Pittsfield Session"
-        elif address.city in ['Agawam', 'Blandford', 'Brimfield', 'Chester', 'Chicopee', 'East Longmeadow', 'Granville', 'Hampden', 'Holland', 'Holyoke', 'Longmeadow', 'Ludlow', 'Monson', 'Montgomery', 'Palmer', 'Russell', 'Southwick', 'Springfield', 'Tolland', 'Wales', 'West Springfield', 'Westfield','Wilbraham']:
+        elif address_to_compare.city.lower() in ['agawam', 'blandford', 'brimfield', 'chester', 'chicopee', 'east longmeadow', 'granville', 'hampden', 'holland', 'holyoke', 'longmeadow', 'ludlow', 'monson', 'montgomery', 'palmer', 'russell', 'southwick', 'springfield', 'tolland', 'wales', 'west springfield', 'westfield','wilbraham']:
             local_housing_court = "Western Housing Court - Springfield Session"
-        elif address.city in ['Charlton', 'Dudley', 'Oxford', 'Southbridge', 'Sturbridge', 'Webster']:
+        elif address_to_compare.city.lower() in ['charlton', 'dudley', 'oxford', 'southbridge', 'sturbridge', 'webster']:
             local_housing_court ="Central Housing Court - Dudley Session"
-        elif address.city in ['Ashburnham', 'Athol', 'Fitchburg', 'Gardner', 'Holden', 'Hubbardston', 'Leominster', 'Lunenberg', 'Petersham', 'Phillipston', 'Princeton', 'Royalston', 'Templeton', 'Westminster', 'Winchendon']:
+        elif address_to_compare.city.lower() in ['ashburnham', 'athol', 'fitchburg', 'gardner', 'holden', 'hubbardston', 'leominster', 'lunenberg', 'petersham', 'phillipston', 'princeton', 'royalston', 'templeton', 'westminster', 'winchendon']:
             local_housing_court = "Central Housing Court - Leominster Session"
-        elif address.city in ['Ashland', 'Berlin', 'Bolton', 'Framingham', 'Harvard', 'Holliston', 'Hopkinton', 'Hudson', 'Marlborough', 'Natick', 'Northborough', 'Sherborn', 'Southborough', 'Sudbury', 'Wayland', 'Westborough']:
+        elif address_to_compare.city.lower() in ['ashland', 'berlin', 'bolton', 'framingham', 'harvard', 'holliston', 'hopkinton', 'hudson', 'marlborough', 'natick', 'northborough', 'sherborn', 'southborough', 'sudbury', 'wayland', 'westborough']:
             local_housing_court = "Central Housing Court - Marlborough Session"
-        elif address.city in ['Auburn', 'Barre', 'Bellingham', 'Blackstone', 'Boylston', 'Brookfield', 'Clinton', 'Douglas', 'East Brookfield', 'Grafton', 'Hardwick', 'Hopedale', 'Lancaster', 'Leicester', 'Mendon', 'Milford', 'Millbury', 'Millville', 'New Braintree', 'Northbridge', 'North Brookfield', 'Oakham', 'Oxford', 'Paxton', 'Rutland', 'Shrewsbury', 'Spencer', 'Sterling', 'Sutton', 'Upton', 'Uxbridge', 'Warren', 'West Boylston', 'Worcester']:
+        elif address_to_compare.city.lower() in ['auburn', 'barre', 'bellingham', 'blackstone', 'boylston', 'brookfield', 'clinton', 'douglas', 'east brookfield', 'grafton', 'hardwick', 'hopedale', 'lancaster', 'leicester', 'mendon', 'milford', 'millbury', 'millville', 'new braintree', 'northbridge', 'north brookfield', 'oakham', 'oxford', 'paxton', 'rutland', 'shrewsbury', 'spencer', 'sterling', 'sutton', 'upton', 'uxbridge', 'warren', 'west boylston', 'worcester']:
             local_housing_court = "Central Housing Court - Worcester Session"
-        elif address.city in ['Abington', 'Avon', 'Bellingham', 'Braintree', 'Bridgewater', 'Brockton', 'Canton', 'Cohasset', 'Dedham', 'Dover', 'East Bridgewater', 'Eastham', 'Foxborough', 'Franklin', 'Holbrook', 'Medfield', 'Medway', 'Millis', 'Milton', 'Needham', 'Norfolk', 'Norwood', 'Plainville', 'Quincy', 'Randolph', 'Sharon', 'Stoughton', 'Walpole', 'Wellesley', 'West Bridgewater', 'Westwood', 'Weymouth', 'Whitman', 'Wrentham']:
+        elif address_to_compare.city.lower() in ['abington', 'avon', 'bellingham', 'braintree', 'bridgewater', 'brockton', 'canton', 'cohasset', 'dedham', 'dover', 'east bridgewater', 'eastham', 'foxborough', 'franklin', 'holbrook', 'medfield', 'medway', 'millis', 'milton', 'needham', 'norfolk', 'norwood', 'plainville', 'quincy', 'randolph', 'sharon', 'stoughton', 'walpole', 'wellesley', 'west bridgewater', 'westwood', 'weymouth', 'whitman', 'wrentham']:
             local_housing_court = "Metro South Housing Court - Brockton Session"
-        elif address.county == "Norfolk County" and not address.city in ["Newton","Brookline"]:
+        elif address_to_compare.county.lower() == "norfolk county" and not address_to_compare.city.lower() in ["newton","brookline"]:
             local_housing_court = "Metro South Housing Court - Canton Session"
-        elif address.city in ['Amesbury', 'Andover', 'Boxford', 'Georgetown', 'Groveland', 'Haverhill', 'Lawrence', 'Merrimac', 'Methuen', 'Newbury', 'Newburyport', 'North Andover', 'Rowley', 'Salisbury', 'West Newbury']:
+        elif address_to_compare.city.lower() in ['amesbury', 'andover', 'boxford', 'georgetown', 'groveland', 'haverhill', 'lawrence', 'merrimac', 'methuen', 'newbury', 'newburyport', 'north andover', 'rowley', 'salisbury', 'west newbury']:
             local_housing_court =  "Northeast Housing Court - Lawrence Session"
-        elif address.city in ['Acton', 'Ashby', 'Ayer', 'Billerica', 'Boxborough', 'Carlisle', 'Chelmsford', 'Devens', 'Dracut', 'Dunstable', 'Groton', 'Littleton', 'Lowell', 'Maynard', 'Pepperell', 'Shirley', 'Stow', 'Tewksbury', 'Townsend', 'Tyngsborough', 'Westford']:
+        elif address_to_compare.city.lower() in ['acton', 'ashby', 'ayer', 'billerica', 'boxborough', 'carlisle', 'chelmsford', 'devens', 'dracut', 'dunstable', 'groton', 'littleton', 'lowell', 'maynard', 'pepperell', 'shirley', 'stow', 'tewksbury', 'townsend', 'tyngsborough', 'westford']:
             local_housing_court = "Northeast Housing Court - Lowell Session"
-        elif address.city in ['Lynn', 'Nahant', 'Saugus']:
+        elif address_to_compare.city.lower() in ['lynn', 'nahant', 'saugus']:
             local_housing_court = "Northeast Housing Court - Lynn Session"
-        elif address.city in ['Beverly', 'Danvers', 'Essex', 'Gloucester', 'Hamilton', 'Ipswich', 'Lynnfield', 'Manchester-by-The-Sea', 'Marblehead', 'Middleton', 'Peabody', 'Rockport', 'Salem', 'Swampscott', 'Topsfield', 'Wenham']:
+        elif address_to_compare.city.lower() in ['beverly', 'danvers', 'essex', 'gloucester', 'hamilton', 'ipswich', 'lynnfield', 'manchester-by-the-sea', 'marblehead', 'middleton', 'peabody', 'rockport', 'salem', 'swampscott', 'topsfield', 'wenham']:
             local_housing_court = "Northeast Housing Court - Salem Session"
-        elif address.city in ['Bedford', 'Burlington', 'Concord', 'Everett','Lexington', 'Lincoln', 'Malden', 'Melrose', 'North Reading', 'Reading', 'Stoneham', 'Wakefield', 'Waltham', 'Watertown', 'Weston', 'Wilmington', 'Winchester', 'Woburn']:
+        elif address_to_compare.city.lower() in ['bedford', 'burlington', 'concord', 'everett','lexington', 'lincoln', 'malden', 'melrose', 'north reading', 'reading', 'stoneham', 'wakefield', 'waltham', 'watertown', 'weston', 'wilmington', 'winchester', 'woburn']:
             local_housing_court = "Northeast Housing Court - Woburn Session"
-        elif address.city in ['Freetown', 'Westport', 'Fall River', 'Somerset','Swansea']:
+        elif address_to_compare.city.lower() in ['freetown', 'westport', 'fall river', 'somerset','swansea']:
             local_housing_court = "Southeast Housing Court - Fall River Session"
-        elif address.city in ['Acushnet', 'Dartmouth', 'Fairhaven', 'Freetown', 'New Bedford','Westport']:
+        elif address_to_compare.city.lower() in ['acushnet', 'dartmouth', 'fairhaven', 'freetown', 'new bedford','westport']:
             local_housing_court = "Southeast Housing Court - New Bedford Session"
-        elif address.city in ['Aquinnah', 'Barnstable', 'Bourne', 'Brewster', 'Carver', 'Chatham', 'Chilmark', 'Dennis', 'Duxbury', 'Edgartown', 'Falmouth', 'Halifax', 'Hanson', 'Harwich', 'Kingston', 'Lakeville', 'Marion', 'Marshfield', 'Mashpee', 'Mattapoisett', 'Middleborough', 'Nantucket', 'Oak Bluffs', 'Pembroke', 'Plymouth', 'Plympton', 'Provincetown', 'Rochester', 'Sandwich', 'and Wareham.Beginning on August 6', 'the Plymouth session of the Southeast Housing Court will also serve Accord', 'Assinippi', 'Hanover', 'Hingham', 'Hull', 'Humarock', 'Norwell', 'Rockland', 'Scituate']:
+        elif address_to_compare.city.lower() in ['aquinnah', 'barnstable', 'bourne', 'brewster', 'carver', 'chatham', 'chilmark', 'dennis', 'duxbury', 'edgartown', 'falmouth', 'halifax', 'hanson', 'harwich', 'kingston', 'lakeville', 'marion', 'marshfield', 'mashpee', 'mattapoisett', 'middleborough', 'nantucket', 'oak bluffs', 'pembroke', 'plymouth', 'plympton', 'provincetown', 'rochester', 'sandwich', 'and wareham.beginning on august 6', 'the plymouth session of the southeast housing court will also serve accord', 'assinippi', 'hanover', 'hingham', 'hull', 'humarock', 'norwell', 'rockland', 'scituate']:
             local_housing_court = "Southeast Housing Court - Plymouth Session"
-        elif address.city in ['Attleboro', 'Berkley', 'Dighton', 'Easton', 'Mansfield', 'North Attleborough', 'Norton', 'Raynham', 'Rehoboth', 'Seekonk','Taunton']:
+        elif address_to_compare.city.lower() in ['attleboro', 'berkley', 'dighton', 'easton', 'mansfield', 'north attleborough', 'norton', 'raynham', 'rehoboth', 'seekonk','taunton']:
             local_housing_court = "Southeast Housing Court - Taunton Session"
         else:
             local_housing_court = ""
         return local_housing_court
-
 
 
 if __name__ == '__main__':
