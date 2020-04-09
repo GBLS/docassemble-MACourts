@@ -240,7 +240,7 @@ class MACourt(Court):
         return text_type(self.name)
 
     def __str__(self):
-        return self.__unicode__().encode('utf-8') if PY2 else self.__unicode__()      
+        return self.__unicode__().encode('utf-8') if PY2 else self.name     
 
 class MACourtList(DAList):
     """Represents a list of courts in Massachusetts. Package includes a cached list that is scraped from mass.gov"""
@@ -330,7 +330,9 @@ class MACourtList(DAList):
 
     def matching_housing_court_name(self,address):
         """Returns the name of the MACourt representing the housing court that covers the specified address.
-        Harcoded and must be updated if court jurisdictions or names change."""
+        Harcoded and must be updated if court jurisdictions or names change. Address must specify county attribute"""
+        if (not hasattr(address, 'county')) or (address.county.strip() == ''):
+            return ''
         if (address.county == "Suffolk County") or (address.city in ["Newton","Brookline"]):
             local_housing_court = "Eastern Housing Court"
         elif address.city in ["Arlington","Belmont","Cambridge","Medford","Somerville"]:
