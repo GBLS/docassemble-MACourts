@@ -78,11 +78,11 @@ def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=Tr
                 address.address = address_parts[0].get('address')
                 if address_parts[0].get('unit'):
                     address.unit = address_parts[0].get('unit')
-                address.city.lower() = address_parts[0].get('city')
+                address.city = address_parts[0].get('city')
                 address.state = address_parts[0].get('state')
                 address.zip = address_parts[0].get('zip')
                 zipinfo = searcher.by_zipcode(address.zip)
-                address.county.lower() = zipinfo.county
+                address.county = zipinfo.county
                 del zipinfo
             else:
                 raise Exception('We expected a Street Address.')
@@ -93,13 +93,13 @@ def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=Tr
         if not hasattr(address,'address'):
             address.address = ''
         if not hasattr(address, 'city'):
-            address.city.lower() = ''
+            address.city = ''
         if not hasattr(address, 'state'):
             address.state = ''
         if not hasattr(address, 'zip'):
             address.zip = ''
         if not hasattr(address, 'county'):
-            address.county.lower() = ''
+            address.county = ''
         #if not hasattr(address, 'unit'):
             #address.unit = ''                    
 
@@ -111,11 +111,11 @@ def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=Tr
             'phone':marker['infoWindow']['phone'],
             'fax':marker['infoWindow']['fax'],
             'address': {
-                'city': address.city.lower(),
+                'city': address.city,
                 'address': address.address,
                 'state': address.state,
                 'zip': address.zip,
-                'county': address.county.lower(),
+                'county': address.county,
                 'orig_address':  orig_address # the one-line original address, which may include a PO Box
             },
             'location': {
@@ -290,10 +290,10 @@ class MACourtList(DAList):
             court.description = item.get('description')
 
             court.address.address = item['address']['address']
-            court.address.city.lower() = item['address']['city']
+            court.address.city = item['address']['city']
             court.address.state = item['address']['state']
             court.address.zip = item['address']['zip']
-            court.address.county.lower() = item['address']['county']
+            court.address.county = item['address']['county']
             court.address.orig_address = item['address'].get('orig_address')            
         
     def load_courts_from_file(self, json_path, data_path='docassemble.MACourts:data/sources/'):
@@ -317,10 +317,10 @@ class MACourtList(DAList):
             court.description = item.get('description')
 
             court.address.address = item['address']['address']
-            court.address.city.lower() = item['address']['city']
+            court.address.city = item['address']['city']
             court.address.state = item['address']['state']
             court.address.zip = item['address']['zip']
-            court.address.county.lower() = item['address']['county']
+            court.address.county = item['address']['county']
             court.address.orig_address = item['address'].get('orig_address')
 
     def matching_housing_court(self, address):
