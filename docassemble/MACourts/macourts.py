@@ -331,7 +331,7 @@ class MACourtList(DAList):
     def matching_housing_court_name(self,address):
         """Returns the name of the MACourt representing the housing court that covers the specified address.
         Harcoded and must be updated if court jurisdictions or names change. Address must specify county attribute"""
-        if (not hasattr(address, 'county')) or (address_to_compare.county.lower().strip() == ''):
+        if (not hasattr(address, 'county')) or (address.county.lower().strip() == ''):
             return ''
         if hasattr(address, 'norm') and hasattr(address.norm, 'city') and hasattr(address.norm, 'county'):
             address_to_compare = address.norm
