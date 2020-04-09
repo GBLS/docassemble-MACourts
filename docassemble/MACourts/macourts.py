@@ -330,7 +330,9 @@ class MACourtList(DAList):
 
     def matching_housing_court_name(self,address):
         """Returns the name of the MACourt representing the housing court that covers the specified address.
-        Harcoded and must be updated if court jurisdictions or names change."""
+        Harcoded and must be updated if court jurisdictions or names change. Address must specify county attribute"""
+        if (not hasattr(address, 'county')) or (address.county.strip() == ''):
+            return ''
         if (address.county == "Suffolk County") or (address.city in ["Newton","Brookline"]):
             local_housing_court = "Eastern Housing Court"
         elif address.city in ["Arlington","Belmont","Cambridge","Medford","Somerville"]:
