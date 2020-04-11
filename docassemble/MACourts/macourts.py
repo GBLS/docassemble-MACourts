@@ -382,7 +382,48 @@ class MACourtList(DAList):
         else:
             local_housing_court = ""
         return local_housing_court
+    
+    def load_boston_wards_from_file(self, json_path, data_path='docassemble.MACourts:data/sources/'):
+        """load geojson file for boston wards"""
+        path = path_and_mimetype(os.path.join(data_path,json_path+'.geojson'))[0]
+        wards = gpd.read_file(path)
+        return wards
+    
+    def get_boston_ward_number(self, address):
+        """
+        This function takes an address object as input,
+        filters a geojson file to only include the ward
+        that contains the address, and returns the
+        ward number and name of the courthouse.
 
+        Dependencies:
+        1.Geopandas for loading the geojson file
+        2.Raw geojson from github. Right now, this is referencing Calvin Metclaf's own repository. 
+            We may want to host this geojson file under the GBLS/docassemble-MACourts repo
+        """
+
+        #if location data is not in address object, return empty string
+        if (not hasattr(address, 'location')):
+            return '',''
+
+        else:
+            #load geojson Boston Ward map
+            boston_wards = self.load_boston_wards_from_file(json_path = "boston_wards")
+
+            #construct point from address_object to use for lookup
+            p1 = Point(address.location.longitude, address.location.latitude)
+
+            #filter wards list to only include 
+            #the ward containing the address
+            ward = wards[[p1.within(wards.geometry[i]) for i in range(len(wards))]]
+
+            ward_number = ward.iloc[0].Ward_Num
+            courthouse_name = ward.iloc[0].courthouse
+
+            #return ward number and courthouse name
+            return ward_number, courthouse_name
+    
+    
 
 if __name__ == '__main__':
     import pprint
