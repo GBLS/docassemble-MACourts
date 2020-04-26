@@ -673,7 +673,7 @@ def parse_division_from_name(court_name):
         "Housing Court": r"(.*)( Housing Court)",
         "Superior Court": r"(.*)( Superior Court)",
         "Juvenile Court": r"(.*)( Juvenile Court)",
-        "Land Court": r"Land Court",
+        "Land Court": r"(Land Court)",
         "Probate and Family": r"(.*)( Probate and Family Court)",}
     for key in rules:
         match = re.match(rules[key], court_name)
