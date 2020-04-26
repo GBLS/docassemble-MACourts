@@ -678,10 +678,11 @@ def parse_division_from_name(court_name):
     for key in rules:
         match = re.match(rules[key], court_name)
         if match:
-            if len(match) > 1:
-                return match[1]
-            else:
-                return match[0]
+            return match[1] # We need to make sure the regex has a group though
+            # if len(match) > 1:
+            #     return match[1]
+            # else:
+            #     return match[0]
     # court.department = item['name']
     return court_name
 
