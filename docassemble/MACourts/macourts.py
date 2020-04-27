@@ -6,6 +6,10 @@ from docassemble.webapp.playground import PlaygroundSection
 import usaddress
 from uszipcode import SearchEngine
 
+# Needed for Boston Municipal Court
+import geopandas as gpd
+from shapely.geometry import Point
+
 __all__= ['get_courts_from_massgov_url','save_courts_to_file','MACourt','MACourtList','PY2'] 
 
 def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=True):
@@ -227,11 +231,15 @@ def test_write():
     return fpath
 
 class MACourt(Court):
+    """Object representing a court in Massachusetts.
+    TODO: it could be interesting to store a jurisdiction on a court. But this is non-trivial. Should it be geo boundaries? 
+    A list of cities? A list of counties? Instead, we use a function on the CourtList object that filters courts by
+    address and can use any of those three features of the court to do the filtering."""
     def init(self, *pargs, **kwargs):
         super(MACourt, self).init(*pargs, **kwargs)
         if 'address' not in kwargs:
             self.initializeAttribute('address', Address)
-        if 'jurisdiction' not in kwargs:
+        if 'jurisdiction' not in kwargs: # This attribute isn't used. Could be a better way to handle court locating
             self.jurisdiction = list()
         if 'location' not in kwargs:
             self.initializeAttribute('location', LatitudeLongitude)
@@ -255,6 +263,42 @@ class MACourtList(DAList):
             elif self.courts is True:
                 self.load_courts()
 
+    def filter_courts(self, court_types):
+        """Return the list of courts matching the specified department(s). E.g., Housing Court. court_types may be list or single court department."""
+        if isinstance(court_types, str):
+            return self.filter(department=court_types)
+        elif isinstance(court_types, list):
+            return [court for court in self.elements if court.department in court_types]
+        else:
+            return None
+
+    def matching_courts(self, address, court_types=None):
+        """Return a list of courts serving the specified address. Optionally limit to one or more types of courts
+        TODO: Alter this so it works with a list of addresses, and flattens a list of results from a single function."""
+        court_type_map = {
+            'Housing Court': self.matching_housing_court,
+            'District Court': self.matching_district_court,
+            'Boston Municipal Court': self.matching_bmc,
+            'Juvenile Court': self.matching_juvenile_court,
+            'Land Court': self.matching_land_court,
+            'Probate and Family Court': self.matching_probate_and_family_court,
+            'Superior Court': self.matching_superior_court,
+        }
+
+        if isinstance(court_types, str):
+            return court_type_map[court_types](address)
+        elif isinstance(court_types, list):
+            matches = []
+            for court_type in court_types:
+                matches.append(court_type_map[court_type](address))
+        else:
+            # Return all of the courts if court_types is not filtering the results
+            matches = []
+            for key in court_type_map:
+                matches.append(court_type_map[key](address))
+        
+        return matches
+
     def load_courts(self, courts=['housing_courts','bmc','district_courts','superior_courts'], data_path='docassemble.MACourts:data/sources/'):
         """Load a set of courts into the MACourtList. Courts should be a list of names of JSON files in the data/sources directory.
         Will fall back on loading courts directly from MassGov if the cached file doesn't exist. Available courts: district_courts, housing_courts,bmc,superior_courts,land_court,juvenile_courts,probate_and_family_courts"""
@@ -265,7 +309,8 @@ class MACourtList(DAList):
             for court in courts:
                 self.load_courts_from_massgov_by_filename(court)
 
-    def load_courts_from_massgov_by_filename(self, filename):
+    def load_courts_from_massgov_by_filename(self, court_name):
+        """Loads the specified court from Mass.gov, assuming website format hasn't changed. It has an embedded JSON we parse"""
         urls = {
             'district_courts': 'https://www.mass.gov/orgs/district-court/locations',
             'housing_courts': 'https://www.mass.gov/orgs/housing-court/locations',
@@ -275,13 +320,32 @@ class MACourtList(DAList):
             'juvenile_courts': 'https://www.mass.gov/orgs/juvenile-court/locations',
             'probate_and_family_courts': 'https://www.mass.gov/orgs/probate-and-family-court/locations'
             }
+        filename = court_name
 
         courts = get_courts_from_massgov_url(urls[filename])
+
+        # 'housing_courts','bmc','district_courts','superior_courts'
+        if court_name == 'housing_courts':
+            court_department = 'Housing Court'
+        elif court_name == 'bmc':
+            court_department = 'Boston Municipal Court'
+        elif court_name == 'district_courts':
+            court_department = 'District Court'
+        elif court_name == 'superior_courts':
+            court_department = 'Superior Court'
+        elif court_name == 'juvenile_courts':
+            court_department = 'Juvenile Court'
+        elif court_name in ['land_courts', 'land_court']:
+            court_department = 'Land Court'
+        elif court_name == 'probate_and_family_courts':
+            court_department = 'Probate and Family Court'
         
         for item in courts:
-            # translate the dictionary data into an MACourtList
+            # translate the dictionary data into an MACourt
             court = self.appendObject()
             court.name = item['name']
+            court.department = court_department
+            court.division = parse_division_from_name(item['name'])
             court.phone = item['phone']
             court.fax = item['fax']
             court.location.latitude = item['location']['latitude']
@@ -296,8 +360,26 @@ class MACourtList(DAList):
             court.address.county = item['address']['county']
             court.address.orig_address = item['address'].get('orig_address')            
         
-    def load_courts_from_file(self, json_path, data_path='docassemble.MACourts:data/sources/'):
+    def load_courts_from_file(self, court_name, data_path='docassemble.MACourts:data/sources/'):
         """Add the list of courts at the specified JSON file into the current list"""
+
+        json_path = court_name
+
+        # 'housing_courts','bmc','district_courts','superior_courts'
+        if court_name == 'housing_courts':
+            court_department = 'Housing Court'
+        elif court_name == 'bmc':
+            court_department = 'Boston Municipal Court'
+        elif court_name == 'district_courts':
+            court_department = 'District Court'
+        elif court_name == 'superior_courts':
+            court_department = 'Superior Court'
+        elif court_name == 'juvenile_courts':
+            court_department = 'Juvenile Court'
+        elif court_name in ['land_courts', 'land_court']:
+            court_department = 'Land Court'
+        elif court_name == 'probate_and_family_courts':
+            court_department = 'Probate and Family Court'
 
         path = path_and_mimetype(os.path.join(data_path,json_path+'.json'))[0]
 
@@ -306,9 +388,10 @@ class MACourtList(DAList):
 
         for item in courts:
             # translate the dictionary data into an MACourtList
-
             court = self.appendObject()
             court.name = item['name']
+            court.department = court_department
+            court.division = parse_division_from_name(item['name'])
             court.phone = item['phone']
             court.fax = item['fax']
             court.location.latitude = item['location']['latitude']
@@ -322,6 +405,19 @@ class MACourtList(DAList):
             court.address.zip = item['address']['zip']
             court.address.county = item['address']['county']
             court.address.orig_address = item['address'].get('orig_address')
+
+    def matching_juvenile_court(self, address):
+        return None
+    
+    def matching_probate_and_family_court(self, address):
+        return None
+    
+    def matching_superior_court(self, address):
+        return None
+
+    def matching_land_court(self, address):
+        """There's currently only one Land Court"""
+        return next((court for court in self.elements if court.name.rstrip().lower() == 'Land Court'),None)
 
     def matching_district_court(self, address):
         """Return the MACourt representing the District Court serving the given address""" 
@@ -459,6 +555,8 @@ class MACourtList(DAList):
             local_district_court = "Worcester District Court"
         elif address_to_compare.city.lower() in ["foxborough", "franklin", "medway", "millis", "norfolk", "plainville", "walpole", "wrentham"]:
             local_district_court = "Wrentham District Court"
+        else:
+            local_district_court = ""            
         return local_district_court
 
     def matching_housing_court(self, address):
@@ -521,6 +619,13 @@ class MACourtList(DAList):
             local_housing_court = ""
         return local_housing_court
     
+    def matching_bmc(self, address):
+        try:
+            court_name = self.get_boston_ward_number(address)[1] + ' Division, Boston Municipal Court'
+        except:
+            return None
+        return next ((court for court in self.elements if court.name.rstrip().lower() == court_name.lower()), None)
+
     def load_boston_wards_from_file(self, json_path, data_path='docassemble.MACourts:data/sources/'):
         """load geojson file for boston wards"""
         path = path_and_mimetype(os.path.join(data_path,json_path+'.geojson'))[0]
@@ -553,15 +658,33 @@ class MACourtList(DAList):
 
             #filter wards list to only include 
             #the ward containing the address
-            ward = wards[[p1.within(wards.geometry[i]) for i in range(len(wards))]]
+            ward = boston_wards[[p1.within(boston_wards.geometry[i]) for i in range(len(boston_wards))]]
 
             ward_number = ward.iloc[0].Ward_Num
             courthouse_name = ward.iloc[0].courthouse
 
             #return ward number and courthouse name
             return ward_number, courthouse_name
-    
-    
+
+def parse_division_from_name(court_name):
+    rules = {
+        "District Court": r'(.*)( District Court)',
+        "Boston Municipal Court": r"(.*)(, Boston Municipal Court)",
+        "Housing Court": r"(.*)( Housing Court)",
+        "Superior Court": r"(.*)( Superior Court)",
+        "Juvenile Court": r"(.*)( Juvenile Court)",
+        "Land Court": r"(Land Court)",
+        "Probate and Family": r"(.*)( Probate and Family Court)",}
+    for key in rules:
+        match = re.match(rules[key], court_name)
+        if match:
+            return match[1] # We need to make sure the regex has a group though
+            # if len(match) > 1:
+            #     return match[1]
+            # else:
+            #     return match[0]
+    # court.department = item['name']
+    return court_name
 
 if __name__ == '__main__':
     import pprint
