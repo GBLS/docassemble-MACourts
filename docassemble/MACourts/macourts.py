@@ -6,13 +6,13 @@ from docassemble.webapp.playground import PlaygroundSection
 import usaddress
 from uszipcode import SearchEngine
 from collections.abc import Iterable
-import copy 
+import copy
 
 # Needed for Boston Municipal Court
 import geopandas as gpd
 from shapely.geometry import Point
 
-__all__= ['get_courts_from_massgov_url','save_courts_to_file','MACourt','MACourtList','PY2','combined_locations'] 
+__all__= ['get_courts_from_massgov_url','save_courts_to_file','MACourt','MACourtList','PY2','combined_locations']
 
 def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=True):
     searcher = SearchEngine(simple_zipcode=True)
@@ -73,9 +73,9 @@ def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=Tr
             'PlaceName': 'city',
             'StateName': 'state',
             'ZipCode': 'zip',
-            } 
+            }
         try:
-            address_parts = usaddress.tag(orig_address, tag_mapping=tag_mapping) 
+            address_parts = usaddress.tag(orig_address, tag_mapping=tag_mapping)
         except usaddress.RepeatedLabelError:
             address_parts = usaddress.tag(clean_address, tag_mapping=tag_mapping) # Discard the PO box entry if necessary - not a valid address
 
@@ -107,7 +107,7 @@ def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=Tr
         if not hasattr(address, 'county'):
             address.county = ''
         #if not hasattr(address, 'unit'):
-            #address.unit = ''                    
+            #address.unit = ''
 
         # store the data in a serializable format. maybe could refactor to use object_hooks, but would need to go all the way down to DAObject?
         court = {
@@ -133,7 +133,7 @@ def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=Tr
             court['address']['unit']= address.unit
 
         courts.append(court)
-        
+
     if shim_ehc_middlesex and url == 'https://www.mass.gov/orgs/housing-court/locations':
         court = {
             'name': "Eastern Housing Court - Middlesex Session",
@@ -156,7 +156,7 @@ def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=Tr
         }
         courts.append(court)
 
-    if shim_nhc_woburn and url == 'https://www.mass.gov/orgs/housing-court/locations': 
+    if shim_nhc_woburn and url == 'https://www.mass.gov/orgs/housing-court/locations':
         court = {
             'name': "Northeast Housing Court - Woburn Session",
             'description': "The Woburn session of the Northeast Housing Court serves Bedford, Burlington, Concord, Everett,Lexington, Lincoln, Malden, Melrose, North Reading, Reading, Stoneham, Wakefield, Waltham, Watertown, Weston, Wilmington, Winchester, and Woburn.",
@@ -191,7 +191,7 @@ def save_courts_to_file():
         ],
         [
             'probate_and_family_courts', 'https://www.mass.gov/orgs/probate-and-family-court/locations'
-        ], 
+        ],
         [
             'district_courts', 'https://www.mass.gov/orgs/district-court/locations'
         ],
@@ -212,8 +212,8 @@ def save_courts_to_file():
     for court in courts:
         jdata = json.dumps(get_courts_from_massgov_url(court[1]))
         sources.write_file(court[0] + '.json', jdata, binary=True)
-        
-    # for court in courts: 
+
+    # for court in courts:
     #     #area = PlaygroundSection('sources').get_area()
     #     fpath = os.path.join(sources.directory, court[0] + '.json')
     #     jdata = text_type(json.dumps(get_courts_from_massgov_url(court[1])))
@@ -234,7 +234,7 @@ def test_write():
 
 class MACourt(Court):
     """Object representing a court in Massachusetts.
-    TODO: it could be interesting to store a jurisdiction on a court. But this is non-trivial. Should it be geo boundaries? 
+    TODO: it could be interesting to store a jurisdiction on a court. But this is non-trivial. Should it be geo boundaries?
     A list of cities? A list of counties? Instead, we use a function on the CourtList object that filters courts by
     address and can use any of those three features of the court to do the filtering."""
     def init(self, *pargs, **kwargs):
@@ -250,7 +250,7 @@ class MACourt(Court):
         return text_type(self.name)
 
     def __str__(self):
-        return self.__unicode__().encode('utf-8') if PY2 else self.name     
+        return self.__unicode__().encode('utf-8') if PY2 else self.name
 
     def _map_info(self):
         the_info = str(self.name)
@@ -306,7 +306,7 @@ class MACourtList(DAList):
             'Probate and Family Court': self.matching_probate_and_family_court,
             'Superior Court': self.matching_superior_court,
         }
- 
+
         if isinstance(court_types, str):
             return court_type_map[court_types](address)
         elif isinstance(court_types, Iterable):
@@ -372,7 +372,7 @@ class MACourtList(DAList):
             court_department = 'Land Court'
         elif court_name == 'probate_and_family_courts':
             court_department = 'Probate and Family Court'
-        
+
         for item in courts:
             # translate the dictionary data into an MACourt
             court = self.appendObject()
@@ -391,8 +391,8 @@ class MACourtList(DAList):
             court.address.state = item['address']['state']
             court.address.zip = item['address']['zip']
             court.address.county = item['address']['county']
-            court.address.orig_address = item['address'].get('orig_address')            
-        
+            court.address.orig_address = item['address'].get('orig_address')
+
     def load_courts_from_file(self, court_name, data_path='docassemble.MACourts:data/sources/'):
         """Add the list of courts at the specified JSON file into the current list"""
 
@@ -468,8 +468,8 @@ class MACourtList(DAList):
 	        local_juvenile_court = "Barnstable Juvenile Court"
         elif address_to_compare.city.lower() in ["belchertown", "granby", "ware"]:
 	        local_juvenile_court = "Belchertown Juvenile Court"
-        elif (address_to_compare.city.lower() in ["chelsea", "revere", "east boston", "winthrop"] or 
-            (hasattr(address_to_compare,'neighborhood') and ((address_to_compare.city.lower() == "boston") and 
+        elif (address_to_compare.city.lower() in ["chelsea", "revere", "east boston", "winthrop"] or
+            (hasattr(address_to_compare,'neighborhood') and ((address_to_compare.city.lower() == "boston") and
                 address_to_compare.neighborhood.lower() in ["central square", "day square", "eagle hill", "maverick square", "orient heights"]))):
 	        local_juvenile_court = "Chelsea Juvenile Court"
         elif address_to_compare.city.lower() in ["brighton", "charlestown", "roxbury", "south boston", "boston"]:
@@ -547,7 +547,7 @@ class MACourtList(DAList):
         else:
             return ''
         return local_juvenile_court
-    
+
     def matching_probate_and_family_court(self, address):
         """Returns either single matching MACourt object or a set of MACourts"""
         court_name = self.matching_probate_and_family_court_name(address)
@@ -565,7 +565,7 @@ class MACourtList(DAList):
         else:
             address_to_compare = address
         if (not hasattr(address_to_compare, 'county')) or (address_to_compare.county.lower().strip() == ''):
-            return ''        
+            return ''
         if (address_to_compare.county.lower() == "barnstable county") or (address_to_compare.city.lower() in ["bourne", "brewster", "chatham", "dennis", "eastham", "falmouth", "harwich", "mashpee", "orleans", "provincetown", "sandwich", "truro", "wellfleet", "yarmouth"]):
             local_probate_and_family_court = "Barnstable Probate and Family Court"
         elif (address_to_compare.county.lower() == "berkshire county") or (address_to_compare.city.lower() in ["adams", "alford", "becket", "cheshire", "clarksburg", "dalton", "egremont", "florida", "great barrington", "hancock", "hinsdale", "lanesborough", "lee", "lenox", "monterey", "mt. washington", "new ashford", "new marlborough", "north adams", "otis", "peru", "pittsfield", "richmond", "sandisfield", "savoy", "sheffield", "stockbridge", "tyringham", "washington", "west stockbridge", "williamstown", "windsor"]):
@@ -598,9 +598,9 @@ class MACourtList(DAList):
             local_probate_and_family_court = "Brockton Probate and Family Court"
         else:
             return ''
-        
+
         return local_probate_and_family_court
-    
+
     def matching_superior_court(self, address):
         """Returns either single matching MACourt object or a set of MACourts"""
         court_name = self.matching_superior_court_name(address)
@@ -621,20 +621,20 @@ class MACourtList(DAList):
             return ''
         if (address_to_compare.county.lower() == "barnstable county") or (address_to_compare.city.lower() in ["barnstable", "bourne", "brewster", "chatham", "dennis", "eastham", "falmouth", "harwich", "mashpee", "orleans", "provincetown", "sandwich", "truro", "wellfleet", "yarmouth"]):
                 local_superior_court = "Barnstable County Superior Court"
-        elif (address_to_compare.county.lower() == "berkshire county") or (address_to_compare.city.lower() in ["adams", "alford", "becket", "cheshire", "clarksburg", "dalton", "egremont", "florida", "great barrington", "hancock", "hinsdale", "lanesborough", "lee", "lenox", "monterey", "mt. washington", "new ashford", "new marlborough", "north adams", "otis", "peru", "pittsfield", "richmond", "sandisfield", "savoy", "sheffield", "stockbridge", "tyringham", "washington", "west stockbridge", "williamstown", "windsor"]): 
+        elif (address_to_compare.county.lower() == "berkshire county") or (address_to_compare.city.lower() in ["adams", "alford", "becket", "cheshire", "clarksburg", "dalton", "egremont", "florida", "great barrington", "hancock", "hinsdale", "lanesborough", "lee", "lenox", "monterey", "mt. washington", "new ashford", "new marlborough", "north adams", "otis", "peru", "pittsfield", "richmond", "sandisfield", "savoy", "sheffield", "stockbridge", "tyringham", "washington", "west stockbridge", "williamstown", "windsor"]):
                 local_superior_court = "Berkshire County Superior Court"
-        elif (address_to_compare.county.lower() == "bristol county") or (address_to_compare.city.lower() in ["acushnet", "attleboro", "berkley", "dartmouth", "dighton", "easton", "fairhaven", "fall river", "freetown", "mansfield", "new bedford", "north attleborough", "norton", "raynham", "rehoboth", "seekonk", "somerset", "swansea", "taunton", "westport"]): 
+        elif (address_to_compare.county.lower() == "bristol county") or (address_to_compare.city.lower() in ["acushnet", "attleboro", "berkley", "dartmouth", "dighton", "easton", "fairhaven", "fall river", "freetown", "mansfield", "new bedford", "north attleborough", "norton", "raynham", "rehoboth", "seekonk", "somerset", "swansea", "taunton", "westport"]):
                 local_superior_court = "Bristol County Superior Court - New Bedford"
-        elif (address_to_compare.county.lower() == "dukes county") or (address_to_compare.city.lower() in ["aquinnah", "chilmark", "edgartown", "gosnold", "oak bluffs", "tisbury", "west tisbury"]): 
+        elif (address_to_compare.county.lower() == "dukes county") or (address_to_compare.city.lower() in ["aquinnah", "chilmark", "edgartown", "gosnold", "oak bluffs", "tisbury", "west tisbury"]):
                 local_superior_court = "Dukes County Superior Court"
-        elif (address_to_compare.county.lower() == "essex county") or (address_to_compare.city.lower() in ["amesbury", "andover", "beverly", "boxford", "danvers", "essex", "georgetown", "gloucester", "groveland", "hamilton", "haverhill", "ipswich", "lawrence", "lynn", "lynnfield", "manchester by the sea", "marblehead", "merrimac", "methuen", "middleton", "nahunt", "newbury", "newburyport", "north andover", "peabody", "rockport", "rowley", "salem", "salisbury", "saugus", "swampscott", "topsfield", "wenham", "west newbury"]): 
+        elif (address_to_compare.county.lower() == "essex county") or (address_to_compare.city.lower() in ["amesbury", "andover", "beverly", "boxford", "danvers", "essex", "georgetown", "gloucester", "groveland", "hamilton", "haverhill", "ipswich", "lawrence", "lynn", "lynnfield", "manchester by the sea", "marblehead", "merrimac", "methuen", "middleton", "nahunt", "newbury", "newburyport", "north andover", "peabody", "rockport", "rowley", "salem", "salisbury", "saugus", "swampscott", "topsfield", "wenham", "west newbury"]):
                 local_superior_court = ["Essex County Superior Court", "Essex County Superior Court - Lawrence", "Essex County Superior Court - Newburyport"]
-        elif (address_to_compare.county.lower() == "franklin county") or (address_to_compare.city.lower() in ["ashfield", "bernardston", "buckland", "charlemont", "colrain", "conway", "deerfield", "erving", "gill", "greenfield", "hawley", "heath", "leverett", "leyden", "monroe", "montague", "new salem", "northfield", "orange", "rowe", "shelburne", "shutesbury", "sunderland", "warwick", "wendell", "whately"]): 
+        elif (address_to_compare.county.lower() == "franklin county") or (address_to_compare.city.lower() in ["ashfield", "bernardston", "buckland", "charlemont", "colrain", "conway", "deerfield", "erving", "gill", "greenfield", "hawley", "heath", "leverett", "leyden", "monroe", "montague", "new salem", "northfield", "orange", "rowe", "shelburne", "shutesbury", "sunderland", "warwick", "wendell", "whately"]):
                 local_superior_court = "Franklin County Superior Court"
-        elif (address_to_compare.county.lower() == "hampden county") or (address_to_compare.city.lower() in ["agawam", "blandford", "brimfield", "chester", "chicopee", "east longmeadow", "granville", "hampden", "holland", "holyoke", "longmeadow", "ludlow", "monson", "montgomery", "palmer", "russell", "southwick", "springfield", "tolland", "wales", "west springfield", "westfield", "wilbraham"]): 
+        elif (address_to_compare.county.lower() == "hampden county") or (address_to_compare.city.lower() in ["agawam", "blandford", "brimfield", "chester", "chicopee", "east longmeadow", "granville", "hampden", "holland", "holyoke", "longmeadow", "ludlow", "monson", "montgomery", "palmer", "russell", "southwick", "springfield", "tolland", "wales", "west springfield", "westfield", "wilbraham"]):
                 local_superior_court = "Hampden County Superior Court"
         elif (address_to_compare.county.lower() == "hampshire county") or (address_to_compare.city.lower() in ["amherst", "belchertown", "chesterfield", "cummington", "easthampton", "goshen", "granby", "hadley", "hatfield", "huntington", "middlefield", "northampton", "pelham", "plainfield", "south hadley", "southamptom", "ware", "westhampton", "williamsburg", "worthington"]):
-                local_superior_court = "Hampshire County Superior Court"  
+                local_superior_court = "Hampshire County Superior Court"
         elif (address_to_compare.county.lower() == "middlesex county") or (address_to_compare.city.lower() in ["acton", "arlington", "ashby", "ashland", "ayer", "bedford", "belmont", "billerica", "boxborough", "burlington", "cambridge", "carlisle", "chelmsford", "concord", "dracut", "dunstable", "everett", "framingham", "groton", "holliston", "hopkinton", "hudson", "lexington", "lincoln", "littleton", "lowell", "malden", "marlborough", "maynard", "medford", "melrose", "natick", "newton", "north reading", "pepperell", "reading", "sherborn", "shirley", "somerville", "stoneham", "stow", "sudbury", "tewksbury", "townsend", "tyngsborough", "wakefield", "waltham", "watertown", "wayland", "westford", "weston", "wilmington", "winchester", "woburn"]):
                 local_superior_court = ["Middlesex County Superior Court", "Middlesex County Superior Court - Lowell"]
         elif (address_to_compare.county.lower() == "nantucket county") or (address_to_compare.city.lower() in ["nantucket"]):
@@ -646,17 +646,17 @@ class MACourtList(DAList):
         elif (address_to_compare.county.lower() == "suffolk county") or (address_to_compare.city.lower() in ["boston", "chelsea", "revere", "winthrop"]):
                 local_superior_court = "Suffolk County Superior Court"
         elif (address_to_compare.county.lower() == "worcester county") or (address_to_compare.city.lower() in ["ashburnham", "athol", "auburn", "barre", "berlin", "blackstone", "bolton", "boylston", "brookfield", "charlton", "clinton", "douglas", "dudley", "east brookfield", "fitchburg", "gardner", "grafton", "hardwick", "harvard", "holden", "hopedale", "hubbardston", "lancaster", "leicester", "leominster", "lunenburg", "mendon", "milford", "millbury", "millville", "new braintree", "north brookfield", "northborough", "northbridge", "oakham", "oxford", "paxton", "petersham", "phillipston", "princeton", "royalston", "rutland", "shrewsbury", "southborough", "southbridge", "spencer", "sterling", "sturbridge", "sutton", "templeton", "upton", "uxbridge", "warren", "webster", "west boylston", "west brookfield", "westborough", "westminster", "winchendon", "worcester"]):
-                local_superior_court = "Worcester County Superior Court"                                          
+                local_superior_court = "Worcester County Superior Court"
         else:
             return ''
-        return local_superior_court        
+        return local_superior_court
 
     def matching_land_court(self, address):
         """There's currently only one Land Court"""
         return next((court for court in self.elements if court.name.rstrip().lower() == 'Land Court'),None)
 
     def matching_district_court(self, address):
-        """Return the MACourt representing the District Court serving the given address""" 
+        """Return the MACourt representing the District Court serving the given address"""
         court_name = self.matching_district_court_name(address)
         return next ((court for court in self.elements if court.name.rstrip().lower() == court_name.lower()), None)
 
@@ -747,7 +747,7 @@ class MACourtList(DAList):
             local_district_court = "Northampton District Court"
         elif address_to_compare.city.lower() in ["adams", "cheshire", "clarksburg", "florida", "hancock", "new ashford", "north adams", "savoy", "williamstown", "windsor"]:
             local_district_court = "Northern Berkshire District Court"
-        elif address_to_compare.city.lower() in ["athol", "erving", "leverett", "new salem", "orange", "shutesbury", "warwick", "wendell"]:    
+        elif address_to_compare.city.lower() in ["athol", "erving", "leverett", "new salem", "orange", "shutesbury", "warwick", "wendell"]:
             local_district_court = "Orange District Court"
         elif address_to_compare.city.lower() in ["brewster", "chatham", "dennis", "eastham", "orleans", "harwich", "truro", "wellfleet", "provincetown"]:
             local_district_court = "Orleans District Court"
@@ -792,11 +792,11 @@ class MACourtList(DAList):
         elif address_to_compare.city.lower() in ["foxborough", "franklin", "medway", "millis", "norfolk", "plainville", "walpole", "wrentham"]:
             local_district_court = "Wrentham District Court"
         else:
-            local_district_court = ""            
+            local_district_court = ""
         return local_district_court
 
     def matching_housing_court(self, address):
-        """Return the MACourt representing the Housing Court serving the given address""" 
+        """Return the MACourt representing the Housing Court serving the given address"""
         court_name = self.matching_housing_court_name(address)
         return next ((court for court in self.elements if court.name.rstrip().lower() == court_name.lower()), None)
 
@@ -854,7 +854,7 @@ class MACourtList(DAList):
         else:
             local_housing_court = ""
         return local_housing_court
-    
+
     def matching_bmc(self, address):
         try:
             court_name = self.get_boston_ward_number(address)[1] + ' Division, Boston Municipal Court'
@@ -867,40 +867,66 @@ class MACourtList(DAList):
         path = path_and_mimetype(os.path.join(data_path,json_path+'.geojson'))[0]
         wards = gpd.read_file(path)
         return wards
-    
-    def get_boston_ward_number(self, address):
+
+    def get_boston_ward_number(address):
         """
         This function takes an address object as input,
         filters a geojson file to only include the ward
         that contains the address, and returns the
         ward number and name of the courthouse.
 
+        If the address object doesn't have loaction
+        data, it will return an empty string.
+
+        If the address location is not in Boston,
+        it will return and empty string.
+
+        If the address location is in Boston, but
+        not within a ward boundary, return the
+        closest ward.
+
         Dependencies:
         1.Geopandas for loading the geojson file
-        2.Raw geojson from github. Right now, this is referencing Calvin Metclaf's own repository. 
-            We may want to host this geojson file under the GBLS/docassemble-MACourts repo
+        2.Shapely for constructing Point object
         """
+
+        #load geojson Boston Ward map
+        boston_wards = load_boston_wards_from_file(json_path = "boston_wards")
 
         #if location data is not in address object, return empty string
         if (not hasattr(address, 'location')):
             return '',''
 
-        else:
-            #load geojson Boston Ward map
-            boston_wards = self.load_boston_wards_from_file(json_path = "boston_wards")
-
-            #construct point from address_object to use for lookup
+        #if location is in Boston, lookup ward
+        if address.city == 'Boston':
+            #assign point object
             p1 = Point(address.location.longitude, address.location.latitude)
 
-            #filter wards list to only include 
-            #the ward containing the address
+            #find ward containing point object
             ward = boston_wards[[p1.within(boston_wards.geometry[i]) for i in range(len(boston_wards))]]
 
-            ward_number = ward.iloc[0].Ward_Num
-            courthouse_name = ward.iloc[0].courthouse
+            #if result exists, return result
+            if len(ward) > 0:
+                ward_number = ward.iloc[0].Ward_Num
+                courthouse_name = ward.iloc[0].courthouse
 
-            #return ward number and courthouse name
-            return ward_number, courthouse_name
+                return ward_number, courthouse_name
+
+            #else find closest ward and return result
+            else:
+                distances_to_wards = [p1.distance(boston_wards.iloc[i].geometry) for i in range(len(boston_wards))]
+                mask = [i==min(distances_to_wards) for i in distances_to_wards]
+                ward = boston_wards[mask]
+
+                ward_number = ward.iloc[0].Ward_Num
+                courthouse_name = ward.iloc[0].courthouse
+
+                return ward_number, courthouse_name
+
+
+        #if location in not in Boston, return empty string
+        else:
+            return '',''
 
 def parse_division_from_name(court_name):
     rules = {
@@ -937,11 +963,11 @@ class MAPlace(DAObject):
         result = {'latitude': self.location.latitude, 'longitude': self.location.longitude, 'info': the_info}
         if hasattr(self, 'icon'):
             result['icon'] = self.icon
-        return [result]  
+        return [result]
 
 @prevent_dependency_satisfaction
 def combined_locations(locations):
-    """Accepts a list of locations, and combines locations that share a 
+    """Accepts a list of locations, and combines locations that share a
     latitude/longitude in a way that makes a neater display in Google Maps.
     Designed for MACourts class but may work for other objects that subclass DAObject.
     Will not work for base Address class but should never be needed for that anyway
@@ -968,11 +994,10 @@ def has_match(locations, other):
     return False
 
 def match(item, other):
-    if not item is None and not other is None: 
+    if not item is None and not other is None:
         return round(item.location.latitude,3) == round(other.location.latitude,3) and round(item.location.longitude,3) == round(other.location.longitude,3)
 
 if __name__ == '__main__':
     import pprint
     courts = get_courts_from_massgov_url('https://www.mass.gov/orgs/district-court/locations')
     pprint.pprint(courts)
-
