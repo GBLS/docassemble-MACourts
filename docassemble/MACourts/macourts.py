@@ -866,9 +866,10 @@ class MACourtList(DAList):
         """load geojson file for boston wards"""
         path = path_and_mimetype(os.path.join(data_path,json_path+'.geojson'))[0]
         wards = gpd.read_file(path)
+        
         return wards
 
-    def get_boston_ward_number(address):
+    def get_boston_ward_number(self, address):
         """
         This function takes an address object as input,
         filters a geojson file to only include the ward
@@ -889,16 +890,16 @@ class MACourtList(DAList):
         1.Geopandas for loading the geojson file
         2.Shapely for constructing Point object
         """
-
+        
         #load geojson Boston Ward map
-        boston_wards = load_boston_wards_from_file(json_path = "boston_wards")
+        boston_wards = self.load_boston_wards_from_file(json_path = "boston_wards")
 
         #if location data is not in address object, return empty string
         if (not hasattr(address, 'location')):
             return '',''
 
         #if location is in Boston, lookup ward
-        if address.city == 'Boston':
+        elif address.norm.city == 'Boston':
             #assign point object
             p1 = Point(address.location.longitude, address.location.latitude)
 
@@ -909,7 +910,7 @@ class MACourtList(DAList):
             if len(ward) > 0:
                 ward_number = ward.iloc[0].Ward_Num
                 courthouse_name = ward.iloc[0].courthouse
-
+                
                 return ward_number, courthouse_name
 
             #else find closest ward and return result
@@ -920,9 +921,8 @@ class MACourtList(DAList):
 
                 ward_number = ward.iloc[0].Ward_Num
                 courthouse_name = ward.iloc[0].courthouse
-
+                
                 return ward_number, courthouse_name
-
 
         #if location in not in Boston, return empty string
         else:
