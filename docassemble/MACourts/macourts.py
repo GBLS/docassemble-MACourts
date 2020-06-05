@@ -296,7 +296,7 @@ class MACourtList(DAList):
         else:
             return self.matching_courts_single_address(address, court_types)
 
-    def matching_courts_single_address(self, address, court_types=None):
+    def matching_courts_single_address(self, address, court_types=[]):
         court_type_map = {
             'Housing Court': self.matching_housing_court,
             'District Court': self.matching_district_court,
@@ -319,7 +319,7 @@ class MACourtList(DAList):
                     matches.add(res)
             return list(matches)
         else:
-            raise "NotAList"
+            raise Exception("NotAList")
         #     # Return all of the courts if court_types is not filtering the results
         #     matches = set()
         #     for court_type in court_type_map:
@@ -610,7 +610,8 @@ class MACourtList(DAList):
                 courts.add(next ((court for court in self.elements if court.name.rstrip().lower() == court_item.lower()),None))
             return courts
         else:
-            return next ((court for court in self.elements if court.name.rstrip().lower() == court_name.lower()), None)
+            return [court for court in self.elements if court.name.rstrip().lower() == court_name.lower()]
+            # return next ((court for court in self.elements if court.name.rstrip().lower() == court_name.lower()), None)
 
     def matching_superior_court_name(self, address):
         if hasattr(address, 'norm') and hasattr(address.norm, 'city') and hasattr(address.norm, 'county'):
