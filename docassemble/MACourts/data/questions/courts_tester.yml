@@ -7,8 +7,23 @@ objects:
   - address: Address
   - addresses: DAList.using(object_type=Address, there_are_any=True)
 ---
+features:
+  question help button: True
+---
+mandatory: True
+code: |
+  addresses.gather()
+  geocoded_addresses
+  court_choice
+  your_choice
+---
 question: |
   Enter an address
+subquestion: |
+  This is a beta demonstration of the court selector built for 
+  [Suffolk LIT Lab](https://suffolklitlab.org)'s Covid-19 response project.
+  
+  It may have errors.
 fields:
   - Street: addresses[i].address
     address autocomplete: True
@@ -21,6 +36,7 @@ mandatory: True
 code: |
   for add in addresses:
     add.geolocate()
+  geocoded_addresses = True
 ---
 code: |  
   courts = court_types.true_values()
@@ -40,23 +56,99 @@ fields:
       - Probate and Family Court
       - Land Court
       - Juvenile Court
----
-mandatory: True
+---      
 question: |
-  Results
+  Which court would you like to file in?
 subquestion: |
-  ### Courts grouped by location (to 3 significant digits of lat/longitude)
-  % for filter in filtered:
-  * ${filter.description} : ${filter.location}  
-  % endfor
-  
-  ### All matching courts
-  Court | Address
-  ------|--------------
-  % for court in all_matches:
-  % if court:
-  ${court} | ${court.address.on_one_line()}
-  % endif
-  % endfor
+  This list may contain errors. It is a "beta" of our project for
+  Suffolk University Law School's 
+  [Legal Innovation and Technology Lab](https://suffolklitlab.org).
+  Feedback welcome at [massaccess@suffolk.edu](mailto:massaccess@suffolk.edu).
+
+  % if len(all_matches) > 0:
+  Below is a map of the ${court_types.true_values()} court(s) that serve the
+  address(es) you gave us, ${comma_and_list([add.on_one_line() for add in addresses])}.
   
   ${map_of(combined_locations(all_matches))}
+  % else:
+  We didn't find any matching ${court_types.true_values()} court(s) that serve ${comma_and_list([add.on_one_line() for add in addresses], and_string="or")}.
+  % endif
+
+  Choose a court from the list below.
+fields:
+  - no label: court_choice
+    datatype: object_radio
+    choices: all_matches
+    none of the above: True
+    disable others: True
+    object labeler: |
+      lambda y: '**' + str(y) +' (' + y.address.city + ')**' + '[BR]' + y.address.on_one_line() + '[BR]' + y.description
+  - note: |
+      Does the list above look wrong? If you think you should file in a
+      court we didn't list, choose from the full list below.
+    show if: 
+      code: |
+        len(all_matches)
+  - no label: court_choice
+    datatype: object
+    object labeler: |
+      lambda y: (str(y) +' (' + y.address.city + ')') if y.address.city not in str(y) else str(y)
+    choices: macourts    
+help: 
+  label: |
+    How do I pick a court?
+  content: |
+    If you are responding to a case someone else filed, you may not
+    get to choose your court. But if you are starting a new case, you have
+    a choice. How do you know which court to choose?
+  
+    Massachusetts has 7 trial court departments:
+    
+    * District Court
+    * Boston Municipal Court (BMC)
+    * Superior Court
+    * Housing Court
+    * Probate and Family Court
+    * Juvenile Court
+    * Land Court
+    
+    The District Court, BMC, and Superior Court are all courts that can hear
+    any type of case. The Land Court, Probate and Family, Juvenile Court, and
+    Housing Court are all **specialist** courts that hear one kind of case.
+    They have may have judges with special training as well as special 
+    resources available.
+    
+    For example, the Housing Court has trained mediators, a special
+    program for tenants with disabilities, and legal help available on-site
+    on the day that eviction hearings are held.
+    
+    Different courts can make different kinds of decisions. Not every court
+    can give you every kind of help. For example, you cannot file a housing
+    discrimination case in the District Court. You can only ask for visitation
+    in the Probate and Family Court.
+    
+    Depending on where you live, different courts may be further or closer to
+    your address. There are about 100 district courts all over the state,
+    but each county has only one or a few Superior Courts or specialty
+    courts.
+    
+    Choosing a court means thinking about what kind of help you need, as well
+    as which court you can get transportation to on the day of your hearing.
+    
+    Only you know the right choice.
+    
+    You can also view the court selection guidance at [mass.gov](https://www.mass.gov/courthouse-locator).
+---    
+event: your_choice
+question: |
+  Your selection
+subquestion: |
+  #### ${court_choice}
+  ${court_choice.description}
+
+  Phone: ${court_choice.phone}
+  Fax: ${court_choice.fax}
+  
+  Address: ${court_choice.address.on_one_line()}
+  
+  Map: ${map_of(court_choice.address)}    
