@@ -17,6 +17,7 @@ code: |
   court_choice
   your_choice
 ---
+id: enter an address
 question: |
   Enter an address
 subquestion: |
@@ -43,6 +44,7 @@ code: |
   all_matches = macourts.matching_courts(addresses, court_types=courts)
   filtered = combined_locations(all_matches)
 ---
+id: choose court types
 question: |
   Choose courts
 fields:
@@ -57,6 +59,7 @@ fields:
       - Land Court
       - Juvenile Court
 ---      
+id: choose a court
 question: |
   Which court would you like to file in?
 subquestion: |
@@ -138,7 +141,8 @@ help:
     Only you know the right choice.
     
     You can also view the court selection guidance at [mass.gov](https://www.mass.gov/courthouse-locator).
----    
+---
+id: court selection display
 event: your_choice
 question: |
   Your selection
