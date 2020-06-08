@@ -297,6 +297,12 @@ class MACourtList(DAList):
             return self.matching_courts_single_address(address, court_types)
 
     def matching_courts_single_address(self, address, court_types=[]):
+        try:
+          # Don't match Suffolk County in New York, e.g.
+          if not address.state.lower() in ["ma","massachusetts"]:
+            return []
+        except:
+          pass
         court_type_map = {
             'Housing Court': self.matching_housing_court,
             'District Court': self.matching_district_court,
@@ -629,7 +635,8 @@ class MACourtList(DAList):
         elif (address_to_compare.county.lower() == "dukes county") or (address_to_compare.city.lower() in ["aquinnah", "chilmark", "edgartown", "gosnold", "oak bluffs", "tisbury", "west tisbury"]):
                 local_superior_court = "Dukes County Superior Court"
         elif (address_to_compare.county.lower() == "essex county") or (address_to_compare.city.lower() in ["amesbury", "andover", "beverly", "boxford", "danvers", "essex", "georgetown", "gloucester", "groveland", "hamilton", "haverhill", "ipswich", "lawrence", "lynn", "lynnfield", "manchester by the sea", "marblehead", "merrimac", "methuen", "middleton", "nahunt", "newbury", "newburyport", "north andover", "peabody", "rockport", "rowley", "salem", "salisbury", "saugus", "swampscott", "topsfield", "wenham", "west newbury"]):
-                local_superior_court = ["Essex County Superior Court", "Essex County Superior Court - Lawrence", "Essex County Superior Court - Newburyport"]
+                local_superior_court = "Essex County Superior Court"
+                #local_superior_court = ["Essex County Superior Court", "Essex County Superior Court - Lawrence", "Essex County Superior Court - Newburyport"]
         elif (address_to_compare.county.lower() == "franklin county") or (address_to_compare.city.lower() in ["ashfield", "bernardston", "buckland", "charlemont", "colrain", "conway", "deerfield", "erving", "gill", "greenfield", "hawley", "heath", "leverett", "leyden", "monroe", "montague", "new salem", "northfield", "orange", "rowe", "shelburne", "shutesbury", "sunderland", "warwick", "wendell", "whately"]):
                 local_superior_court = "Franklin County Superior Court"
         elif (address_to_compare.county.lower() == "hampden county") or (address_to_compare.city.lower() in ["agawam", "blandford", "brimfield", "chester", "chicopee", "east longmeadow", "granville", "hampden", "holland", "holyoke", "longmeadow", "ludlow", "monson", "montgomery", "palmer", "russell", "southwick", "springfield", "tolland", "wales", "west springfield", "westfield", "wilbraham"]):
@@ -637,7 +644,8 @@ class MACourtList(DAList):
         elif (address_to_compare.county.lower() == "hampshire county") or (address_to_compare.city.lower() in ["amherst", "belchertown", "chesterfield", "cummington", "easthampton", "goshen", "granby", "hadley", "hatfield", "huntington", "middlefield", "northampton", "pelham", "plainfield", "south hadley", "southamptom", "ware", "westhampton", "williamsburg", "worthington"]):
                 local_superior_court = "Hampshire County Superior Court"
         elif (address_to_compare.county.lower() == "middlesex county") or (address_to_compare.city.lower() in ["acton", "arlington", "ashby", "ashland", "ayer", "bedford", "belmont", "billerica", "boxborough", "burlington", "cambridge", "carlisle", "chelmsford", "concord", "dracut", "dunstable", "everett", "framingham", "groton", "holliston", "hopkinton", "hudson", "lexington", "lincoln", "littleton", "lowell", "malden", "marlborough", "maynard", "medford", "melrose", "natick", "newton", "north reading", "pepperell", "reading", "sherborn", "shirley", "somerville", "stoneham", "stow", "sudbury", "tewksbury", "townsend", "tyngsborough", "wakefield", "waltham", "watertown", "wayland", "westford", "weston", "wilmington", "winchester", "woburn"]):
-                local_superior_court = ["Middlesex County Superior Court", "Middlesex County Superior Court - Lowell"]
+                local_superior_court = "Middlesex County Superior Court"
+                #local_superior_court = ["Middlesex County Superior Court", "Middlesex County Superior Court - Lowell"]
         elif (address_to_compare.county.lower() == "nantucket county") or (address_to_compare.city.lower() in ["nantucket"]):
                 local_superior_court = "Nantucket County Superior Court"
         elif (address_to_compare.county.lower() == "norfolk county") or (address_to_compare.city.lower() in ["avon", "bellingham", "braintree", "brookline", "canton", "cohasset", "dedham", "dover", "foxborough", "franklin", "holbrook", "medfield", "medway", "millis", "milton", "needham", "norfolk", "norwood", "plainville", "quincy", "randolph", "sharon", "stoughton", "walpole", "wellesley", "westwood", "weymouth", "wrentham"]):
@@ -654,7 +662,7 @@ class MACourtList(DAList):
 
     def matching_land_court(self, address):
         """There's currently only one Land Court"""
-        return next((court for court in self.elements if court.name.rstrip().lower() == 'Land Court'),None)
+        return next((court for court in self.elements if court.name.rstrip().lower() == 'land court'),None)
 
     def matching_district_court(self, address):
         """Return the MACourt representing the District Court serving the given address"""
