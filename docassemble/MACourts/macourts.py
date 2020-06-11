@@ -347,6 +347,7 @@ class MACourtList(DAList):
         except IOError:
             for court in courts:
                 self.load_courts_from_massgov_by_filename(court)
+        self.elements.sort(key=lambda y: y.name)                
 
     def load_courts_from_massgov_by_filename(self, court_name):
         """Loads the specified court from Mass.gov, assuming website format hasn't changed. It has an embedded JSON we parse"""
