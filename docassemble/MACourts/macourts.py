@@ -179,7 +179,7 @@ def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=Tr
         }
         courts.append(court)
 
-    courts.sort(key=lambda k: k['name']) # We want to sort within category of court
+    # courts.sort(key=lambda k: k['name']) # We want to sort within category of court
 
     return courts
 
