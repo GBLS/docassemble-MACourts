@@ -179,7 +179,7 @@ def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=Tr
         }
         courts.append(court)
 
-    # courts.sort(key=lambda k: k['name']) # We want to sort within category of court
+    courts.sort(key=lambda k: k['name']) # We want to sort within category of court
 
     return courts
 
@@ -347,7 +347,7 @@ class MACourtList(DAList):
         except IOError:
             for court in courts:
                 self.load_courts_from_massgov_by_filename(court)
-        self.elements.sort(key=lambda y: y.name)                
+        # self.elements.sort(key=lambda y: y.name)                
 
     def load_courts_from_massgov_by_filename(self, court_name):
         """Loads the specified court from Mass.gov, assuming website format hasn't changed. It has an embedded JSON we parse"""
