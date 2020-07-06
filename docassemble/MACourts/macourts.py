@@ -1,5 +1,5 @@
 from docassemble.base.core import DAObject, DAList, DADict
-from docassemble.base.util import path_and_mimetype, Address, LatitudeLongitude, DAStaticFile, text_type, PY2, markdown_to_html, prevent_dependency_satisfaction
+from docassemble.base.util import path_and_mimetype, Address, LatitudeLongitude, DAStaticFile, markdown_to_html, prevent_dependency_satisfaction
 from docassemble.base.legal import Court
 import io, json, sys, requests, bs4, re, os #, cbor
 from docassemble.webapp.playground import PlaygroundSection
@@ -12,7 +12,7 @@ import copy
 import geopandas as gpd
 from shapely.geometry import Point
 
-__all__= ['get_courts_from_massgov_url','save_courts_to_file','MACourt','MACourtList','PY2','combined_locations']
+__all__= ['get_courts_from_massgov_url','save_courts_to_file','MACourt','MACourtList','combined_locations']
 
 def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=True):
     searcher = SearchEngine(simple_zipcode=True)
@@ -246,11 +246,8 @@ class MACourt(Court):
         if 'location' not in kwargs:
             self.initializeAttribute('location', LatitudeLongitude)
 
-    def __unicode__(self):
-        return text_type(self.name)
-
     def __str__(self):
-        return self.__unicode__().encode('utf-8') if PY2 else self.name
+        return str(self.name)
 
     def _map_info(self):
         the_info = str(self.name)
