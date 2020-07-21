@@ -247,8 +247,8 @@ class MACourt(Court):
             self.initializeAttribute('location', LatitudeLongitude)
 
     def __str__(self):
-        return self.name
-
+        return str(self.name)
+      
     def _map_info(self):
         the_info = str(self.name)
         the_info += "  [NEWLINE]  " + self.address.block()
