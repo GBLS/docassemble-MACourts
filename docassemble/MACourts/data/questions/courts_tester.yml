@@ -1,5 +1,6 @@
 ---
 modules:
+  #- docassemble.MACourts.macourts
   - .macourts
 ---
 objects:
