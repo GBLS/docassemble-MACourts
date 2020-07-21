@@ -1,5 +1,5 @@
 from docassemble.base.core import DAObject, DAList, DADict
-from docassemble.base.util import path_and_mimetype, Address, LatitudeLongitude, DAStaticFile, text_type, PY2, markdown_to_html, prevent_dependency_satisfaction
+from docassemble.base.util import path_and_mimetype, Address, LatitudeLongitude, DAStaticFile, markdown_to_html, prevent_dependency_satisfaction
 from docassemble.base.legal import Court
 import io, json, sys, requests, bs4, re, os #, cbor
 from docassemble.webapp.playground import PlaygroundSection
@@ -12,7 +12,7 @@ import copy
 import geopandas as gpd
 from shapely.geometry import Point
 
-__all__= ['get_courts_from_massgov_url','save_courts_to_file','MACourt','MACourtList','PY2','combined_locations']
+__all__= ['get_courts_from_massgov_url','save_courts_to_file','MACourt','MACourtList','combined_locations']
 
 def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=True):
     searcher = SearchEngine(simple_zipcode=True)
@@ -246,11 +246,8 @@ class MACourt(Court):
         if 'location' not in kwargs:
             self.initializeAttribute('location', LatitudeLongitude)
 
-    def __unicode__(self):
-        return text_type(self.name)
-
     def __str__(self):
-        return self.__unicode__().encode('utf-8') if PY2 else self.name
+        return self.name
 
     def _map_info(self):
         the_info = str(self.name)
@@ -268,7 +265,7 @@ class MACourtList(DAList):
         self.gathered = True
         self.object_type = MACourt
         if hasattr(self,'courts'):
-            if isinstance(self.courts, list):
+            if isinstance(self.courts, Iterable):
                 self.load_courts(courts=self.courts)
             elif self.courts is True:
                 self.load_courts()
@@ -277,7 +274,7 @@ class MACourtList(DAList):
         """Return the list of courts matching the specified department(s). E.g., Housing Court. court_types may be list or single court department."""
         if isinstance(court_types, str):
             return self.filter(department=court_types)
-        elif isinstance(court_types, list):
+        elif isinstance(court_types, Iterable):
             return [court for court in self.elements if court.department in court_types]
         else:
             return None
@@ -450,28 +447,32 @@ class MACourtList(DAList):
     def matching_juvenile_court(self, address):
         """Returns either single matching MACourt object or a set of MACourts"""
         court_name = self.matching_juvenile_court_name(address)
-        if isinstance(court_name,list):
+        
+        if isinstance(court_name,Iterable):
+            # Many court names, one address
             courts = set()
             for court_item in court_name:
-                courts.add(next ((court for court in self.elements if court.name.rstrip().lower() == court_item.lower()),None))
+                courts.update(set([court for court in self.elements if court.name.rstrip().lower() == court_item.lower()]))
             return courts
-        else:
-            return [court for court in self.elements if court.name.rstrip().lower() == court_name.lower())]
+        else: # this branch shouldn't be reached anymore -- we always return a set
+            # one court name, which may match more than one court location. Sessions/sittings don't always get unique names
+            return set([court for court in self.elements if court.name.rstrip().lower() == court_name.lower()])
 
-    def matching_juvenile_court_name(self, address):
-        if hasattr(address, 'norm_long') and hasattr(address.norm_long, 'city') and hasattr(address.norm_long, 'county'):
+    def matching_juvenile_court_name(self, address, depth=0):
+        if depth == 1 and hasattr(address, 'norm_long') and hasattr(address.norm_long, 'city') and hasattr(address.norm_long, 'county'):
             address_to_compare = address.norm_long
         else:
             address_to_compare = address
         if (not hasattr(address_to_compare, 'county')) or (address_to_compare.county.lower().strip() == ''):
             return ''
+
         matches = []
         # Special case for two areas of Boston -- concurrent with BMC jurisdiction. Need to match these first
         if str(self.matching_bmc(address)) == "West Roxbury Division, Boston Municipal Court":
             return "West Roxbury Juvenile Court"
         elif str(self.matching_bmc(address)) == "Dorchester Division, Boston Municipal Court":
             return "Dorchester Juvenile Court"
-        if address_to_compare.city.lower() in ["attleboro", "mansfield", "north attleboro", "norton"]:
+        if address_to_compare.city.lower() in ["attleboro", "mansfield", "north attleboro","north attleborough", "norton"]:
 	        matches.append("Attleboro Juvenile Court")
         if address_to_compare.city.lower() in ["barnstable", "sandwich", "yarmouth"]:
 	        matches.append("Barnstable Juvenile Court")
@@ -485,53 +486,53 @@ class MACourtList(DAList):
 	        matches.append("Boston Juvenile Court")
         if address_to_compare.city.lower() in ["abington", "bridgewater", "brockton", "east bridgewater", "west bridgewater", "whitman"]:
 	        matches.append("Brockton Juvenile Court")
-        if address_to_compare.city.lower() in ["arlington", "belmont", "cambridge", "everett", "malden", "medford", "melrose", "wakefield"]:
+        if address_to_compare.city.lower() in ["arlington", "belmont", "cambridge", "everett", "malden", "medford", "melrose", "somerville","wakefield", "stoneham"]:
 	        matches.append("Cambridge Juvenile Court")
-        if address_to_compare.city.lower() in ["avon", "canton", "dedham", "dover", "foxborough", "franklin", "medfield", "millis", "needham", "norfolk", "norwood", "plainville", "sharon", "stoughton", "walpole", "wellesley", "westwood", "wrentham"]:
+        if address_to_compare.city.lower() in ["avon", "canton", "dedham", "dover", "foxborough", "franklin", "medfield", "millis", "needham", "norfolk", "norwood", "plainville", "sharon", "stoughton", "walpole", "wellesley", "westwood", "wrentham","medway"]:
 	        matches.append("Dedham Juvenile Court")
         if address_to_compare.city.lower() in ["charlton", "dudley", "oxford", "southbridge", "sturbridge", "webster"]:
 	        matches.append("Dudley Juvenile Court")
-        if address_to_compare.city.lower() in ["aquinnah", "chilmark", "edgartown", "gosnold", "oaks bluff", "tisbury", "west tisbury"]:
+        if address_to_compare.city.lower() in ["aquinnah", "chilmark", "edgartown", "gosnold", "oak bluffs", "tisbury", "west tisbury"]:
 	        matches.append("Edgartown Juvenile Court")
         if address_to_compare.city.lower() in ["fall river", "freetown", "somerset", "swansea", "westport"]:
 	        matches.append("Fall River Juvenile Court")
         if address_to_compare.city.lower() in ["bourne", "falmouth", "mashpee"]:
 	        matches.append("Falmouth Juvenile Court")
-        if address_to_compare.city.lower() in ["ashburnham", "fitchburg", "gardner", "hubbardston", "lunenburg", "petersham", "phillipston", "templeton", "westminster", "winchendon"]:
+        if address_to_compare.city.lower() in ["ashburnham", "fitchburg", "gardner", "hubbardston", "lunenburg", "petersham", "phillipston", "princeton", "templeton", "westminster", "winchendon","royalston"]:
 	        matches.append("Fitchburg Juvenile Court")
-        if address_to_compare.city.lower() in ["acton", "ashland", "bedford", "carlisle", "concord", "framingham", "holliston", "hudson", "lexington", "lincoln", "marlborough","marlboro", "maynard", "natick", "sherborn", "stow", "sudbury", "wayland"]:
+        if address_to_compare.city.lower() in ["acton", "ashland", "bedford", "carlisle", "concord", "framingham", "holliston", "hudson", "lexington", "lincoln", "marlborough","marlboro", "maynard", "natick", "sherborn", "stow", "sudbury", "wayland","hopkinton"]:
 	        matches.append("Framingham Juvenile Court")
         if address_to_compare.city.lower() in ["alford", "becket", "egremont", "great barrington", "lee", "lenox", "monterey", "new marlborough", "otis", "sandisfield", "sheffield", "stockbridge", "tyringham", "west stockbridge"]:
 	        matches.append("Great Barrington Juvenile Court")
-        if address_to_compare.city.lower() in ["ashfield", "bernardston", "buckland", "charlemont", "colrain", "conway", "deerfield", "greenfield", "hawley", "heath", "leyden", "monroe", "montague", "northfield", "rowe", "shelburne", "sunderland", "whately"]:
+        if address_to_compare.city.lower() in ["ashfield", "bernardston", "buckland", "charlemont", "colrain", "conway", "deerfield", "gill", "greenfield", "hawley", "heath", "leyden", "monroe", "montague", "northfield", "rowe", "shelburne","shelburne falls", "sunderland", "whately"]:
 	        matches.append("Greenfield Juvenile Court")
-        if address_to_compare.city.lower() in ["amherst", "chesterfield", "cummington", "easthampton", "goshen", "hadley", "hatfield", "middlefield", "northampton", "pelham", "plainfield", "southampton", "south hadley", "westhampton", "williamsburg", "worthington"]:
+        if address_to_compare.city.lower() in ["amherst", "chesterfield", "cummington", "easthampton", "goshen", "hadley", "hatfield", "middlefield", "northampton", "pelham", "plainfield", "southampton", "south hadley", "westhampton", "williamsburg", "worthington","huntington"]:
 	        matches.append("Hadley Juvenile Court")
         if address_to_compare.city.lower() in ["hanover", "hingham", "hull", "norwell", "rockland", "scituate"]:
 	        matches.append("Hingham Juvenile Court")
-        if address_to_compare.city.lower() in ["blandford", "chester", "granville", "holyoke", "montgomery", "russell", "southwick", "westfield"]:
+        if address_to_compare.city.lower() in ["blandford", "chester", "granville", "holyoke", "montgomery", "russell", "southwick", "westfield", "tolland"]:
 	        matches.append("Holyoke Juvenile Court")
-        if address_to_compare.city.lower() in ["andover", "boxford", "bradford", "georgetown", "groveland", "haverhill", "lawrence", "north andover"]:
+        if address_to_compare.city.lower() in ["andover", "boxford", "bradford", "georgetown", "groveland", "haverhill", "lawrence", "north andover","methuen"]:
 	        matches.append("Lawrence Juvenile Court")
-        if address_to_compare.city.lower() in ["ashby", "ayer", "billerica", "boxborough", "burlington", "chelmsford", "dracut", "dunstable", "groton", "littleton", "lowell", "north reading", "pepperell", "reading", "shirley", "stoneham", "tewksbury", "townsend", "tyngsborough", "westford", "wilmington", "winchester", "woburn"]:
+        if address_to_compare.city.lower() in ["ashby", "ayer", "billerica", "boxborough", "burlington", "chelmsford", "dracut", "dunstable", "groton", "littleton", "lowell", "north reading", "pepperell", "reading", "shirley", "tewksbury", "townsend", "tyngsborough", "westford", "wilmington", "winchester", "woburn"]:
 	        matches.append("Lowell Juvenile Court")
         if address_to_compare.city.lower() in ["lynn", "marblehead", "nahant", "saugus", "swampscott"]:
 	        matches.append("Lynn Juvenile Court")
-        if address_to_compare.city.lower() in ["bellingham", "blackstone", "douglas", "hopedale", "mendon", "milford", "millville", "sutton", "upton", "uxbridge"]:
+        if address_to_compare.city.lower() in ["bellingham", "blackstone", "douglas", "hopedale", "mendon", "milford", "millville", "sutton", "upton", "uxbridge", "northbridge"]:
 	        matches.append("Milford Juvenile Court")
-        if address_to_compare.city.lower() in ["all nantucket county", "nantucket county"]:
+        if address_to_compare.county.lower() in ["nantucket county"]:
 	        matches.append("Nantucket Juvenile Court")
         if address_to_compare.city.lower() in ["acushnet", "dartmouth", "fairhaven", "freetown", "new bedford", "westport"]:
 	        matches.append("New Bedford Juvenile Court")
-        if address_to_compare.city.lower() in ["amesbury", "essex", "hamilton", "ipswich", "merrimac", "newbury", "newburyport", "salisbury", "topsfield", "wenham", "west newbury"]:
+        if address_to_compare.city.lower() in ["amesbury", "essex", "hamilton", "ipswich", "merrimac", "newbury", "newburyport", "salisbury", "topsfield", "wenham", "west newbury", "gloucester","rockport","rowley"]:
 	        matches.append("Newburyport Juvenile Court")
         if address_to_compare.city.lower() in ["adams", "cheshire", "clarksburg", "florida", "hancock", "new ashford", "north adams", "williamstown", "windsor"]:
 	        matches.append("North Adams Juvenile Court")
-        if address_to_compare.city.lower() in ["athol", "erving", "leverett", "new salem", "orange", "shutesbury", "warwick"]:
+        if address_to_compare.city.lower() in ["athol", "erving", "leverett", "new salem", "orange", "shutesbury", "warwick","wendell"]:
 	        matches.append("Orange Juvenile Court")
         if address_to_compare.city.lower() in ["brewster", "chatham", "dennis", "eastham", "harwich", "orleans", "provincetown", "wellfleet"]:
 	        matches.append("Orleans Juvenile Court")
-        if address_to_compare.city.lower() in ["brimfield", "east longmeadow", "hampden", "holland", "ludlow", "monson", "palmer", "wilbraham"]:
+        if address_to_compare.city.lower() in ["brimfield", "east longmeadow", "hampden", "holland", "ludlow", "monson", "palmer", "wales", "wilbraham"]:
 	        matches.append("Palmer Juvenile Court")
         if address_to_compare.city.lower() in ["becket", "dalton", "hancock", "hinsdale", "lanesborough", "lenox", "peru", "pittsfield", "richmond", "washington", "windsor"]:
 	        matches.append("Pittsfield Juvenile Court")
@@ -539,7 +540,7 @@ class MACourtList(DAList):
 	        matches.append("Plymouth Juvenile Court")
         if address_to_compare.city.lower() in ["braintree", "cohasset", "holbrook", "milton", "quincy", "randolph", "weymouth"]:
             matches.append("Quincy Juvenile Court")
-        if address_to_compare.city.lower() in ["beverly", "danvers", "lynnfield", "manchester-by-the-sea", "peabody", "salem"]:
+        if address_to_compare.city.lower() in ["beverly", "danvers", "manchester by the sea", "manchester-by-the-sea", "middleton", "salem","lynnfield", "peabody"]:
             matches.append("Salem Juvenile Court")
         if address_to_compare.city.lower() in ["agawam", "chicopee", "longmeadow", "springfield", "west springfield"]:
             matches.append("Springfield Juvenile Court")
@@ -551,77 +552,82 @@ class MACourtList(DAList):
             matches.append("Waltham Juvenile Court")
         if address_to_compare.city.lower() in ["carver", "lakeville", "marion", "mattapoisett", "middleborough", "rochester", "wareham"]:
             matches.append("Wareham Juvenile Court")
-        if address_to_compare.city.lower() in ["auburn", "barre", "berlin", "bolton", "boylston", "brookfield", "clinton", "east brookfield", "grafton", "hardwick", "harvard", "holden", "lancaster", "leicester", "millbury", "new braintree", "northborough", "north brookfield", "oakham", "paxton", "rutland", "shrewsbury", "southborough", "spencer", "sterling", "warren", "westborough", "west boylston", "west brookfield", "worcester"]:
+        if address_to_compare.city.lower() in ["auburn", "barre", "berlin", "bolton", "boylston", "brookfield", "clinton", "east brookfield", "grafton", "hardwick", "harvard", "holden", "lancaster", "leicester", "millbury", "new braintree", "northborough", "north brookfield", "oakham", "princeton","paxton", "rutland", "shrewsbury", "southborough", "spencer", "sterling", "warren", "westborough", "west boylston", "west brookfield", "worcester","leominster"]:
             matches.append("Worcester Juvenile Court")
-        return matches
+        if not matches and depth==0:
+            return self.matching_juvenile_court_name(address, depth=1)
+        return set(matches)
 
     def matching_probate_and_family_court(self, address):
         """Returns either single matching MACourt object or a set of MACourts"""
-        court_name = self.matching_probate_and_family_court_name(address)
-        if isinstance(court_name,list):
+        court_names = self.matching_probate_and_family_court_name(address)
+        if isinstance(court_names,Iterable):
             courts = set()
-            for court_item in court_name:
-                courts.add(next ((court for court in self.elements if court.name.rstrip().lower() == court_item.lower()),None))
+            for court_item in court_names:
+                courts.update([court for court in self.elements if court.name.rstrip().lower() == court_item.lower()])
             return courts
         else:
-            return next ((court for court in self.elements if court.name.rstrip().lower() == court_name.lower()), None)
+            return set([court for court in self.elements if court.name.rstrip().lower() == court_names.lower()])
 
-    def matching_probate_and_family_court_name(self, address):
-        if hasattr(address, 'norm_long') and hasattr(address.norm_long, 'city') and hasattr(address.norm_long, 'county'):
+    def matching_probate_and_family_court_name(self, address, depth=0):
+        """Multiple P&F courts may serve the same address"""
+        if depth==1 and hasattr(address, 'norm_long') and hasattr(address.norm_long, 'city') and hasattr(address.norm_long, 'county'):
             address_to_compare = address.norm_long
         else:
             address_to_compare = address
         if (not hasattr(address_to_compare, 'county')) or (address_to_compare.county.lower().strip() == ''):
             return ''
-        if (address_to_compare.county.lower() == "barnstable county") or (address_to_compare.city.lower() in ["bourne", "brewster", "chatham", "dennis", "eastham", "falmouth", "harwich", "mashpee", "orleans", "provincetown", "sandwich", "truro", "wellfleet", "yarmouth"]):
-            local_probate_and_family_court = "Barnstable Probate and Family Court"
-        elif (address_to_compare.county.lower() == "berkshire county") or (address_to_compare.city.lower() in ["adams", "alford", "becket", "cheshire", "clarksburg", "dalton", "egremont", "florida", "great barrington", "hancock", "hinsdale", "lanesborough", "lee", "lenox", "monterey", "mount washington", "new ashford", "new marlborough", "north adams", "otis", "peru", "pittsfield", "richmond", "sandisfield", "savoy", "sheffield", "stockbridge", "tyringham", "washington", "west stockbridge", "williamstown", "windsor"]):
-            local_probate_and_family_court = "Berkshire Probate and Family Court"
-        elif (address_to_compare.county.lower() == "bristol county") or (address_to_compare.city.lower() in ["acushnet", "attleboro", "berkley", "dartmouth", "dighton", "easton", "fairhaven", "fall river", "freetown", "mansfield", "new bedford", "north attleborough", "norton", "raynham", "rehoboth", "seekonk", "somerset", "swansea", "taunton", "westport"]):
-            local_probate_and_family_court = ["Bristol Probate and Family Court","Fall River Probate and Family Court","New Bedford Probate and Family Court"]
-        elif (address_to_compare.county.lower() == "dukes county") or (address_to_compare.city.lower() in ["aquinnah", "chilmark", "edgartown", "gosnold", "oak bluffs", "tisbury", "west tisbury"]):
-            local_probate_and_family_court = "Dukes Probate and Family Court"
-        elif (address_to_compare.county.lower() == "essex county") or (address_to_compare.city.lower() in ["amesbury", "andover", "beverly", "boxford", "danvers", "essex", "georgetown", "gloucester", "groveland", "hamilton", "haverhill", "ipswich", "lawrence", "lynn", "lynnfield", "manchester by the sea", "marblehead", "merrimac", "methuen", "middleton", "nahunt", "newbury", "newburyport", "north andover", "peabody", "rockport", "rowley", "salem", "salisbury", "saugus", "swampscott", "topsfield", "wenham", "west newbury"]):
-            local_probate_and_family_court = ["Essex Probate and Family Court","Lawrence Probate and Family Court"]
-        elif (address_to_compare.county.lower() == "franklin county") or (address_to_compare.city.lower() in ["ashfield", "bernardston", "buckland", "charlemont", "colrain", "conway", "deerfield", "erving", "gill", "greenfield", "hawley", "heath", "leverett", "leyden", "monroe", "montague", "new salem", "northfield", "orange", "rowe", "shelburne", "shutesbury", "sunderland", "warwick", "wendell", "whately"]):
-            local_probate_and_family_court = "Franklin Probate and Family Court"
-        elif (address_to_compare.county.lower() == "hampden county") or (address_to_compare.city.lower() in ["agawam", "blandford", "brimfield", "chester", "chicopee", "east longmeadow", "granville", "hampden", "holland", "holyoke", "longmeadow", "ludlow", "monson", "montgomery", "palmer", "russell", "southwick", "springfield", "tolland", "wales", "west springfield", "westfield", "wilbraham"]):
-            local_probate_and_family_court = "Hampden Probate and Family Court"
-        elif (address_to_compare.county.lower() == "hampshire county") or (address_to_compare.city.lower() in ["amherst", "belchertown", "chesterfield", "cummington", "easthampton", "goshen", "granby", "hadley", "hatfield", "huntington", "middlefield", "northampton", "pelham", "plainfield", "south hadley", "southamptom", "ware", "westhampton", "williamsburg", "worthington"]):
-            local_probate_and_family_court = "Hampshire Probate and Family Court"
-        elif (address_to_compare.county.lower() == "middlesex county") or (address_to_compare.city.lower() in ["acton", "arlington", "ashby", "ashland", "ayer", "bedford", "belmont", "billerica", "boxborough", "burlington", "cambridge", "carlisle", "chelmsford", "concord", "dracut", "dunstable", "everett", "framingham", "groton", "holliston", "hopkinton", "hudson", "lexington", "lincoln", "littleton", "lowell", "malden", "marlborough","marlboro", "maynard", "medford", "melrose", "natick", "newton", "north reading", "pepperell", "reading", "sherborn", "shirley", "somerville", "stoneham", "stow", "sudbury", "tewksbury", "townsend", "tyngsborough", "wakefield", "waltham", "watertown", "wayland", "westford", "weston", "wilmington", "winchester", "woburn"]):
-            local_probate_and_family_court = "Middlesex Probate and Family Court"
-        elif (address_to_compare.county.lower() == "nantucket county") or (address_to_compare.city.lower() in ["nantucket"]):
-            local_probate_and_family_court = "Nantucket Probate and Family Court"
-        elif (address_to_compare.county.lower() == "norfolk county") or (address_to_compare.city.lower() in ["avon", "bellingham", "braintree", "brookline", "canton", "cohasset", "dedham", "dover", "foxborough", "franklin", "holbrook", "medfield", "medway", "millis", "milton", "needham", "norfolk", "norwood", "plainville", "quincy", "randolph", "sharon", "stoughton", "walpole", "wellesley", "westwood", "weymouth", "wrentham"]):
-            local_probate_and_family_court = "Norfolk Probate and Family Court"
-        elif (address_to_compare.county.lower() == "plymouth county") or (address_to_compare.city.lower() in ["abington", "bridgewater", "brockton", "carver", "duxbury", "east bridgewater", "halifax", "hanover", "hanson", "hingham", "hull", "kingston", "lakeville", "marion", "marshfield", "mattapoisett", "middleborough", "norwell", "pembroke", "plymouth", "rochester", "rockland", "scituate", "wareham", "west bridgewater", "whitman"]):
-            local_probate_and_family_court = "Plymouth Probate and Family Court"
-        elif (address_to_compare.county.lower() == "suffolk county") or (address_to_compare.city.lower() in ["boston", "chelsea", "revere", "winthrop"]):
-            local_probate_and_family_court = "Suffolk Probate and Family Court"
-        elif (address_to_compare.county.lower() == "worcester county") or (address_to_compare.city.lower() in ["ashburnham", "athol", "auburn", "barre", "berlin", "blackstone", "bolton", "boylston", "brookfield", "charlton", "clinton", "douglas", "dudley", "east brookfield", "fitchburg", "gardner", "grafton", "hardwick", "harvard", "holden", "hopedale", "hubbardston", "lancaster", "leicester", "leominster", "lunenburg", "mendon", "milford", "millbury", "millville", "new braintree", "north brookfield", "northborough", "northbridge", "oakham", "oxford", "paxton", "petersham", "phillipston", "princeton", "royalston", "rutland", "shrewsbury", "southborough", "southbridge", "spencer", "sterling", "sturbridge", "sutton", "templeton", "upton", "uxbridge", "warren", "webster", "west boylston", "west brookfield", "westborough", "westminster", "winchendon", "worcester"]):
-            local_probate_and_family_court = "Worcester Probate and Family Court"
-        elif address_to_compare.city.lower() in ["abington", "bridgewater", "brockton", "carver", "duxbury", "east bridgewater", "halifax", "hanover", "hanson", "hingham", "hull", "kingston", "lakeville", "marion", "marshfield", "mattapoisett", "middleboro", "norwell", "pembroke" , "plymouth", "plympton", "rochester", "rockland", "scituate", "wareham", "west bridgewater", "whitman"]:
-            local_probate_and_family_court = "Brockton Probate and Family Court"
-        else:
-            return ''
+        matches = []
 
-        return local_probate_and_family_court
+        if (address_to_compare.county.lower() == "barnstable county") or (address_to_compare.city.lower() in ["bourne", "brewster", "chatham", "dennis", "eastham", "falmouth", "harwich", "mashpee", "orleans", "provincetown", "sandwich", "truro", "wellfleet", "yarmouth"]):
+            matches.append("Barnstable Probate and Family Court")
+        if (address_to_compare.county.lower() == "berkshire county") or (address_to_compare.city.lower() in ["adams", "alford", "becket", "cheshire", "clarksburg", "dalton", "egremont", "florida", "great barrington", "hancock", "hinsdale", "lanesborough", "lee", "lenox", "monterey", "mount washington", "new ashford", "new marlborough", "north adams", "otis", "peru", "pittsfield", "richmond", "sandisfield", "savoy", "sheffield", "stockbridge", "tyringham", "washington", "west stockbridge", "williamstown", "windsor"]):
+            matches.append("Berkshire Probate and Family Court")
+        if (address_to_compare.county.lower() == "bristol county") or (address_to_compare.city.lower() in ["acushnet", "attleboro", "berkley", "dartmouth", "dighton", "easton", "fairhaven", "fall river", "freetown", "mansfield", "new bedford", "north attleborough", "norton", "raynham", "rehoboth", "seekonk", "somerset", "swansea", "taunton", "westport"]):
+            local_probate_and_family_court = ["Bristol Probate and Family Court","Fall River Probate and Family Court","New Bedford Probate and Family Court"]
+        if (address_to_compare.county.lower() == "dukes county") or (address_to_compare.city.lower() in ["aquinnah", "chilmark", "edgartown", "gosnold", "oak bluffs", "tisbury", "west tisbury"]):
+            matches.append("Dukes Probate and Family Court")
+        if (address_to_compare.county.lower() == "essex county") or (address_to_compare.city.lower() in ["amesbury", "andover", "beverly", "boxford", "danvers", "essex", "georgetown", "gloucester", "groveland", "hamilton", "haverhill", "ipswich", "lawrence", "lynn", "lynnfield", "manchester by the sea", "manchester-by-the-sea", "marblehead", "merrimac", "methuen", "middleton", "nahunt", "newbury", "newburyport", "north andover", "peabody", "rockport", "rowley", "salem", "salisbury", "saugus", "swampscott", "topsfield", "wenham", "west newbury"]):
+            local_probate_and_family_court = ["Essex Probate and Family Court","Lawrence Probate and Family Court"]
+        if (address_to_compare.county.lower() == "franklin county") or (address_to_compare.city.lower() in ["ashfield", "bernardston", "buckland", "charlemont", "colrain", "conway", "deerfield", "erving", "gill", "greenfield", "hawley", "heath", "leverett", "leyden", "monroe", "montague", "new salem", "northfield", "orange", "rowe", "shelburne","shelburne falls", "shutesbury", "sunderland", "warwick", "wendell", "whately"]):
+            matches.append("Franklin Probate and Family Court")
+        if (address_to_compare.county.lower() == "hampden county") or (address_to_compare.city.lower() in ["agawam", "blandford", "brimfield", "chester", "chicopee", "east longmeadow", "granville", "hampden", "holland", "holyoke", "longmeadow", "ludlow", "monson", "montgomery", "palmer", "russell", "southwick", "springfield", "tolland", "wales", "west springfield", "westfield", "wilbraham"]):
+            matches.append("Hampden Probate and Family Court")
+        if (address_to_compare.county.lower() == "hampshire county") or (address_to_compare.city.lower() in ["amherst", "belchertown", "chesterfield", "cummington", "easthampton", "goshen", "granby", "hadley", "hatfield", "huntington", "middlefield", "northampton", "pelham", "plainfield", "south hadley", "southamptom", "ware", "westhampton", "williamsburg", "worthington"]):
+            matches.append("Hampshire Probate and Family Court")
+        if (address_to_compare.county.lower() == "middlesex county") or (address_to_compare.city.lower() in ["acton", "arlington", "ashby", "ashland", "ayer", "bedford", "belmont", "billerica", "boxborough", "burlington", "cambridge", "carlisle", "chelmsford", "concord", "dracut", "dunstable", "everett", "framingham", "groton", "holliston", "hopkinton", "hudson", "lexington", "lincoln", "littleton", "lowell", "malden", "marlborough","marlboro", "maynard", "medford", "melrose", "natick", "newton", "north reading", "pepperell", "reading", "sherborn", "shirley", "somerville", "stoneham", "stow", "sudbury", "tewksbury", "townsend", "tyngsborough", "wakefield", "waltham", "watertown", "wayland", "westford", "weston", "wilmington", "winchester", "woburn"]):
+            matches.append("Middlesex Probate and Family Court")
+        if (address_to_compare.county.lower() == "nantucket county") or (address_to_compare.city.lower() in ["nantucket"]):
+            matches.append("Nantucket Probate and Family Court")
+        if (address_to_compare.county.lower() == "norfolk county") or (address_to_compare.city.lower() in ["avon", "bellingham", "braintree", "brookline", "canton", "cohasset", "dedham", "dover", "foxborough", "franklin", "holbrook", "medfield", "medway", "millis", "milton", "needham", "norfolk", "norwood", "plainville", "quincy", "randolph", "sharon", "stoughton", "walpole", "wellesley", "westwood", "weymouth", "wrentham"]):
+            matches.append("Norfolk Probate and Family Court")
+        if (address_to_compare.county.lower() == "plymouth county") or (address_to_compare.city.lower() in ["abington", "bridgewater", "brockton", "carver", "duxbury", "east bridgewater", "halifax", "hanover", "hanson", "hingham", "hull", "kingston", "lakeville", "marion", "marshfield", "mattapoisett", "middleborough", "norwell", "pembroke", "plymouth", "rochester", "rockland", "scituate", "wareham", "west bridgewater", "whitman"]):
+            matches.append("Plymouth Probate and Family Court")
+        if (address_to_compare.county.lower() == "suffolk county") or (address_to_compare.city.lower() in ["boston", "chelsea", "revere", "winthrop"]):
+            matches.append("Suffolk Probate and Family Court")
+        if (address_to_compare.county.lower() == "worcester county") or (address_to_compare.city.lower() in ["ashburnham", "athol", "auburn", "barre", "berlin", "blackstone", "bolton", "boylston", "brookfield", "charlton", "clinton", "douglas", "dudley", "east brookfield", "fitchburg", "gardner", "grafton", "hardwick", "harvard", "holden", "hopedale", "hubbardston", "lancaster", "leicester", "leominster", "lunenburg", "mendon", "milford", "millbury", "millville", "new braintree", "north brookfield", "northborough", "northbridge", "oakham", "oxford", "paxton", "petersham", "phillipston", "princeton", "royalston", "rutland", "shrewsbury", "southborough", "southbridge", "spencer", "sterling", "sturbridge", "sutton", "templeton", "upton", "uxbridge", "warren", "webster", "west boylston", "west brookfield", "westborough", "westminster", "winchendon", "worcester"]):
+            matches.append("Worcester Probate and Family Court")
+        if address_to_compare.city.lower() in ["abington", "bridgewater", "brockton", "carver", "duxbury", "east bridgewater", "halifax", "hanover", "hanson", "hingham", "hull", "kingston", "lakeville", "marion", "marshfield", "mattapoisett", "middleboro", "norwell", "pembroke" , "plymouth", "plympton", "rochester", "rockland", "scituate", "wareham", "west bridgewater", "whitman"]:
+            matches.append("Brockton Probate and Family Court")
+
+        if not matches and depth==0:
+            return self.matching_probate_and_family_court_name(address, depth=1)
+        return matches
 
     def matching_superior_court(self, address):
         """Returns either single matching MACourt object or a set of MACourts"""
         court_name = self.matching_superior_court_name(address)
-        if isinstance(court_name,list):
-            courts = set()
-            for court_item in court_name:
-                courts.add(next ((court for court in self.elements if court.name.rstrip().lower() == court_item.lower()),None))
-            return courts
-        else:
-            return [court for court in self.elements if court.name.rstrip().lower() == court_name.lower()]
-            # return next ((court for court in self.elements if court.name.rstrip().lower() == court_name.lower()), None)
+        # if isinstance(court_name,Iterable):
+        #     courts = set()
+        #     for court_item in court_name:
+        #         courts.update(set([court for court in self.elements if court.name.rstrip().lower() == court_item.lower()]))
+        #     return courts
+        # else:
+        return [court for court in self.elements if court.name.rstrip().lower() == court_name.lower()]
+        # return next ((court for court in self.elements if court.name.rstrip().lower() == court_name.lower()), None)
 
-    def matching_superior_court_name(self, address):
-        if hasattr(address, 'norm_long') and hasattr(address.norm_long, 'city') and hasattr(address.norm_long, 'county'):
+    def matching_superior_court_name(self, address, depth=0):
+        if depth == 1 and hasattr(address, 'norm_long') and hasattr(address.norm_long, 'city') and hasattr(address.norm_long, 'county'):
             address_to_compare = address.norm_long
         else:
             address_to_compare = address
@@ -635,10 +641,10 @@ class MACourtList(DAList):
                 local_superior_court = "Bristol County Superior Court"
         elif (address_to_compare.county.lower() == "dukes county") or (address_to_compare.city.lower() in ["aquinnah", "chilmark", "edgartown", "gosnold", "oak bluffs", "tisbury", "west tisbury"]):
                 local_superior_court = "Dukes County Superior Court"
-        elif (address_to_compare.county.lower() == "essex county") or (address_to_compare.city.lower() in ["amesbury", "andover", "beverly", "boxford", "danvers", "essex", "georgetown", "gloucester", "groveland", "hamilton", "haverhill", "ipswich", "lawrence", "lynn", "lynnfield", "manchester by the sea", "marblehead", "merrimac", "methuen", "middleton", "nahunt", "newbury", "newburyport", "north andover", "peabody", "rockport", "rowley", "salem", "salisbury", "saugus", "swampscott", "topsfield", "wenham", "west newbury"]):
+        elif (address_to_compare.county.lower() == "essex county") or (address_to_compare.city.lower() in ["amesbury", "andover", "beverly", "boxford", "danvers", "essex", "georgetown", "gloucester", "groveland", "hamilton", "haverhill", "ipswich", "lawrence", "lynn", "lynnfield", "manchester by the sea", "manchester-by-the-sea", "marblehead", "merrimac", "methuen", "middleton", "nahunt", "newbury", "newburyport", "north andover", "peabody", "rockport", "rowley", "salem", "salisbury", "saugus", "swampscott", "topsfield", "wenham", "west newbury"]):
                 local_superior_court = "Essex County Superior Court"
                 #local_superior_court = ["Essex County Superior Court", "Essex County Superior Court - Lawrence", "Essex County Superior Court - Newburyport"]
-        elif (address_to_compare.county.lower() == "franklin county") or (address_to_compare.city.lower() in ["ashfield", "bernardston", "buckland", "charlemont", "colrain", "conway", "deerfield", "erving", "gill", "greenfield", "hawley", "heath", "leverett", "leyden", "monroe", "montague", "new salem", "northfield", "orange", "rowe", "shelburne", "shutesbury", "sunderland", "warwick", "wendell", "whately"]):
+        elif (address_to_compare.county.lower() == "franklin county") or (address_to_compare.city.lower() in ["ashfield", "bernardston", "buckland", "charlemont", "colrain", "conway", "deerfield", "erving", "gill", "greenfield", "hawley", "heath", "leverett", "leyden", "monroe", "montague", "new salem", "northfield", "orange", "rowe", "shelburne","shelburne falls", "shutesbury", "sunderland", "warwick", "wendell", "whately"]):
                 local_superior_court = "Franklin County Superior Court"
         elif (address_to_compare.county.lower() == "hampden county") or (address_to_compare.city.lower() in ["agawam", "blandford", "brimfield", "chester", "chicopee", "east longmeadow", "granville", "hampden", "holland", "holyoke", "longmeadow", "ludlow", "monson", "montgomery", "palmer", "russell", "southwick", "springfield", "tolland", "wales", "west springfield", "westfield", "wilbraham"]):
                 local_superior_court = "Hampden County Superior Court"
@@ -658,7 +664,9 @@ class MACourtList(DAList):
         elif (address_to_compare.county.lower() == "worcester county") or (address_to_compare.city.lower() in ["ashburnham", "athol", "auburn", "barre", "berlin", "blackstone", "bolton", "boylston", "brookfield", "charlton", "clinton", "douglas", "dudley", "east brookfield", "fitchburg", "gardner", "grafton", "hardwick", "harvard", "holden", "hopedale", "hubbardston", "lancaster", "leicester", "leominster", "lunenburg", "mendon", "milford", "millbury", "millville", "new braintree", "north brookfield", "northborough", "northbridge", "oakham", "oxford", "paxton", "petersham", "phillipston", "princeton", "royalston", "rutland", "shrewsbury", "southborough", "southbridge", "spencer", "sterling", "sturbridge", "sutton", "templeton", "upton", "uxbridge", "warren", "webster", "west boylston", "west brookfield", "westborough", "westminster", "winchendon", "worcester"]):
                 local_superior_court = "Worcester County Superior Court"
         else:
-            return ''
+            local_superior_court = ''
+        if not local_superior_court and depth==0:
+            return self.matching_superior_court_name(address, depth=1)
         return local_superior_court
 
     def matching_land_court(self, address):
@@ -668,20 +676,22 @@ class MACourtList(DAList):
     def matching_district_court(self, address):
         """Return list of MACourts representing the District Court(s) serving the given address"""
         court_name = self.matching_district_court_name(address)
-        matches = []
-        for court in self.elements:
-            if court.name.rstrip().lower() == court_name.lower():
-                matches.append(court)
-        return matches
+        if isinstance(court_name,Iterable):
+            courts = set()
+            for court_item in court_name:
+                courts.add(next ((court for court in self.elements if court.name.rstrip().lower() == court_item.lower()),None))
+            return courts
+        else:
+            return [court for court in self.elements if court.name.rstrip().lower() == court_name.lower()]
 
-    def matching_district_court_name(self, address):
+    def matching_district_court_name(self, address, depth=0):
         """Returns the name of the MACourt(s) representing the district court that covers the specified address.
         Harcoded and must be updated if court jurisdictions or names change. Address must specify county attribute
         
         At least one district court has overlapping jurisdiction: Northern Berkshire District Court  and Pittsfield District Court
         both serve two cities. This method will return both courts in a list.
         """
-        if hasattr(address, 'norm_long') and hasattr(address.norm_long, 'city') and hasattr(address.norm_long, 'county'):
+        if depth == 1 and hasattr(address, 'norm_long') and hasattr(address.norm_long, 'city') and hasattr(address.norm_long, 'county'):
             address_to_compare = address.norm_long
         else:
             address_to_compare = address
@@ -694,7 +704,7 @@ class MACourtList(DAList):
             matches.append( "Nantucket District Court")
         if address_to_compare.city.lower() in ["barnstable", "yarmouth", "sandwich"]:
             matches.append( "Barnstable District Court")
-        if address_to_compare.city.lower() in ["attleboro", "mansfield", "north attleboro", "norton"]:
+        if address_to_compare.city.lower() in ["attleboro", "mansfield", "north attleboro","north attleborough","norton"]:
             matches.append("Attleboro District Court")
         if address_to_compare.city.lower() in ["ashby", "ayer", "boxborough", "dunstable", "groton", "littleton", "pepperell", "shirley", "townsend", "westford", "devens regional enterprise zone"]:
             matches.append("Ayer District Court")
@@ -732,7 +742,7 @@ class MACourtList(DAList):
             matches.append("Gardner District Court")
         if address_to_compare.city.lower() in ["essex", "gloucester", "rockport"]:
             matches.append("Gloucester District Court")
-        if address_to_compare.city.lower() in ["ashfield", "bernardston", "buckland", "charlemont", "colrain", "conway", "deerfield", "gill", "greenfield", "hawley", "heath", "leyden", "monroe", "montague", "northfield", "rowe", "shelburne", "sunderland", "whately"]:
+        if address_to_compare.city.lower() in ["ashfield", "bernardston", "buckland", "charlemont", "colrain", "conway", "deerfield", "gill", "greenfield", "hawley", "heath", "leyden", "monroe", "montague", "northfield", "rowe", "shelburne","shelburne falls", "sunderland", "whately"]:
             matches.append("Greenfield District Court")
         if address_to_compare.city.lower() in ["boxford", "bradford", "georgetown", "groveland", "haverhill"]:
             matches.append("Haverhill District Court")
@@ -746,7 +756,7 @@ class MACourtList(DAList):
             matches.append("Lawrence District Court")
         if address_to_compare.city.lower() in ["holden", "princeton", "leominster"]:
             matches.append("Leominster District Court")
-        if address_to_compare.city.lower() in ["billerica", "chelmsford", "dracut", "lowell", "tewksbury", "tyngsboro"]:
+        if address_to_compare.city.lower() in ["billerica", "chelmsford", "dracut", "lowell", "tewksbury", "tyngsboro", "tyngsborough"]:
             matches.append("Lowell District Court")
         if address_to_compare.city.lower() in ["lynn", "marblehead", "nahant", "saugus", "swampscott"]:
             matches.append("Lynn District Court")
@@ -756,6 +766,8 @@ class MACourtList(DAList):
             matches.append("Marlborough District Court")
         if address_to_compare.city.lower() in ["mendon", "upton", "hopedale", "milford", "bellingham"]:
             matches.append("Milford District Court")
+        if address_to_compare.city.lower() in ["natick","sherborn"]:
+            matches.append("Natick District Court")
         if address_to_compare.city.lower() in ["acushnet", "dartmouth", "fairhaven", "freetown", "new bedford", "westport"]:
             matches.append("New Bedford District Court")
         if address_to_compare.city.lower() in ["amesbury", "merrimac", "newbury", "newburyport", "rowley", "salisbury", "west newbury"]:
@@ -780,7 +792,7 @@ class MACourtList(DAList):
             matches.append("Plymouth District Court")
         if address_to_compare.city.lower() in ["braintree", "cohasset", "holbrook", "milton", "quincy", "randolph", "weymouth"]:
             matches.append("Quincy District Court")
-        if address_to_compare.city.lower() in ["beverly", "danvers", "manchester by the sea", "middleton", "salem"]:
+        if address_to_compare.city.lower() in ["beverly", "danvers", "manchester by the sea", "manchester-by-the-sea", "middleton", "salem"]:
             matches.append("Salem District Court")
         if address_to_compare.city.lower() in ["medford", "somerville"]:
             matches.append("Somerville District Court")
@@ -796,9 +808,9 @@ class MACourtList(DAList):
             matches.append("Uxbridge District Court")
         if address_to_compare.city.lower() in ["waltham", "watertown", "weston"]:
             matches.append("Waltham District Court")
-        if address_to_compare.city.lower() in ["carver", "lakeville", "mattapoisett", "middleboro", "rochester", "wareham"]:
+        if address_to_compare.city.lower() in ["carver", "lakeville", "mattapoisett", "middleboro", "middleborough", "rochester", "wareham","marion"]:
             matches.append("Wareham District Court")
-        if address_to_compare.city.lower() in ["grafton", "northborough", "shrewsbury", "southborough", "westborough"]:
+        if address_to_compare.city.lower() in ["grafton", "northborough", "shrewsbury", "southborough", "westborough","westboro"]:
             matches.append("Westborough District Court")
         if address_to_compare.city.lower() in ["agawam", "blandford", "chester", "granville", "montgomery", "russell", "southwick", "tolland", "westfield"]:
             matches.append("Westfield District Court")
@@ -810,6 +822,8 @@ class MACourtList(DAList):
             matches.append("Worcester District Court")
         if address_to_compare.city.lower() in ["foxborough", "franklin", "medway", "millis", "norfolk", "plainville", "walpole", "wrentham"]:
             matches.append("Wrentham District Court")            
+        if not matches and depth == 0:
+            return self.matching_district_court_name(address, depth=1)
         return matches
 
     def matching_housing_court(self, address):
@@ -817,20 +831,22 @@ class MACourtList(DAList):
         court_name = self.matching_housing_court_name(address)
         return next ((court for court in self.elements if court.name.rstrip().lower() == court_name.lower()), None)
 
-    def matching_housing_court_name(self,address):
+    def matching_housing_court_name(self,address, depth=0):
         """Returns the name of the MACourt representing the housing court that covers the specified address.
         Harcoded and must be updated if court jurisdictions or names change. Address must specify county attribute"""
-        if hasattr(address, 'norm_long') and hasattr(address.norm_long, 'city') and hasattr(address.norm_long, 'county'):
-            address_to_compare = address.norm_long
-        else:
-            address_to_compare = address
+
+        #f hasattr(address, 'norm_long') and hasattr(address.norm_long, 'city') and hasattr(address.norm_long, 'county'):
+        #    address_to_compare = address.norm_long
+        #else:
+        #    address_to_compare = address
+        address_to_compare = address # don't normalize -- this screws up some addresses in small towns
         if (not hasattr(address_to_compare, 'county')) or (address_to_compare.county.lower().strip() == ''):
             return ''
-        if (address_to_compare.county.lower() == "suffolk county") or (address_to_compare.city.lower() in ["newton","brookline"]):
+        if (address_to_compare.county.lower() == "suffolk county") or (address_to_compare.city.lower() in ["brookline"]):
             local_housing_court = "Eastern Housing Court"
-        elif address_to_compare.city.lower() in ["arlington","belmont","cambridge","medford","somerville"]:
+        elif address_to_compare.city.lower() in ["arlington","belmont","cambridge","medford","newton","somerville"]:
             local_housing_court = "Eastern Housing Court - Middlesex Session"
-        elif address_to_compare.city.lower() in ["ashfield", "bernardston", "buckland", "charlemont", "colrain", "conway", "deerfield", "erving", "gill", "greenfield", "hawley", "heath", "leverett", "leyden", "monroe", "montague", "new salem", "northfield", "orange", "rowe", "shelburne", "shutesbury", "sunderland", "warwick", "wendell", "whately"]:
+        elif address_to_compare.city.lower() in ["ashfield", "bernardston", "buckland", "charlemont", "colrain", "conway", "deerfield", "erving", "gill", "greenfield", "hawley", "heath", "leverett", "leyden", "monroe", "montague", "new salem", "northfield", "orange", "rowe", "shelburne","shelburne falls", "shutesbury", "sunderland", "warwick", "wendell", "whately"]:
             local_housing_court = "Western Housing Court - Greenfield Session"
         elif address_to_compare.city.lower() in ['amherst', 'belchertown', 'chesterfield', 'cummington', 'easthampton', 'goshen', 'granby', 'hadley', 'hatfield', 'huntington', 'middlefield', 'northampton', 'pelham', 'plainfield', 'south hadley', 'southampton', 'ware', 'westhampton', 'williamsburg','worthington']:
             local_housing_court = "Western Housing Court - Hadley Session"
@@ -840,11 +856,11 @@ class MACourtList(DAList):
             local_housing_court = "Western Housing Court - Springfield Session"
         elif address_to_compare.city.lower() in ['charlton', 'dudley', 'oxford', 'southbridge', 'sturbridge', 'webster']:
             local_housing_court ="Central Housing Court - Dudley Session"
-        elif address_to_compare.city.lower() in ['ashburnham', 'athol', 'fitchburg', 'gardner', 'holden', 'hubbardston', 'leominster', 'lunenberg', 'petersham', 'phillipston', 'princeton', 'royalston', 'templeton', 'westminster', 'winchendon']:
+        elif address_to_compare.city.lower() in ['ashburnham', 'athol', 'fitchburg', 'gardner', 'holden', 'hubbardston', 'leominster', 'lunenburg', 'petersham', 'phillipston', 'princeton', 'royalston', 'templeton', 'westminster', 'winchendon']:
             local_housing_court = "Central Housing Court - Leominster Session"
         elif address_to_compare.city.lower() in ['ashland', 'berlin', 'bolton', 'framingham', 'harvard', 'holliston', 'hopkinton', 'hudson', 'marlborough', 'natick', 'northborough', 'sherborn', 'southborough', 'sudbury', 'wayland', 'westborough']:
             local_housing_court = "Central Housing Court - Marlborough Session"
-        elif address_to_compare.city.lower() in ['auburn', 'barre', 'bellingham', 'blackstone', 'boylston', 'brookfield', 'clinton', 'douglas', 'east brookfield', 'grafton', 'hardwick', 'hopedale', 'lancaster', 'leicester', 'mendon', 'milford', 'millbury', 'millville', 'new braintree', 'northbridge', 'north brookfield', 'oakham', 'oxford', 'paxton', 'rutland', 'shrewsbury', 'spencer', 'sterling', 'sutton', 'upton', 'uxbridge', 'warren', 'west boylston', 'worcester']:
+        elif address_to_compare.city.lower() in ['auburn', 'barre', 'bellingham', 'blackstone', 'boylston', 'brookfield', 'clinton', 'douglas', 'east brookfield', 'grafton', 'hardwick', 'hopedale', 'lancaster', 'leicester', 'mendon', 'milford', 'millbury', 'millville', 'new braintree', 'northbridge', 'north brookfield', 'oakham', 'oxford', 'paxton', 'rutland', 'shrewsbury', 'spencer', 'sterling', 'sutton', 'upton', 'uxbridge', 'warren', 'west boylston', 'worcester',"west brookfield","w. brookfield"]:
             local_housing_court = "Central Housing Court - Worcester Session"
         elif address_to_compare.city.lower() in ['abington', 'avon', 'bellingham', 'braintree', 'bridgewater', 'brockton', 'canton', 'cohasset', 'dedham', 'dover', 'east bridgewater', 'eastham', 'foxborough', 'franklin', 'holbrook', 'medfield', 'medway', 'millis', 'milton', 'needham', 'norfolk', 'norwood', 'plainville', 'quincy', 'randolph', 'sharon', 'stoughton', 'walpole', 'wellesley', 'west bridgewater', 'westwood', 'weymouth', 'whitman', 'wrentham']:
             local_housing_court = "Metro South Housing Court - Brockton Session"
@@ -864,19 +880,29 @@ class MACourtList(DAList):
             local_housing_court = "Southeast Housing Court - Fall River Session"
         elif address_to_compare.city.lower() in ['acushnet', 'dartmouth', 'fairhaven', 'freetown', 'new bedford','westport']:
             local_housing_court = "Southeast Housing Court - New Bedford Session"
-        elif address_to_compare.city.lower() in ['aquinnah', 'barnstable', 'bourne', 'brewster', 'carver', 'chatham', 'chilmark', 'dennis', 'duxbury', 'edgartown', 'falmouth', 'halifax', 'hanson', 'harwich', 'kingston', 'lakeville', 'marion', 'marshfield', 'mashpee', 'mattapoisett', 'middleborough', 'nantucket', 'oak bluffs', 'pembroke', 'plymouth', 'plympton', 'provincetown', 'rochester', 'sandwich', 'and wareham.beginning on august 6', 'the plymouth session of the southeast housing court will also serve accord', 'assinippi', 'hanover', 'hingham', 'hull', 'humarock', 'norwell', 'rockland', 'scituate']:
+        # It looks like Southeast - Plymouth covers all of Barnstable county, not just Barnstable itself as well as Dukes County
+        elif address_to_compare.county.lower() in ["barnstable county","dukes county"] or address_to_compare.city.lower() in ['gosnold','aquinnah', 'barnstable', 'bourne', 'brewster', 'carver', 'chatham', 'chilmark', 'dennis', 'duxbury', 'edgartown', 'falmouth', 'halifax', 'hanson', 'harwich', 'kingston', 'lakeville', 'marion', 'marshfield', 'mashpee', 'mattapoisett', 'middleborough', 'nantucket', 'oak bluffs', 'pembroke', 'plymouth', 'plympton', 'provincetown', 'rochester', 'sandwich', 'wareham', 'accord', 'assinippi', 'hanover', 'hingham', 'hull', 'humarock', 'norwell', 'rockland', 'scituate',"tisbury"]:
             local_housing_court = "Southeast Housing Court - Plymouth Session"
         elif address_to_compare.city.lower() in ['attleboro', 'berkley', 'dighton', 'easton', 'mansfield', 'north attleborough', 'norton', 'raynham', 'rehoboth', 'seekonk','taunton']:
             local_housing_court = "Southeast Housing Court - Taunton Session"
         else:
             local_housing_court = ""
+        
+        # Try one time to match the normalized address instead of the 
+        # literal provided address if first match fails
+        if depth==0 and not local_housing_court:
+            return self.matching_housing_court_name(address.norm_long, depth=1)
         return local_housing_court
 
     def matching_bmc(self, address):
-        try:
-            court_name = self.get_boston_ward_number(address)[1] + ' Division, Boston Municipal Court'
-        except:
-            return None
+        if address.city.lower() in ["winthrop"]:
+            # This city is not in Boston but is served by East Boston BMC
+            court_name = "East Boston Division, Boston Municipal Court"
+        else:
+            try:
+                court_name = self.get_boston_ward_number(address)[1] + ' Division, Boston Municipal Court'
+            except:
+                return None
         return next ((court for court in self.elements if court.name.rstrip().lower() == court_name.lower()), None)
 
     def load_boston_wards_from_file(self, json_path, data_path='docassemble.MACourts:data/sources/'):

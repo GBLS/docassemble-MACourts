@@ -1,6 +1,7 @@
 ---
 modules:
-  - docassemble.MACourts.macourts
+  #- docassemble.MACourts.macourts
+  - .macourts
 ---
 objects:
   - macourts: MACourtList.using(courts=['housing_courts','bmc','district_courts','superior_courts','land_court', 'juvenile_courts', 'probate_and_family_courts'])
