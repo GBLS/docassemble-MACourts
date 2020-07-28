@@ -496,14 +496,14 @@
       "longitude": 41.735149
     },
     "address": {
-      "city": "Boston",
+      "city": "Barnstable",
       "zip": "02630",
       "orig_address": "3195 Main Street, Barnstable, MA 02630",
       "county": "barstable",
       "state": "MA",
       "address": "Barnstable, MA"
     },
-    "description": "The barnstable division of the Housing court is located in Barnstable, MA"
+    "description": "The barnstable division of the Housing court is located in Barnstable, MA."
   },
   {
     "fax": "",
@@ -515,7 +515,14 @@
       "latitude": 42.388969,
       "longitude": -71.041077
     },
-    "address": {},
-    "description": ""
+    "address": {
+      "city": "Chelsea",
+      "zip": "02150",
+      "orig_address": "120 Broadway, Chelasea, MA 02150",
+      "county": "Chelsea",
+      "state": "MA",
+      "address": "120 Broadway, Chelsea, MA 02150"
+    },
+    "description": "The Chelsea session of Eastern Housing Court is located in Chelsea District Court and serves Chelsea, Revere, Winthrop and East Boston."
   }
 ]
