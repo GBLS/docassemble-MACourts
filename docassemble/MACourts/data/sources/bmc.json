@@ -1,0 +1,162 @@
+﻿[
+  {
+    "fax": "(617) 254-2127",
+    "court_code": "8",
+    "name": "Brighton Division, Boston Municipal Court",
+    "phone": "(617) 782-6540, Press 5",
+    "has_po_box": false,
+    "location": {
+      "latitude": 42.347226,
+      "longitude": -71.153556
+    },
+    "address": {
+      "city": "Brighton",
+      "zip": "02135",
+      "orig_address": "52 Academy Hill Rd., Brighton, MA 02135",
+      "county": "Suffolk County",
+      "state": "MA",
+      "address": "52 Academy Hill Rd."
+    },
+    "description": "The Brighton division of the BMC serves Allston and Brighton. Please note that as of March 1, the Brighton Division of the Boston Municipal Court has temporarily relocated to Brookline District Court while the Brighton courthouse undergoes renovations. "
+  },
+  {
+    "fax": "(617) 788-8465",
+    "court_code": "1",
+    "name": "Central Division, Boston Municipal Court",
+    "phone": "(617) 788-8600",
+    "has_po_box": false,
+    "location": {
+      "latitude": 42.362961,
+      "longitude": -71.061542
+    },
+    "address": {
+      "city": "Edward W. Brooke Courthouse, Boston",
+      "zip": "02114",
+      "orig_address": "24 New Chardon Street, Edward W. Brooke Courthouse, Boston, MA 02114",
+      "county": "Suffolk County",
+      "state": "MA",
+      "address": "24 New Chardon Street"
+    },
+    "description": "This court serves the Downtown Boston area, Chinatown, North End, South End through Massachusetts Avenue, West End, and Beacon Hill."
+  },
+  {
+    "fax": "(617) 242-1677",
+    "court_code": "4",
+    "name": "Charlestown Division, Boston Municipal Court",
+    "phone": "(617) 242-5400",
+    "has_po_box": false,
+    "location": {
+      "latitude": 42.371823,
+      "longitude": -71.062309
+    },
+    "address": {
+      "city": "Charlestown",
+      "zip": "02129",
+      "orig_address": "3 City Square, Charlestown, MA 02129",
+      "county": "Suffolk County",
+      "state": "MA",
+      "address": "3 City Square"
+    },
+    "description": "The Charlestown Division of the Boston Municipal Court serves Charlestown."
+  },
+  {
+    "fax": "(617) 436-8250 ",
+    "court_code": "7",
+    "name": "Dorchester Division, Boston Municipal Court",
+    "phone": "(617) 288-9500",
+    "has_po_box": false,
+    "location": {
+      "latitude": 42.293957,
+      "longitude": -71.071458
+    },
+    "address": {
+      "city": "Dorchester",
+      "zip": "02124",
+      "orig_address": "510 Washington St., Dorchester, MA 02124",
+      "county": "Suffolk County",
+      "state": "MA",
+      "address": "510 Washington St."
+    },
+    "description": "This court serves Dorchester."
+  },
+  {
+    "fax": "(617) 561-4988 ",
+    "court_code": "5",
+    "name": "East Boston Division, Boston Municipal Court",
+    "phone": "(617) 569-7550",
+    "has_po_box": false,
+    "location": {
+      "latitude": 42.370985,
+      "longitude": -71.038727
+    },
+    "address": {
+      "city": "East Boston",
+      "zip": "02128",
+      "orig_address": "37 Meridian St., East Boston, MA 02128",
+      "county": "Suffolk County",
+      "state": "MA",
+      "address": "37 Meridian St."
+    },
+    "description": "This court serves East Boston, Winthrop, Logan Airport, and the Sumner and Callahan Tunnels."
+  },
+  {
+    "fax": "(617) 541-0286",
+    "court_code": "2",
+    "name": "Roxbury Division, Boston Municipal Court",
+    "phone": "(617) 427-7000",
+    "has_po_box": false,
+    "location": {
+      "latitude": 42.327078,
+      "longitude": -71.083819
+    },
+    "address": {
+      "city": "Roxbury",
+      "zip": "02119",
+      "orig_address": "85 Warren St., Roxbury, MA 02119",
+      "county": "Suffolk County",
+      "state": "MA",
+      "address": "85 Warren St."
+    },
+    "description": "This court serves Roxbury."
+  },
+  {
+    "fax": "(617) 983-0243 ",
+    "court_code": "6",
+    "name": "West Roxbury Division, Boston Municipal Court",
+    "phone": "(617) 971-1200",
+    "has_po_box": false,
+    "location": {
+      "latitude": 42.301266,
+      "longitude": -71.110182
+    },
+    "address": {
+      "city": "Jamaica Plain",
+      "zip": "02130",
+      "orig_address": "445 Arborway, Jamaica Plain, MA 02130",
+      "county": "Suffolk County",
+      "state": "MA",
+      "address": "445 Arborway"
+    },
+    "description": "This court serves Hyde Park, Jamaica Plain, Roslindale, West Roxbury, parts of Mattapan, and parts of Mission Hill."
+  },
+  {
+    "fax": "(617) 268-7321",
+    "court_code": "3",
+    "name": "South Boston Division, Boston Municipal Court",
+    "phone": "(617) 268-9292",
+    "has_po_box": false,
+    "location": {
+      "latitude": 42.335506,
+      "longitude": -71.042683
+    },
+    "address": {
+      "city": "South Boston",
+      "zip": "02127",
+      "orig_address": "535 East Broadway, South Boston, MA 02127",
+      "county": "Suffolk County",
+      "state": "MA",
+      "address": "535 East Broadway"
+    },
+    "description": "This court serves South Boston."
+  }
+]
