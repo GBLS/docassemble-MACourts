@@ -421,12 +421,14 @@ class MACourtList(DAList):
 
         path = path_and_mimetype(os.path.join(data_path,json_path+'.json'))[0]
 
-        with open(path) as courts_json:
+        with open(path,encoding='utf-8-sig') as courts_json:
             courts = json.load(courts_json)
+
 
         for item in courts:
             # translate the dictionary data into an MACourtList
             court = self.appendObject()
+            court.court_code = item.get('court_code')
             court.name = item['name']
             court.department = court_department
             court.division = parse_division_from_name(item['name'])
@@ -918,17 +920,13 @@ class MACourtList(DAList):
         filters a geojson file to only include the ward
         that contains the address, and returns the
         ward number and name of the courthouse.
-
         If the address object doesn't have loaction
         data, it will return an empty string.
-
         If the address location is not in Boston,
         it will return and empty string.
-
         If the address location is in Boston, but
         not within a ward boundary, return the
         closest ward.
-
         Dependencies:
         1.Geopandas for loading the geojson file
         2.Shapely for constructing Point object

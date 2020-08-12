@@ -1,0 +1,34 @@
+---
+modules:
+  - .macourts
+---
+objects:
+  - my_courts: MACourtList
+  - my_address: Address
+---
+mandatory: True
+code: |
+  my_courts
+  listofcourts=[
+  'housing_courts',
+  'bmc',
+  'district_courts',
+  'superior_courts',
+  'land_court',
+  'juvenile_courts',
+  'probate_and_family_courts'
+  ]
+  for court_name in listofcourts:
+    my_courts.load_courts_from_file(court_name,data_path='data/sources/') 
+  
+  show_courts
+---
+event: show_courts
+question: |
+  Courts
+subquestion: |
+  Name | Court_code | Address 
+  -----|------|---------
+  % for court in my_courts:
+  ${court} | ${court.court_code} | ${ court.address.on_one_line() } 
+  % endfor
