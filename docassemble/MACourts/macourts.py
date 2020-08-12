@@ -482,7 +482,7 @@ class MACourtList(DAList):
 	        matches.append("Belchertown Juvenile Court")
         if (address_to_compare.city.lower() in ["chelsea", "revere", "east boston", "winthrop"] or
             (hasattr(address_to_compare,'neighborhood') and ((address_to_compare.city.lower() == "boston") and
-                address_to_compare.neighborhood.lower() in ["central square", "day square", "eagle hill", "maverick square", "orient heights"]))):
+                address_to_compare.neighborhood.lower() in ["east boston","central square", "day square", "eagle hill", "maverick square", "orient heights","jeffries point"]))):
 	        matches.append("Chelsea Juvenile Court")
         if address_to_compare.city.lower() in ["brighton", "charlestown", "roxbury", "south boston", "boston"]:
 	        matches.append("Boston Juvenile Court")
@@ -844,7 +844,11 @@ class MACourtList(DAList):
         address_to_compare = address # don't normalize -- this screws up some addresses in small towns
         if (not hasattr(address_to_compare, 'county')) or (address_to_compare.county.lower().strip() == ''):
             return ''
-        if (address_to_compare.county.lower() == "suffolk county") or (address_to_compare.city.lower() in ["brookline"]):
+        if ((address_to_compare.city.lower()) in ['chelsea','revere','winthrop', 'east boston','e. boston'] or
+            (hasattr(address_to_compare,'neighborhood') and ((address_to_compare.city.lower() == "boston") and
+                address_to_compare.neighborhood.lower() in ["east boston","central square", "day square", "eagle hill", "maverick square", "orient heights","jeffries point"]))):
+            local_housing_court = "Eastern Housing Court - Chelsea Session"
+        elif (address_to_compare.county.lower() == "suffolk county") or (address_to_compare.city.lower() in ["brookline"]):
             local_housing_court = "Eastern Housing Court"
         elif address_to_compare.city.lower() in ["arlington","belmont","cambridge","medford","newton","somerville"]:
             local_housing_court = "Eastern Housing Court - Middlesex Session"
