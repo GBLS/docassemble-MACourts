@@ -403,7 +403,7 @@
   },
   {
     "fax": "(978) 283-8784",
-    "court_code": NaN,
+    "court_code": "39",
     "name": "Gloucester District Court",
     "phone": "(978) 283-2620",
     "has_po_box": false,
@@ -624,7 +624,7 @@
   },
   {
     "fax": "(508) 485-1575",
-    "court_code": NaN,
+    "court_code": "21",
     "name": "Marlborough District Court",
     "phone": "(508) 485-3700",
     "has_po_box": false,
