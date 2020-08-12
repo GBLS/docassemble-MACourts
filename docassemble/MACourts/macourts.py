@@ -134,50 +134,50 @@ def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=Tr
 
         courts.append(court)
 
-    if shim_ehc_middlesex and url == 'https://www.mass.gov/orgs/housing-court/locations':
-        court = {
-            'name': "Eastern Housing Court - Middlesex Session",
-            'description': "The Middlesex Session of the Eastern Housing Court serves Arlington, Belmont, and Cambridge, Medford and Somerville",
-            'has_po_box' : False,
-            'phone': "(781) 306-2715",
-            'fax':"",
-            'address': {
-                'city': "Medford",
-                'address': "4040 Mystic Valley Parkway",
-                'state': "MA",
-                'zip': "02155",
-                'county': "Middlesex County",
-                'orig_address':  "4040 Mystic Valley Parkway, Medford, MA 02155"
-            },
-            'location': {
-                'latitude': 42.4048336,
-                'longitude': -71.0893853
-            }
-        }
-        courts.append(court)
-
-    if shim_nhc_woburn and url == 'https://www.mass.gov/orgs/housing-court/locations':
-        court = {
-            'name': "Northeast Housing Court - Woburn Session",
-            'description': "The Woburn session of the Northeast Housing Court serves Bedford, Burlington, Concord, Everett,Lexington, Lincoln, Malden, Melrose, North Reading, Reading, Stoneham, Wakefield, Waltham, Watertown, Weston, Wilmington, Winchester, and Woburn.",
-            'has_po_box' : False,
-            'phone': "(978) 689-7833",
-            'fax':"",
-            'address': {
-                'city': "Woburn",
-                'address': "200 Trade Center",
-                'unit': "Courtroom 540 - 5th Floor",
-                'state': "MA",
-                'zip': "01801",
-                'county': "Middlesex County",
-                'orig_address':  "200 Trade Center, Courtroom 540 - 5th Floor, Woburn, MA 01801"
-            },
-            'location': {
-                'latitude': 42.500543,
-                'longitude': -71.1656604
-            }
-        }
-        courts.append(court)
+    # if shim_ehc_middlesex and url == 'https://www.mass.gov/orgs/housing-court/locations':
+    #     court = {
+    #         'name': "Eastern Housing Court - Middlesex Session",
+    #         'description': "The Middlesex Session of the Eastern Housing Court serves Arlington, Belmont, and Cambridge, Medford and Somerville",
+    #         'has_po_box' : False,
+    #         'phone': "(781) 306-2715",
+    #         'fax':"",
+    #         'address': {
+    #             'city': "Medford",
+    #             'address': "4040 Mystic Valley Parkway",
+    #             'state': "MA",
+    #             'zip': "02155",
+    #             'county': "Middlesex County",
+    #             'orig_address':  "4040 Mystic Valley Parkway, Medford, MA 02155"
+    #         },
+    #         'location': {
+    #             'latitude': 42.4048336,
+    #             'longitude': -71.0893853
+    #         }
+    #     }
+    #     courts.append(court)
+# 
+    # if shim_nhc_woburn and url == 'https://www.mass.gov/orgs/housing-court/locations':
+    #     court = {
+    #         'name': "Northeast Housing Court - Woburn Session",
+    #         'description': "The Woburn session of the Northeast Housing Court serves Bedford, Burlington, Concord, Everett,Lexington, Lincoln, Malden, Melrose, North Reading, Reading, Stoneham, Wakefield, Waltham, Watertown, Weston, Wilmington, Winchester, and Woburn.",
+    #         'has_po_box' : False,
+    #         'phone': "(978) 689-7833",
+    #         'fax':"",
+    #         'address': {
+    #             'city': "Woburn",
+    #             'address': "200 Trade Center",
+    #             'unit': "Courtroom 540 - 5th Floor",
+    #             'state': "MA",
+    #             'zip': "01801",
+    #             'county': "Middlesex County",
+    #             'orig_address':  "200 Trade Center, Courtroom 540 - 5th Floor, Woburn, MA 01801"
+    #         },
+    #         'location': {
+    #             'latitude': 42.500543,
+    #             'longitude': -71.1656604
+    #         }
+    #     }
+    #     courts.append(court)
 
     courts.sort(key=lambda k: k['name']) # We want to sort within category of court
 
