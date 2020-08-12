@@ -398,7 +398,7 @@ class MACourtList(DAList):
             court.address.county = item['address']['county']
             court.address.orig_address = item['address'].get('orig_address')
 
-    def load_courts_from_file(self, court_name, data_path='data/sources/'):
+    def load_courts_from_file(self, court_name, data_path='docassemble.MACourts:data/sources/'):
         """Add the list of courts at the specified JSON file into the current list"""
 
         json_path = court_name
