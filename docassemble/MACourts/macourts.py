@@ -264,11 +264,13 @@ class MACourtList(DAList):
         self.auto_gather = False
         self.gathered = True
         self.object_type = MACourt
+        if not hasattr(self, 'data_path'):
+            self.data_path = 'docassemble.MACourts:data/sources/' # use the system-wide installed version of the JSON files
         if hasattr(self,'courts'):
             if isinstance(self.courts, Iterable):
-                self.load_courts(courts=self.courts)
+                self.load_courts(courts=self.courts,data_path=self.data_path)
             elif self.courts is True:
-                self.load_courts()
+                self.load_courts(data_path=self.data_path)
 
     def filter_courts(self, court_types):
         """Return the list of courts matching the specified department(s). E.g., Housing Court. court_types may be list or single court department."""
@@ -886,8 +888,10 @@ class MACourtList(DAList):
             local_housing_court = "Southeast Housing Court - Fall River Session"
         elif address_to_compare.city.lower() in ['acushnet', 'dartmouth', 'fairhaven', 'freetown', 'new bedford','westport']:
             local_housing_court = "Southeast Housing Court - New Bedford Session"
-        # It looks like Southeast - Plymouth covers all of Barnstable county, not just Barnstable itself as well as Dukes County
-        elif address_to_compare.county.lower() in ["barnstable county","dukes county"] or address_to_compare.city.lower() in ['gosnold','aquinnah', 'barnstable', 'bourne', 'brewster', 'carver', 'chatham', 'chilmark', 'dennis', 'duxbury', 'edgartown', 'falmouth', 'halifax', 'hanson', 'harwich', 'kingston', 'lakeville', 'marion', 'marshfield', 'mashpee', 'mattapoisett', 'middleborough', 'nantucket', 'oak bluffs', 'pembroke', 'plymouth', 'plympton', 'provincetown', 'rochester', 'sandwich', 'wareham', 'accord', 'assinippi', 'hanover', 'hingham', 'hull', 'humarock', 'norwell', 'rockland', 'scituate',"tisbury"]:
+        elif address_to_compare.county.lower() in ["barnstable county", "dukes county","nantucket county"]:
+            local_housing_court = "Southeast Housing Court - Barnstable session"
+        # List below is too inclusive but because statements are evaluated in order, no need to change it right now
+        elif address_to_compare.city.lower() in ['gosnold','aquinnah', 'barnstable', 'bourne', 'brewster', 'carver', 'chatham', 'chilmark', 'dennis', 'duxbury', 'edgartown', 'falmouth', 'halifax', 'hanson', 'harwich', 'kingston', 'lakeville', 'marion', 'marshfield', 'mashpee', 'mattapoisett', 'middleborough', 'nantucket', 'oak bluffs', 'pembroke', 'plymouth', 'plympton', 'provincetown', 'rochester', 'sandwich', 'wareham', 'accord', 'assinippi', 'hanover', 'hingham', 'hull', 'humarock', 'norwell', 'rockland', 'scituate',"tisbury"]:
             local_housing_court = "Southeast Housing Court - Plymouth Session"
         elif address_to_compare.city.lower() in ['attleboro', 'berkley', 'dighton', 'easton', 'mansfield', 'north attleborough', 'norton', 'raynham', 'rehoboth', 'seekonk','taunton']:
             local_housing_court = "Southeast Housing Court - Taunton Session"

@@ -492,18 +492,18 @@
     "phone": "(508)375-6967",
     "has_po_box": true,
     "location": {
-      "latitude": 41.735149,
-      "longitude": 41.735149
+      "latitude": 41.700346,
+      "longitude": -70.304021
     },
     "address": {
       "city": "Barnstable",
       "zip": "02630",
       "orig_address": "3195 Main Street, Barnstable, MA 02630",
-      "county": "barstable",
+      "county": "Barnstable County",
       "state": "MA",
-      "address": "Barnstable, MA"
+      "address": "3195 Main Street"
     },
-    "description": "The barnstable division of the Housing court is located in Barnstable, MA."
+    "description": "The Barnstable session of the Southeast Housing court is located in Barnstable, MA and serves Barnstable, Nantucket, and Dukes counties."
   },
   {
     "fax": "",

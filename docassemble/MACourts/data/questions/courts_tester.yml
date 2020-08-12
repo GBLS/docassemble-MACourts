@@ -4,7 +4,7 @@ modules:
   - .macourts
 ---
 objects:
-  - macourts: MACourtList.using(courts=['housing_courts','bmc','district_courts','superior_courts','land_court', 'juvenile_courts', 'probate_and_family_courts'])
+  - macourts: MACourtList.using(courts=['housing_courts','bmc','district_courts','superior_courts','land_court', 'juvenile_courts', 'probate_and_family_courts'],data_path='data/sources/')
   - address: Address
   - addresses: DAList.using(object_type=Address, there_are_any=True)
 ---
