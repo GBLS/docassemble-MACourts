@@ -428,7 +428,7 @@ class MACourtList(DAList):
         for item in courts:
             # translate the dictionary data into an MACourtList
             court = self.appendObject()
-            court.court_code = item['court_code']
+            court.court_code = item.get('court_code')
             court.name = item['name']
             court.department = court_department
             court.division = parse_division_from_name(item['name'])
