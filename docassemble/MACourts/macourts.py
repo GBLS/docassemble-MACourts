@@ -423,7 +423,8 @@ class MACourtList(DAList):
 
         path = path_and_mimetype(os.path.join(data_path,json_path+'.json'))[0]
 
-        with open(path,encoding='utf-8-sig') as courts_json:
+        # Byte-order-marker is not allowed in JSON spec
+        with open(path) as courts_json:
             courts = json.load(courts_json)
 
 
