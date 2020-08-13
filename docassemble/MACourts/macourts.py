@@ -256,6 +256,27 @@ class MACourt(Court):
         if hasattr(self, 'icon'):
             result['icon'] = self.icon
         return [result]
+      
+    def short_label(self):
+      """
+      Returns a string that represents a nice, disambiguated label for the court.
+      This may not match the court's name. If the name omits city, we
+      append city name to the court name. This is good for a drop-down selection
+      list.
+      """
+      if self.address.city in str(self.name):
+        return str(self.name)
+      else:
+        return str(self.name) + ' (' + self.address.city + ')'
+    
+    def short_description(self):
+      """
+      Returns a Markdown formatted string that includes the disambiguated name and 
+      the description of the court, for inclusion in the results page with radio
+      buttons.
+      """
+      return '**' + self.short_label() + '**' + '[BR]' + self.address.on_one_line() + '[BR]' + self.description
+      
 
 class MACourtList(DAList):
     """Represents a list of courts in Massachusetts. Package includes a cached list that is scraped from mass.gov"""
