@@ -976,7 +976,7 @@ class MACourtList(DAList):
             return '',''
 
         #if location is in Boston, lookup ward
-        elif address.norm.city == 'Boston':
+        elif address.norm.city.lower() in ['Boston','East Boston','Charlestown']:
             #assign point object
             p1 = Point(address.location.longitude, address.location.latitude)
 
