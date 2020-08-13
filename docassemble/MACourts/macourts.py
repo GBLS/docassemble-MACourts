@@ -286,6 +286,12 @@ class MACourtList(DAList):
         if isinstance(address, Iterable):
             courts = set()
             for add in address:
+                try:
+                    # It's helpful to normalize the address, but it's OK if 
+                    # geolocation fails
+                    add.geolocate()
+                except:
+                    pass
                 res = self.matching_courts_single_address(add, court_types)
                 if isinstance(res, Iterable):
                     courts.update(res)

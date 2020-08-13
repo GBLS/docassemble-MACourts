@@ -14,7 +14,7 @@ features:
 mandatory: True
 code: |
   addresses.gather()
-  geocoded_addresses
+  # geocoded_addresses
   court_choice
   your_choice
 ---
