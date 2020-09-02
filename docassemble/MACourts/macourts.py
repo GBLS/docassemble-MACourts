@@ -302,6 +302,13 @@ class MACourtList(DAList):
         else:
             return None
 
+    def get_court_by_code(self, court_code):
+        """Return a court that has the matching court_code"""
+        if isinstance(court_code, str):
+            return (self.filter(court_code=court_code))[0]
+        else:
+            return None
+
     def matching_courts(self, address, court_types=None):
         """Return a list of courts serving the specified address(es). Optionally limit to one or more types of courts"""
         if isinstance(address, Iterable):
