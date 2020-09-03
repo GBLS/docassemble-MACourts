@@ -1,0 +1,28 @@
+---
+modules:
+  - .macourts
+---
+objects:
+  - macourts: MACourtList.using(courts=['housing_courts','bmc','district_courts','superior_courts','land_court', 'juvenile_courts', 'probate_and_family_courts'])
+---
+mandatory: True
+code: |
+  court_code
+  results
+---
+question: |
+  Court code
+subquestion: |
+  For example, "8" should get "Brighton Division, Boston Municipal Court".
+fields:
+  - Court code: court_code
+---
+event: results
+question: |
+  Court
+subquestion: |
+  Remember, "8" should get "Brighton Division, Boston Municipal Court".
+  
+  You gave the court code "${ court_code }"[BR]
+  The court we found was ${ (macourts.get_court_by_code(court_code)) }
+  
