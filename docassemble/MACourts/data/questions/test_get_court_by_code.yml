@@ -24,5 +24,5 @@ subquestion: |
   Remember, "8" should get "Brighton Division, Boston Municipal Court".
   
   You gave the court code "${ court_code }"[BR]
-  The court we found was ${ (macourts.get_court_by_code(court_code)).name }
+  The court we found was ${ (macourts.get_court_by_code(court_code)) }
   
