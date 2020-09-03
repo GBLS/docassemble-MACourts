@@ -305,7 +305,7 @@ class MACourtList(DAList):
     def get_court_by_code(self, court_code):
         """Return a court that has the matching court_code"""
         if isinstance(court_code, str):
-            return (self.filter(court_code=court_code))[0]
+            return next((court for court in self if court.court_code == court_code), None)
         else:
             return None
 
