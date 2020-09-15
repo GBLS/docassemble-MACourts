@@ -61,7 +61,7 @@
   },
   {
     "fax": "(617) 788-8991",
-    "court_code": 71,
+    "court_code": "71",
     "name": "Boston Juvenile Court",
     "phone": "(617) 788-8525",
     "has_po_box": true,

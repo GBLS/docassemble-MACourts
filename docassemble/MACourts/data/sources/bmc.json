@@ -1,7 +1,7 @@
 [
   {
     "fax": "(617) 254-2127",
-    "court_code": "8",
+    "court_code": "08",
     "name": "Brighton Division, Boston Municipal Court",
     "phone": "(617) 782-6540, Press 5",
     "has_po_box": false,
@@ -21,7 +21,7 @@
   },
   {
     "fax": "(617) 788-8465",
-    "court_code": "1",
+    "court_code": "01",
     "name": "Central Division, Boston Municipal Court",
     "phone": "(617) 788-8600",
     "has_po_box": false,
@@ -41,7 +41,7 @@
   },
   {
     "fax": "(617) 242-1677",
-    "court_code": "4",
+    "court_code": "04",
     "name": "Charlestown Division, Boston Municipal Court",
     "phone": "(617) 242-5400",
     "has_po_box": false,
@@ -61,7 +61,7 @@
   },
   {
     "fax": "(617) 436-8250 ",
-    "court_code": "7",
+    "court_code": "07",
     "name": "Dorchester Division, Boston Municipal Court",
     "phone": "(617) 288-9500",
     "has_po_box": false,
@@ -81,7 +81,7 @@
   },
   {
     "fax": "(617) 561-4988 ",
-    "court_code": "5",
+    "court_code": "05",
     "name": "East Boston Division, Boston Municipal Court",
     "phone": "(617) 569-7550",
     "has_po_box": false,
@@ -101,7 +101,7 @@
   },
   {
     "fax": "(617) 541-0286",
-    "court_code": "2",
+    "court_code": "02",
     "name": "Roxbury Division, Boston Municipal Court",
     "phone": "(617) 427-7000",
     "has_po_box": false,
@@ -121,7 +121,7 @@
   },
   {
     "fax": "(617) 983-0243 ",
-    "court_code": "6",
+    "court_code": "06",
     "name": "West Roxbury Division, Boston Municipal Court",
     "phone": "(617) 971-1200",
     "has_po_box": false,
@@ -141,7 +141,7 @@
   },
   {
     "fax": "(617) 268-7321",
-    "court_code": "3",
+    "court_code": "03",
     "name": "South Boston Division, Boston Municipal Court",
     "phone": "(617) 268-9292",
     "has_po_box": false,
