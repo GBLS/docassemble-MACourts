@@ -96,7 +96,7 @@
       "state": "MA",
       "address": "24 New Chardon St."
     },
-    "description": "The Eastern Division of the Housing Court serves Arlington, Belmont, Boston, Brookline, Cambridge, Chelsea, Medford, Newton, Revere, Somerville and Winthrop. \r\n\r\nEastern Division - Middlesex Session - Cambridge District Court in Medford\r\nFridays is the regular weekly sitting\r\nThis sitting will serve Cambridge, Arlington, Belmont, Somerville, and Medford.",
+    "description": "The Eastern Division of the Housing Court serves Boston, Brookline and Newton.",
     "court_code": "H84"
   },
   {
@@ -116,7 +116,7 @@
       "state": "MA",
       "address": "4040 Mystic Valley Parkway"
     },
-    "description": "The Middlesex Session of the Eastern Housing Court serves Arlington, Belmont, and Cambridge, Medford and Somerville",
+    "description": "The Middlesex Session of the Eastern Housing Court serves Arlington, Belmont, and Cambridge, Medford, Newton and Somerville",
     "court_code": "H84"
   },
   {
@@ -137,7 +137,7 @@
       "address": "215 Main St.",
       "unit": "Suite 160"
     },
-    "description": "The Metro South Housing Court - Brockton Session serves Abington, Avon, Bellingham, Braintree, Bridgewater, Brockton, Canton, Cohasset, Dedham, Dover, East Bridgewater, Eastham, Foxborough, Franklin, Holbrook, Medfield, Medway, Millis, Milton, Needham, Norfolk, Norwood, Plainville, Quincy, Randolph, Sharon, Stoughton, Walpole, Wellesley, West Bridgewater, Westwood, Weymouth, Whitman, and Wrentham.\r\n\r\nBeginning on August 6, the Metro South Housing Court - Brockton Session will no longer serve Accord, Assinippi, Hanover, Hingham, Hull, Humarock, Norwell, Rockland, and Scituate for summary process cases and all other civil and criminal cases.",
+    "description": "The Metro South Housing Court - Brockton Session serves Abington, Avon, Bellingham, Braintree, Bridgewater, Brockton, Canton, Cohasset, Dedham, Dover, East Bridgewater, Eastham, Foxborough, Franklin, Holbrook, Medfield, Medway, Millis, Milton, Needham, Norfolk, Norwood, Plainville, Quincy, Randolph, Sharon, Stoughton, Walpole, Wellesley, West Bridgewater, Westwood, Weymouth, Whitman, and Wrentham.",
     "court_code": "H82"
   },
   {
@@ -319,7 +319,7 @@
       "state": "MA",
       "address": "52 Obery St."
     },
-    "description": "The Plymouth session of the Southeast Housing Court serves Aquinnah, Barnstable, Bourne, Brewster, Carver, Chatham, Chilmark, Dennis, Duxbury, Edgartown, Falmouth, Halifax, Hanson, Harwich, Kingston, Lakeville, Marion, Marshfield, Mashpee, Mattapoisett, Middleborough, Nantucket, Oak Bluffs, Pembroke, Plymouth, Plympton, Provincetown, Rochester, Sandwich, and Wareham.\r\n\r\nBeginning on August 6, the Plymouth session of the Southeast Housing Court will also serve Accord, Assinippi, Hanover, Hingham, Hull, Humarock, Norwell, Rockland, and Scituate for summary process cases and all other civil and criminal cases. ",
+    "description": "The Plymouth session of the Southeast Housing Court serves Accord, Aquinnah, Assinippi, Barnstable, Bourne, Brewster, Carver, Chatham, Chilmark, Dennis, Duxbury, Edgartown, Falmouth, Halifax, Hanover, Hanson, Harwich, Hingham, Hull, Humarock, Kingston, Lakeville, Marion, Marshfield, Mashpee, Mattapoisett, Middleborough, Nantucket, Norwell, Oak Bluffs, Pembroke, Plymouth, Plympton, Provincetown, Rochester, Rockland, Sandwich, Scituate, and Wareham.",
     "court_code": "H83"
   },
   {
