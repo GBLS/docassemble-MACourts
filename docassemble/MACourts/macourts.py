@@ -269,6 +269,13 @@ class MACourt(Court):
       else:
         return str(self.name) + ' (' + self.address.city + ')'
     
+    def short_label_and_address(self):
+      """
+      Returns a markdown formatted string with the name and address of the court.
+      More concise version without description; suitable for a responsive case.
+      """
+      return '**' + self.short_label() + '**' + '[BR]' + self.address.on_one_line()
+    
     def short_description(self):
       """
       Returns a Markdown formatted string that includes the disambiguated name and 
