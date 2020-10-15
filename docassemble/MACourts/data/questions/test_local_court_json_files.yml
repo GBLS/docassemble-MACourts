@@ -13,7 +13,7 @@ code: |
   show_courts
 ---
 code: |
-  my_courts.load_courts(['housing_courts','bmc','district_courts','superior_courts','land_court','juvenile_courts','probate_and_family_courts'],data_path='data/sources/') 
+  my_courts.load_courts(['housing_courts','bmc','district_courts','superior_courts','land_court','juvenile_courts','probate_and_family_courts','appeals_court'],data_path='data/sources/') 
   
   load_courts = True
 ---
@@ -21,8 +21,13 @@ event: show_courts
 question: |
   Courts
 subquestion: |
+  ${ my_courts.matching_appeals_court(my_address) }
+  
+  ${ my_courts.filter_courts('Appeals Court') }
+
   Name | Code | Address | Description
   -----|------|---------|-------------
   % for court in my_courts:
   ${court} | ${court.court_code} | ${ court.address.on_one_line() } | ${single_paragraph(court.description)}
   % endfor
+  

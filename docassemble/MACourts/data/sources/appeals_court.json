@@ -1,0 +1,21 @@
+[
+  {
+    "fax": "",
+    "name": "Massachusetts Appeals Court",
+    "phone": "(617) 921-4443",
+    "has_po_box": false,
+    "location": {
+      "latitude": 42.3592187,
+      "longitude": -71.063317
+    },
+    "address": {
+      "city": "Boston",
+      "zip": "02108",
+      "orig_address": "1 Pemberton Square, Room 1200, Boston, MA 02108",
+      "county": "Suffolk County",
+      "state": "MA",
+      "address": "1 Pemberton Square"
+    },
+    "description": "The Massachusetts Appeals Court serves the entire Commonwealth of Massachusetts. The Appeals Court reviews decisions from the 7 trial court departments as well as three State agencies: the Appellate Tax Board, the Industrial Accident Board and the Commonwealth Employment Relations Board."
+  }
+] 

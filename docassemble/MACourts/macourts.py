@@ -352,6 +352,7 @@ class MACourtList(DAList):
             'Land Court': self.matching_land_court,
             'Probate and Family Court': self.matching_probate_and_family_court,
             'Superior Court': self.matching_superior_court,
+            'Appeals Court': self.matching_appeals_court,
         }
 
         if isinstance(court_types, str):
@@ -381,7 +382,7 @@ class MACourtList(DAList):
 
     def load_courts(self, courts=['housing_courts','bmc','district_courts','superior_courts'], data_path='docassemble.MACourts:data/sources/'):
         """Load a set of courts into the MACourtList. Courts should be a list of names of JSON files in the data/sources directory.
-        Will fall back on loading courts directly from MassGov if the cached file doesn't exist. Available courts: district_courts, housing_courts,bmc,superior_courts,land_court,juvenile_courts,probate_and_family_courts"""
+        Will fall back on loading courts directly from MassGov if the cached file doesn't exist. Available courts: district_courts, housing_courts,bmc,superior_courts,land_court,juvenile_courts,probate_and_family_courts,appeals_court"""
         try:
             for court in courts:
                 self.load_courts_from_file(court, data_path=data_path)
@@ -421,6 +422,8 @@ class MACourtList(DAList):
             court_department = 'Land Court'
         elif court_name == 'probate_and_family_courts':
             court_department = 'Probate and Family Court'
+        elif court_name == "appeals_court":
+            court_department = "Appeals Court"
 
         for item in courts:
             # translate the dictionary data into an MACourt
@@ -462,6 +465,8 @@ class MACourtList(DAList):
             court_department = 'Land Court'
         elif court_name == 'probate_and_family_courts':
             court_department = 'Probate and Family Court'
+        elif court_name == "appeals_court":
+            court_department = "Appeals Court"            
 
         path = path_and_mimetype(os.path.join(data_path,json_path+'.json'))[0]
 
@@ -719,7 +724,11 @@ class MACourtList(DAList):
     def matching_land_court(self, address):
         """There's currently only one Land Court"""
         return next((court for court in self.elements if court.name.rstrip().lower() == 'land court'),None)
-
+      
+    def matching_appeals_court(self, address):
+        """One appeals court"""
+        return next((court for court in self.elements if court.name.rstrip().lower() == 'massachusetts appeals court'),None)
+      
     def matching_district_court(self, address):
         """Return list of MACourts representing the District Court(s) serving the given address"""
         court_name = self.matching_district_court_name(address)
