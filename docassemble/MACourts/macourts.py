@@ -356,15 +356,21 @@ class MACourtList(DAList):
         }
 
         if isinstance(court_types, str):
+          if court_types in court_type_map:
             return court_type_map[court_types](address)
+          else:
+            return []
         elif isinstance(court_types, Iterable):
             matches = set()
             for court_type in court_types:
+              if court_type in court_type_map:
                 res =  court_type_map[court_type](address)
                 if isinstance(res, Iterable):
                     matches.update(res)
                 elif not res is None:
                     matches.add(res)
+              else:
+                return []
             return list(matches)
         else:
             raise Exception("NotAList")
