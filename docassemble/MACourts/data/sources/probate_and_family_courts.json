@@ -182,24 +182,44 @@
     "description": "This court serves all the cities and towns in Hampshire County."
   },
   {
-    "fax": "",
+    "fax": "(781) 528-2318",
     "court_code": "P81",
-    "name": "Middlesex Probate and Family Court",
-    "phone": "(617) 768-5800",
+    "name": "Middlesex Probate and Family Court - South",
+    "phone": "(781) 865-4000,
     "has_po_box": false,
     "location": {
-      "latitude": 42.37061,
-      "longitude": -71.079311
+      "latitude": 42.5071816,
+      "longitude": -71.1373164
     },
     "address": {
-      "city": "Cambridge",
-      "zip": "02141",
-      "orig_address": "208 Cambridge Street, Cambridge, MA 02141",
+      "city": "Woburn", 
+      "zip": "01801",
+      "orig_address": "10-U Commerce Way, Woburn, MA 01801",
       "county": "Middlesex County",
       "state": "MA",
-      "address": "208 Cambridge Street"
+      "address": "10-U Commerce Way"
     },
-    "description": "This court serves all cities and towns in Middlesex County."
+    "description": "This court serves cities and towns in Southern Middlesex County."
+  },
+    {
+    "fax": "(978) 619-1014",
+    "court_code": "P81",
+    "name": "Middlesex Probate and Family Court - North",
+    "phone": "(978) 656-7700",
+    "has_po_box": false,
+    "location": {
+      "latitude": 42.6402928,
+      "longitude": -71.3173562
+    },
+    "address": {
+      "city": "Lowell", 
+      "zip": "01852",
+      "orig_address": "370 Jackson Street, 5th floor, Lowell, MA 01852",
+      "county": "Middlesex County",
+      "state": "MA",
+      "address": "370 Jackson Street, 5th floor"
+    },
+    "description": "This court serves all cities and towns in Northern Middlesex County."
   },
   {
     "fax": "(508) 228-3662",
