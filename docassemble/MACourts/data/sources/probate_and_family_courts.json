@@ -121,6 +121,27 @@
     "description": "This court serves all cities and towns in Essex County. "
   },
   {
+    "fax": "",
+    "court_code": "P77",
+    "name": "Lawrence Probate and Family Court",
+    "phone": "(978) 686-9692",
+    "has_po_box": false,
+    "location": {
+      "latitude": 42.7066798,
+      "longitude": -71.1625435
+    },
+    "address": {
+      "city": "Lawrence",
+      "zip": "01840",
+      "orig_address": "2 Appleton St., Lawrence, MA 01840 ",
+      "county": "Essex County",
+      "state": "MA",
+      "address": "2 Appleton St."
+    },
+    "description": "This court serves all cities and towns in Essex County. "
+  },
+  
+  {
     "fax": "(413) 774-3829",
     "court_code": "P78",
     "name": "Franklin Probate and Family Court",
