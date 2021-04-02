@@ -655,7 +655,7 @@ class MACourtList(DAList):
             matches.append("Hampshire Probate and Family Court")
         if (address_to_compare.county.lower() == "middlesex county") and (address_to_compare.city.lower() in ["arlington","belmont","cambridge","everett","lexington","malden","medford","melrose","newton","somerville","stoneham","wakefield","waltham","watertown","weston","winchester","woburn"]):
             matches.append("Middlesex Probate and Family Court - South")
-        if (address_to_compare.county.lower() == "middlesex county") or (address_to_compare.city.lower() in ["acton","ashby","ashland","ayer","bedford","billerica","boxborough","burlington","carlisle","chelmsford","concord","dracut","dunstable","framingham","groton","holliston","hopkinton","hudson","lincoln","littleton","lowell","marlborough","maynard","natick","northreading","pepperrell","reading","sherborn","shirley","stow","sudbury","tewksbury","townsend","tyngsborough","wayland","westford","wilmington"]):
+        if (address_to_compare.county.lower() == "middlesex county") and (address_to_compare.city.lower() in ["acton","ashby","ashland","ayer","bedford","billerica","boxborough","burlington","carlisle","chelmsford","concord","dracut","dunstable","framingham","groton","holliston","hopkinton","hudson","lincoln","littleton","lowell","marlborough","maynard","natick","northreading","pepperrell","reading","sherborn","shirley","stow","sudbury","tewksbury","townsend","tyngsborough","wayland","westford","wilmington"]):
             matches.append("Middlesex Probate and Family Court - North")	
         if (address_to_compare.county.lower() == "nantucket county") or (address_to_compare.city.lower() in ["nantucket"]):
             matches.append("Nantucket Probate and Family Court")
