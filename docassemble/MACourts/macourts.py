@@ -246,6 +246,10 @@ class MACourt(Court):
         if 'location' not in kwargs:
             self.initializeAttribute('location', LatitudeLongitude)
 
+    @property
+    def phone_number(self):
+      return getattr(self, 'phone')
+    
     def __str__(self):
         return str(self.name)
       
