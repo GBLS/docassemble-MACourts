@@ -43,7 +43,7 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
     return out
 
 setup(name='docassemble.MACourts',
-      version='0.0.57',
+      version='0.0.58',
       description=('List Massachusetts Courts in Docassemble'),
       long_description='A utility package that includes JSON files representing all of the courts in Massachusetts.\r\n\r\nCourts automatically scraped from Mass.gov and geocoded with Google Maps.\r\n\r\nIf the court has a PO box, the PO box will be available in court.address.orig_address',
       long_description_content_type='text/markdown',
@@ -53,7 +53,7 @@ setup(name='docassemble.MACourts',
       url='https://docassemble.org',
       packages=find_packages(),
       namespace_packages=['docassemble'],
-      install_requires=['Shapely>=1.0.15', 'geopandas>=0.1.0.dev-120828c', 'usaddress>=0.5.10', 'uszipcode>=0.2.4'],
+      install_requires=['Shapely>=1.0.15', 'geopandas>=0.1.0.dev-120828c', 'usaddress>=0.5.10'],
       zip_safe=False,
       package_data=find_package_data(where='docassemble/MACourts/', package='docassemble.MACourts'),
      )
