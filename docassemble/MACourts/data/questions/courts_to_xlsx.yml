@@ -1,0 +1,31 @@
+---
+modules:
+  - docassemble.MACourts.macourts
+---
+objects:
+  - my_courts: MACourtList.using(courts=True)
+  - xlsx_output: DAFile.using(filename="courts.xlsx")
+---
+mandatory: True
+question: |
+  ${ court_table }
+  
+  [Download XLSX](  ${ court_table.export('courts.xlsx', title='Courts').url_for() })
+---
+table: court_table
+rows: my_courts
+columns:
+  - Code: |
+      row_item.court_code
+  - Name: |
+      row_item.name
+  - Department: |
+      row_item.department
+  - Division: |
+      row_item.division
+  - has_po_box: |
+      row_item.has_po_box
+  - Address: |
+      row_item.address.on_one_line()
+  - Original address: |
+      row_item.address.orig_address      
