@@ -334,6 +334,7 @@ class MACourtList(DAList):
                     pass
                 res = self.matching_courts_single_address(add, court_types)
                 if isinstance(res, Iterable):
+                    res = filter(lambda el: el is not None, res)
                     courts.update(res)
                 elif not res is None:
                     courts.add(res)
@@ -370,6 +371,7 @@ class MACourtList(DAList):
               if court_type in court_type_map:
                 res =  court_type_map[court_type](address)
                 if isinstance(res, Iterable):
+                    res = filter(lambda el: el is not None, res)
                     matches.update(res)
                 elif not res is None:
                     matches.add(res)
