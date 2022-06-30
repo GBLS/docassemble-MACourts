@@ -1,7 +1,8 @@
 from docassemble.base.core import DAObject, DAList
 from docassemble.base.util import path_and_mimetype, Address, LatitudeLongitude, prevent_dependency_satisfaction
 from docassemble.base.legal import Court
-import io, json, re, os
+import io, json, re, os, time
+from typing import Optional
 from docassemble.webapp.playground import PlaygroundSection
 from collections.abc import Iterable
 import copy
@@ -1043,6 +1044,190 @@ class MACourtList(DAList):
         #if location in not in Boston, return empty string
         else:
             return '',''
+
+    ####################################
+    ## Docket number parser (i.e. smart docket tool)
+
+    _find_court_code_re = re.compile(r'(?<=^\d{2})(\d{2}|H\d{2})(?!-)|^[A-Z]{2}'
+                                    r'(?=\d{2})', re.I)
+
+    _find_case_type_code_re = re.compile(r'(?<!^)[A-Z]{2,4}(?!-)', re.I)
+
+
+    _court_case_type_code_dict = {
+        'AC' : 'Application for Criminal Complaint',
+        'AD' : 'Appeal',
+        'BP' : 'Bail Petition',
+        'CI' : 'Civil Infraction',
+        'CR' : 'Criminal',
+        'CV' : 'Civil',
+        'IC' : 'Interstate Compact',
+        'IN' : 'Inquest',
+        'MH' : 'Mental Health',
+        'MV' : 'Motor Vehicle',
+        'PC' : 'Probable Cause',
+        'RO' : 'Abuse Prevention Order',
+        'SC' : 'Small Claims',
+        'SP' : 'Supplementary Process',
+        'SU' : 'Summary Process',
+        'SW' : 'Administrative Search Warrant',
+        'TK' : 'Ticket Hearings',
+        'PS' : 'Permit Session',
+        'SM' : 'Service Members',
+        'TL' : 'Tax Lien',
+        'REG': 'Registration',
+        'SBQ': 'Subsequent',
+        'MISC': 'Miscellaneous'
+    }
+
+    _land_court_case_type_code_dict = {
+        'PS' : 'Permit Session',
+        'SM' : 'Service Members',
+        'TL' : 'Tax Lien',
+        'REG': 'Registration',
+        'SBQ': 'Subsequent',
+        'MISC': 'Miscellaneous'
+    }
+
+    _probate_family_court_case_type_code_dict = {
+        'AB' : 'Protection from Abuse',
+        'AD' : 'Adoption',
+        'CA' : 'Change of Name',
+        'CS' : 'Custody, Support, and Parenting Time',
+        'CW' : 'Child Welfare',
+        'DO' : 'Domestic Relations, Other',
+        'DR' : 'Domestic Relations',
+        'EA' : 'Estates and Administration',
+        'GD' : 'Guardianship',
+        'JP' : 'Joint Petition',
+        'PE' : 'Paternity in Equity',
+        'PM' : 'Probate Abuse / Conservator',
+        'PO' : 'Probate, Other',
+        'PP' : 'Equity-Partition',
+        'QC' : 'Equity Complaint',
+        'QP' : 'Equity Petition',
+        'SK' : 'Wills for Safekeeping',
+        'WD' : 'Paternity',
+        'XY' : 'Proxy Guardianship'
+    }
+
+    _probate_family_court_case_group_code_dict = {
+        'A' : 'Adoption',
+        'C' : 'Change of Name',
+        'D' : 'Domestic Relations',
+        'E' : 'Equity',
+        'W' : 'Paternity',
+        'P' : 'Probate',
+        'R' : 'Protection from Abuse',
+        'X' : 'Proxy Guardianship',
+        'S' : 'Wills for Safekeeping'
+    }
+
+    _appellate_court_code_dict = {
+        'P'  : 'Appeals Court (Panel)',
+        'J'  : 'Appeals Court (Single Justice)',
+    }
+
+    _supreme_court_code_dict = {
+        'SJC': 'Supreme Judicial Court',
+        'SJ' : 'Supreme Judicial Court (Single Justice)',
+        'BD' : 'Supreme Judicial Court (Bar Docket)'
+    }
+
+    def court_from_docket_number(self, docket_number:str) -> Optional[MACourt]:
+        """Gets the court object that matches a given docket number"""
+        search = self._find_court_code_re.search(docket_number)
+        court_code = search.group() if search else None
+        if not court_code:
+            for key in self._land_court_case_type_code_dict:
+                if key in docket_number:
+                    return self.matching_land_court(None)
+            else:
+                for key, name in self._appellate_court_code_dict.items():
+                    if key in docket_number:
+                        return next((court for court in self.elements if name.lower() in court.name.rstrip().lower()),None)
+                for key in self._supreme_court_code_dict:
+                    if key in docket_number:
+                        # TODO(brycew): integrate this into the MA Courts properly
+                        court = MACourt()
+                        court.name = self._supreme_court_code_dict[key]
+                        court.court_code = key
+                        return court
+                else:
+                    return None
+                    # The docket number is missing court code. Currently, because
+                    # the initial check_proper_format check excludes docket numbers
+                    # missing court codes (or at least what appears to be court
+                    # codes), this part is superfluous but won't be once the code
+                    # is edited to address variations, which might not include
+                    # court codes.
+        else:
+            matching_courts = [court for court in self.elements if court.court_code.strip().lower() == court_code]
+            if not matching_courts:
+              raise KeyError(f"{court_code} (from {docket_number}) isn't a valid court code")
+            if len(matching_courts) == 1:
+              return matching_courts[0]
+            raise Exception(f"there are more than one court that match {docket_number}({matching_courts})")
+
+    def case_type_from_docket_number(self, docket_number:str) -> Optional[str]:
+        court = self.court_from_docket_number(docket_number)
+        if not court:
+          return None
+        search = self.find_case_type_code_re.search(docket_number)
+        case_type_code = search.group() if search else None
+        if not case_type_code:
+            if 'appeals' in court.name.lower() or 'supreme' in court.name.lower():
+                return 'Appellate'
+                # Without the docket number for the case in the lower court, we
+                # cannot discern the case type. Not using the case-type code 'AD'
+                # ('Appeal') here because 'AD' is a case-type code for trial,
+                # rather than appellate, courts.
+            return None
+            # The docket number is missing case-type code. See above comment in
+            # identify_court_name function re check_proper_format and variations.
+        else:
+            if 'probate' in court.name.lower():
+                for key in self._probate_family_court_case_type_code_dict:
+                    if key == case_type_code:
+                        return self._probate_family_court_case_type_code_dict[key]
+                raise Exception
+
+            # Case-type identification separates Probate and Family Court from other
+            # courts because 'AD' refers to 'Adoption' in Probate and Family Court
+            # while it refers to 'Appeal' in others.
+            else:
+                for key in self._court_case_type_code_dict:
+                    if key == case_type_code:
+                        return self._court_case_type_code_dict[key]
+                raise Exception
+                # The docket number has incorrect (nonexistent) case-type code.
+
+find_year_re = re.compile(r'^\d{2}(?=\d{2}[A-Z]|H|\s)|(?<=^[A-Z]{2})\d{2}|'
+                          r'\d{4}(?=-)', re.I)
+
+def get_year_from_docket_number(docket_number:str) -> Optional[str]:
+    search = find_year_re.search(docket_number)
+    case_year = search.group() if search else None
+    if not case_year:
+        return None
+        # Remember: except for panel SJC docket numbers, ALL others, incl.
+        # variations, include the year.
+    else:
+        if case_year[-2:] > time.strftime('%y'):
+            raise Exception
+            # The docket number has incorrect year: it refers to a case that has
+            # not yet been filed, i.e., a case that does not exist.
+        else:
+            if len(case_year) == 4:
+                return case_year
+            else:
+                return time.strftime('%Y')[:2] + case_year
+
+find_sequence_number_re = re.compile(r'\d{2,}(?=$|[A-Z]+$)', re.I)
+
+def get_sequence_number_from_docket_number(docket_number:str) -> Optional[str]:
+    search = find_sequence_number_re.search(docket_number)
+    return search.group() if search else None
 
 def parse_division_from_name(court_name):
     rules = {
