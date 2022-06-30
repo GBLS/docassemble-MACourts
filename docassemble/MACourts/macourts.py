@@ -741,8 +741,8 @@ class MACourtList(DAList):
         return next((court for court in self.elements if court.name.rstrip().lower() == 'land court'),None)
       
     def matching_appeals_court(self, address):
-        """One appeals court"""
-        return next((court for court in self.elements if court.name.rstrip().lower() == 'massachusetts appeals court'),None)
+        """Two appeals courts: single justice and panel. Returns the single justice one by default."""
+        return next((court for court in self.elements if court.name.rstrip().lower() == 'massachusetts appeals court (single justice)'),None)
       
     def matching_district_court(self, address):
         """Return list of MACourts representing the District Court(s) serving the given address"""
