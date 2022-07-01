@@ -1148,7 +1148,7 @@ class MACourtList(DAList):
         'J'  : 'Appeals Court (Single Justice)',
     }
 
-    _supreme_court_code_dict = {
+    _sjc_code_dict = {
         'SJC': 'Supreme Judicial Court',
         'SJ' : 'Supreme Judicial Court (Single Justice)',
         'BD' : 'Supreme Judicial Court (Bar Docket)'
@@ -1164,13 +1164,13 @@ class MACourtList(DAList):
                 if key in docket_number:
                     return [self.matching_land_court(None)]
             else:
-                for key in self._supreme_court_code_dict:
+                for key in self._sjc_code_dict:
                     if key in docket_number:
                         # TODO(brycew): integrate this into the MA Courts properly
                         court = MACourt()
-                        court.name = self._supreme_court_code_dict[key]
+                        court.name = self._sjc_code_dict[key]
                         court.court_code = key
-                        court.description = 'The Supreme Court of Massachusetts'
+                        court.description = 'The Supreme Judicial Court of Massachusetts'
                         return [court]
                 for key, name in self._appellate_court_code_dict.items():
                     if key in docket_number:
