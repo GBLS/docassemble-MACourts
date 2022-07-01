@@ -2,7 +2,7 @@ from docassemble.base.core import DAObject, DAList
 from docassemble.base.util import path_and_mimetype, Address, LatitudeLongitude, prevent_dependency_satisfaction
 from docassemble.base.legal import Court
 import io, json, re, os, time
-from typing import Optional
+from typing import List, Optional
 from docassemble.webapp.playground import PlaygroundSection
 from collections.abc import Iterable
 import copy
@@ -11,7 +11,7 @@ import copy
 import geopandas as gpd
 from shapely.geometry import Point
 
-__all__= ['MACourt','MACourtList','combined_locations']
+__all__= ['MACourt','MACourtList','combined_locations', 'get_year_from_docket_number']
 
 # import bs4
 # import usaddress
@@ -483,11 +483,13 @@ class MACourtList(DAList):
             court_department = "Appeals Court"
 
         path = path_and_mimetype(os.path.join(data_path,json_path+'.json'))[0]
+        if path is None:
+          # fallback, for running on non-docassemble.
+          path = os.path.join(data_path, json_path + '.json')
 
         # Byte-order-marker is not allowed in JSON spec
         with open(path) as courts_json:
             courts = json.load(courts_json)
-
 
         for item in courts:
             # translate the dictionary data into an MACourtList
@@ -1123,6 +1125,24 @@ class MACourtList(DAList):
         'S' : 'Wills for Safekeeping'
     }
 
+    # map from these court codes in docket numbers to the real court codes
+    _alt_court_codes = {
+        'BA' : 'P72', # Barnstable Probate and Family Court
+        'BR' : 'P73', # Bristol Probate and Family Court
+        'DU' : 'P74', # Dukes Probate and Family Court
+        'BE' : 'P76', # Berkshire Probate and Family Court'
+        'ES' : 'P77', # Essex Probate and Family Court
+        'FR' : 'P78', # Franklin Probate and Family Court
+        'HD' : 'P79', # Hampden Probate and Family Court
+        'HS' : 'P80', # Hampshire Probate and Family Court
+        'MI' : 'P81', # Middlesex Probate and Family Court
+        'NA' : 'P75', # Nantucket Probate and Family Court
+        'NO' : 'P82', # Norfolk Probate and Family Court
+        'PL' : 'P83', # Plymouth Probate and Family Court
+        'SU' : 'P84', # Suffolk Probate and Family Court
+        'WO' : 'P85', # Worcester Probate and Family Court
+    }
+
     _appellate_court_code_dict = {
         'P'  : 'Appeals Court (Panel)',
         'J'  : 'Appeals Court (Single Justice)',
@@ -1134,27 +1154,31 @@ class MACourtList(DAList):
         'BD' : 'Supreme Judicial Court (Bar Docket)'
     }
 
-    def court_from_docket_number(self, docket_number:str) -> Optional[MACourt]:
-        """Gets the court object that matches a given docket number"""
+    def courts_from_docket_number(self, docket_number:str) -> List[MACourt]:
+        """Gets the court objects that matches a given docket number. There
+        will be one object per court session (physical location)"""
         search = self._find_court_code_re.search(docket_number)
         court_code = search.group() if search else None
         if not court_code:
             for key in self._land_court_case_type_code_dict:
                 if key in docket_number:
-                    return self.matching_land_court(None)
+                    return [self.matching_land_court(None)]
             else:
-                for key, name in self._appellate_court_code_dict.items():
-                    if key in docket_number:
-                        return next((court for court in self.elements if name.lower() in court.name.rstrip().lower()),None)
                 for key in self._supreme_court_code_dict:
                     if key in docket_number:
                         # TODO(brycew): integrate this into the MA Courts properly
                         court = MACourt()
                         court.name = self._supreme_court_code_dict[key]
                         court.court_code = key
-                        return court
+                        court.description = 'The Supreme Court of Massachusetts'
+                        return [court]
+                for key, name in self._appellate_court_code_dict.items():
+                    if key in docket_number:
+                        matching_courts = [court for court in self.elements if name.lower() in court.name.rstrip().lower()]
+                        if matching_courts:
+                            return matching_courts
                 else:
-                    return None
+                    raise KeyError(f"{docket_number} doesn't have a court code, and isn't an appellate case, might be a variant")
                     # The docket number is missing court code. Currently, because
                     # the initial check_proper_format check excludes docket numbers
                     # missing court codes (or at least what appears to be court
@@ -1162,12 +1186,26 @@ class MACourtList(DAList):
                     # is edited to address variations, which might not include
                     # court codes.
         else:
-            matching_courts = [court for court in self.elements if court.court_code.strip().lower() == court_code]
+            if court_code in self._alt_court_codes:
+              search_court_code = self._alt_court_codes[court_code]
+            else:
+              search_court_code = court_code
+            matching_courts = [court for court in self.elements if court.court_code.strip() == search_court_code]
             if not matching_courts:
-              raise KeyError(f"{court_code} (from {docket_number}) isn't a valid court code")
-            if len(matching_courts) == 1:
-              return matching_courts[0]
-            raise Exception(f"there are more than one court that match {docket_number}({matching_courts})")
+              raise KeyError(f"{court_code} (i.e. {search_court_code}) (from {docket_number}) isn't a valid court code")
+            return matching_courts
+
+    def court_from_docket_number(self, docket_number:str) -> Optional[MACourt]:
+        """Returns only the information that is the same between different court sessions for that docket_number
+        (i.e., name, court_code, and description)"""
+        matching_courts = self.courts_from_docket_number(docket_number)
+        court = MACourt()
+        court.name = matching_courts[0].name if len(set([c.name for c in matching_courts])) == 1 else None
+        court.court_code = matching_courts[0].court_code if len(set([c.court_code for c in matching_courts])) == 1 else None
+        court.description = matching_courts[0].description if len(set([c.description for c in matching_courts])) == 1 else None
+        if court.name is None and court.court_code is None and court.description is None:
+            return None
+        return court
 
     def case_type_from_docket_number(self, docket_number:str) -> Optional[str]:
         court = self.court_from_docket_number(docket_number)
@@ -1203,7 +1241,7 @@ class MACourtList(DAList):
                 # The docket number has incorrect (nonexistent) case-type code.
 
 find_year_re = re.compile(r'^\d{2}(?=\d{2}[A-Z]|H|\s)|(?<=^[A-Z]{2})\d{2}|'
-                          r'\d{4}(?=-)', re.I)
+                          r'\d{4}(?=-)|\d{2}(?=-)', re.I)
 
 def get_year_from_docket_number(docket_number:str) -> Optional[str]:
     search = find_year_re.search(docket_number)
@@ -1214,7 +1252,7 @@ def get_year_from_docket_number(docket_number:str) -> Optional[str]:
         # variations, include the year.
     else:
         if case_year[-2:] > time.strftime('%y'):
-            raise Exception
+            raise ValueError(f'docket number has a year in the future: {case_year}')
             # The docket number has incorrect year: it refers to a case that has
             # not yet been filed, i.e., a case that does not exist.
         else:
