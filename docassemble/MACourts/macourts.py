@@ -1,10 +1,9 @@
-from docassemble.base.core import DAObject, DAList, DADict
-from docassemble.base.util import path_and_mimetype, Address, LatitudeLongitude, DAStaticFile, markdown_to_html, prevent_dependency_satisfaction
+from docassemble.base.core import DAObject, DAList
+from docassemble.base.util import path_and_mimetype, Address, LatitudeLongitude, prevent_dependency_satisfaction
 from docassemble.base.legal import Court
-import io, json, sys, requests, bs4, re, os #, cbor
+import io, json, re, os, time
+from typing import List, Optional
 from docassemble.webapp.playground import PlaygroundSection
-import usaddress
-# from uszipcode import SearchEngine
 from collections.abc import Iterable
 import copy
 
@@ -12,8 +11,12 @@ import copy
 import geopandas as gpd
 from shapely.geometry import Point
 
-__all__= ['MACourt','MACourtList','combined_locations']
+__all__= ['MACourt','MACourtList','combined_locations', 'get_year_from_docket_number']
 
+# import bs4
+# import usaddress
+# import requests
+# from uszipcode import SearchEngine
 #def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=True):
 #    searcher = SearchEngine(simple_zipcode=True)
 #    """Load specified court directory page on Mass.gov and returns an MACourtList
@@ -403,7 +406,7 @@ class MACourtList(DAList):
               pass # no longer implemented
               # self.load_courts_from_massgov_by_filename(court)
         self.sort(key=lambda y: y.name)
-        # self.elements.sort(key=lambda y: y.name)                
+        # self.elements.sort(key=lambda y: y.name)
 
     #def load_courts_from_massgov_by_filename(self, court_name):
     #    """Loads the specified court from Mass.gov, assuming website format hasn't changed. It has an embedded JSON we parse"""
@@ -479,14 +482,16 @@ class MACourtList(DAList):
         elif court_name == 'probate_and_family_courts':
             court_department = 'Probate and Family Court'
         elif court_name == "appeals_court":
-            court_department = "Appeals Court"            
+            court_department = "Appeals Court"
 
         path = path_and_mimetype(os.path.join(data_path,json_path+'.json'))[0]
+        if path is None:
+          # fallback, for running on non-docassemble.
+          path = os.path.join(data_path, json_path + '.json')
 
         # Byte-order-marker is not allowed in JSON spec
         with open(path) as courts_json:
             courts = json.load(courts_json)
-
 
         for item in courts:
             # translate the dictionary data into an MACourtList
@@ -538,71 +543,71 @@ class MACourtList(DAList):
         elif str(self.matching_bmc(address)) == "Dorchester Division, Boston Municipal Court":
             return "Dorchester Juvenile Court"
         if address_to_compare.city.lower() in ["attleboro", "mansfield", "north attleboro","north attleborough", "norton"]:
-	        matches.append("Attleboro Juvenile Court")
+            matches.append("Attleboro Juvenile Court")
         if address_to_compare.city.lower() in ["barnstable", "sandwich", "yarmouth"]:
-	        matches.append("Barnstable Juvenile Court")
+            matches.append("Barnstable Juvenile Court")
         if address_to_compare.city.lower() in ["belchertown", "granby", "ware"]:
-	        matches.append("Belchertown Juvenile Court")
+            matches.append("Belchertown Juvenile Court")
         if (address_to_compare.city.lower() in ["chelsea", "revere", "east boston", "winthrop"] or
             (hasattr(address_to_compare,'neighborhood') and ((address_to_compare.city.lower() == "boston") and
                 address_to_compare.neighborhood.lower() in ["east boston","central square", "day square", "eagle hill", "maverick square", "orient heights","jeffries point"]))):
-	        matches.append("Chelsea Juvenile Court")
+            matches.append("Chelsea Juvenile Court")
         if address_to_compare.city.lower() in ["brighton", "charlestown", "roxbury", "south boston", "boston"]:
-	        matches.append("Boston Juvenile Court")
+            matches.append("Boston Juvenile Court")
         if address_to_compare.city.lower() in ["abington", "bridgewater", "brockton", "east bridgewater", "west bridgewater", "whitman"]:
-	        matches.append("Brockton Juvenile Court")
+            matches.append("Brockton Juvenile Court")
         if address_to_compare.city.lower() in ["arlington", "belmont", "cambridge", "everett", "malden", "medford", "melrose", "somerville","wakefield", "stoneham"]:
-	        matches.append("Cambridge Juvenile Court")
+            matches.append("Cambridge Juvenile Court")
         if address_to_compare.city.lower() in ["avon", "canton", "dedham", "dover", "foxborough", "franklin", "medfield", "millis", "needham", "norfolk", "norwood", "plainville", "sharon", "stoughton", "walpole", "wellesley", "westwood", "wrentham","medway"]:
-	        matches.append("Dedham Juvenile Court")
+            matches.append("Dedham Juvenile Court")
         if address_to_compare.city.lower() in ["charlton", "dudley", "oxford", "southbridge", "sturbridge", "webster"]:
-	        matches.append("Dudley Juvenile Court")
+            matches.append("Dudley Juvenile Court")
         if address_to_compare.city.lower() in ["aquinnah", "chilmark", "edgartown", "gosnold", "oak bluffs", "tisbury", "west tisbury"]:
-	        matches.append("Edgartown Juvenile Court")
+            matches.append("Edgartown Juvenile Court")
         if address_to_compare.city.lower() in ["fall river", "freetown", "somerset", "swansea", "westport"]:
-	        matches.append("Fall River Juvenile Court")
+            matches.append("Fall River Juvenile Court")
         if address_to_compare.city.lower() in ["bourne", "falmouth", "mashpee"]:
-	        matches.append("Falmouth Juvenile Court")
+            matches.append("Falmouth Juvenile Court")
         if address_to_compare.city.lower() in ["ashburnham", "fitchburg", "gardner", "hubbardston", "lunenburg", "petersham", "phillipston", "princeton", "templeton", "westminster", "winchendon","royalston"]:
-	        matches.append("Fitchburg Juvenile Court")
+            matches.append("Fitchburg Juvenile Court")
         if address_to_compare.city.lower() in ["acton", "ashland", "bedford", "carlisle", "concord", "framingham", "holliston", "hudson", "lexington", "lincoln", "marlborough","marlboro", "maynard", "natick", "sherborn", "stow", "sudbury", "wayland","hopkinton"]:
-	        matches.append("Framingham Juvenile Court")
+            matches.append("Framingham Juvenile Court")
         if address_to_compare.city.lower() in ["alford", "becket", "egremont", "great barrington", "lee", "lenox", "monterey", "new marlborough", "otis", "sandisfield", "sheffield", "stockbridge", "tyringham", "west stockbridge"]:
-	        matches.append("Great Barrington Juvenile Court")
+            matches.append("Great Barrington Juvenile Court")
         if address_to_compare.city.lower() in ["ashfield", "bernardston", "buckland", "charlemont", "colrain", "conway", "deerfield", "gill", "greenfield", "hawley", "heath", "leyden", "monroe", "montague", "northfield", "rowe", "shelburne","shelburne falls", "sunderland", "whately"]:
-	        matches.append("Greenfield Juvenile Court")
+            matches.append("Greenfield Juvenile Court")
         if address_to_compare.city.lower() in ["amherst", "chesterfield", "cummington", "easthampton", "goshen", "hadley", "hatfield", "middlefield", "northampton", "pelham", "plainfield", "southampton", "south hadley", "westhampton", "williamsburg", "worthington","huntington"]:
-	        matches.append("Hadley Juvenile Court")
+            matches.append("Hadley Juvenile Court")
         if address_to_compare.city.lower() in ["hanover", "hingham", "hull", "norwell", "rockland", "scituate"]:
-	        matches.append("Hingham Juvenile Court")
+            matches.append("Hingham Juvenile Court")
         if address_to_compare.city.lower() in ["blandford", "chester", "granville", "holyoke", "montgomery", "russell", "southwick", "westfield", "tolland"]:
-	        matches.append("Holyoke Juvenile Court")
+            matches.append("Holyoke Juvenile Court")
         if address_to_compare.city.lower() in ["andover", "boxford", "bradford", "georgetown", "groveland", "haverhill", "lawrence", "north andover","methuen"]:
-	        matches.append("Lawrence Juvenile Court")
+            matches.append("Lawrence Juvenile Court")
         if address_to_compare.city.lower() in ["ashby", "ayer", "billerica", "boxborough", "burlington", "chelmsford", "dracut", "dunstable", "groton", "littleton", "lowell", "north reading", "pepperell", "reading", "shirley", "tewksbury", "townsend", "tyngsborough", "westford", "wilmington", "winchester", "woburn"]:
-	        matches.append("Lowell Juvenile Court")
+            matches.append("Lowell Juvenile Court")
         if address_to_compare.city.lower() in ["lynn", "marblehead", "nahant", "saugus", "swampscott"]:
-	        matches.append("Lynn Juvenile Court")
+            matches.append("Lynn Juvenile Court")
         if address_to_compare.city.lower() in ["bellingham", "blackstone", "douglas", "hopedale", "mendon", "milford", "millville", "sutton", "upton", "uxbridge", "northbridge"]:
-	        matches.append("Milford Juvenile Court")
+            matches.append("Milford Juvenile Court")
         if address_to_compare.county.lower() in ["nantucket county"]:
-	        matches.append("Nantucket Juvenile Court")
+            matches.append("Nantucket Juvenile Court")
         if address_to_compare.city.lower() in ["acushnet", "dartmouth", "fairhaven", "freetown", "new bedford", "westport"]:
-	        matches.append("New Bedford Juvenile Court")
+            matches.append("New Bedford Juvenile Court")
         if address_to_compare.city.lower() in ["amesbury", "essex", "hamilton", "ipswich", "merrimac", "newbury", "newburyport", "salisbury", "topsfield", "wenham", "west newbury", "gloucester","rockport","rowley"]:
-	        matches.append("Newburyport Juvenile Court")
+            matches.append("Newburyport Juvenile Court")
         if address_to_compare.city.lower() in ["adams", "cheshire", "clarksburg", "florida", "hancock", "new ashford", "north adams", "williamstown", "windsor"]:
-	        matches.append("North Adams Juvenile Court")
+            matches.append("North Adams Juvenile Court")
         if address_to_compare.city.lower() in ["athol", "erving", "leverett", "new salem", "orange", "shutesbury", "warwick","wendell"]:
-	        matches.append("Orange Juvenile Court")
+            matches.append("Orange Juvenile Court")
         if address_to_compare.city.lower() in ["brewster", "chatham", "dennis", "eastham", "harwich", "orleans", "provincetown", "wellfleet"]:
-	        matches.append("Orleans Juvenile Court")
+            matches.append("Orleans Juvenile Court")
         if address_to_compare.city.lower() in ["brimfield", "east longmeadow", "hampden", "holland", "ludlow", "monson", "palmer", "wales", "wilbraham"]:
-	        matches.append("Palmer Juvenile Court")
+            matches.append("Palmer Juvenile Court")
         if address_to_compare.city.lower() in ["becket", "dalton", "hancock", "hinsdale", "lanesborough", "lenox", "peru", "pittsfield", "richmond", "washington", "windsor"]:
-	        matches.append("Pittsfield Juvenile Court")
+            matches.append("Pittsfield Juvenile Court")
         if address_to_compare.city.lower() in ["duxbury", "halifax", "hanson", "kingston", "marshfield", "pembroke", "plymouth", "plympton"]:
-	        matches.append("Plymouth Juvenile Court")
+            matches.append("Plymouth Juvenile Court")
         if address_to_compare.city.lower() in ["braintree", "cohasset", "holbrook", "milton", "quincy", "randolph", "weymouth"]:
             matches.append("Quincy Juvenile Court")
         if address_to_compare.city.lower() in ["beverly", "danvers", "manchester by the sea", "manchester-by-the-sea", "middleton", "salem","lynnfield", "peabody"]:
@@ -649,7 +654,7 @@ class MACourtList(DAList):
         if (address_to_compare.county.lower() == "berkshire county") or (address_to_compare.city.lower() in ["adams", "alford", "becket", "cheshire", "clarksburg", "dalton", "egremont", "florida", "great barrington", "hancock", "hinsdale", "lanesborough", "lee", "lenox", "monterey", "mount washington", "new ashford", "new marlborough", "north adams", "otis", "peru", "pittsfield", "richmond", "sandisfield", "savoy", "sheffield", "stockbridge", "tyringham", "washington", "west stockbridge", "williamstown", "windsor"]):
             matches.append("Berkshire Probate and Family Court")
         if (address_to_compare.county.lower() == "bristol county") or (address_to_compare.city.lower() in ["acushnet", "attleboro", "berkley", "dartmouth", "dighton", "easton", "fairhaven", "fall river", "freetown", "mansfield", "new bedford", "north attleborough", "norton", "raynham", "rehoboth", "seekonk", "somerset", "swansea", "taunton", "westport"]):
-            local_probate_and_family_court = ["Bristol Probate and Family Court","Fall River Probate and Family Court","New Bedford Probate and Family Court"]
+            matches.append(["Bristol Probate and Family Court","Fall River Probate and Family Court","New Bedford Probate and Family Court"])
         if (address_to_compare.county.lower() == "dukes county") or (address_to_compare.city.lower() in ["aquinnah", "chilmark", "edgartown", "gosnold", "oak bluffs", "tisbury", "west tisbury"]):
             matches.append("Dukes Probate and Family Court")
         if (address_to_compare.county.lower() == "essex county") or (address_to_compare.city.lower() in ["amesbury", "andover", "beverly", "boxford", "danvers", "essex", "georgetown", "gloucester", "groveland", "hamilton", "haverhill", "ipswich", "lawrence", "lynn", "lynnfield", "manchester by the sea", "manchester-by-the-sea", "marblehead", "merrimac", "methuen", "middleton", "nahunt", "newbury", "newburyport", "north andover", "peabody", "rockport", "rowley", "salem", "salisbury", "saugus", "swampscott", "topsfield", "wenham", "west newbury"]):
@@ -741,8 +746,8 @@ class MACourtList(DAList):
         return next((court for court in self.elements if court.name.rstrip().lower() == 'land court'),None)
       
     def matching_appeals_court(self, address):
-        """One appeals court"""
-        return next((court for court in self.elements if court.name.rstrip().lower() == 'massachusetts appeals court'),None)
+        """Two appeals courts: single justice and panel. Returns the single justice one by default."""
+        return next((court for court in self.elements if court.name.rstrip().lower() == 'massachusetts appeals court (single justice)'),None)
       
     def matching_district_court(self, address):
         """Return list of MACourts representing the District Court(s) serving the given address"""
@@ -1044,6 +1049,226 @@ class MACourtList(DAList):
         else:
             return '',''
 
+    ####################################
+    ## Docket number parser (i.e. smart docket tool)
+
+    _find_court_code_re = re.compile(r'(?<=^\d{2})(\d{2}|H\d{2})(?!-)|^[A-Z]{2}'
+                                    r'(?=\d{2})', re.I)
+
+    _find_case_type_code_re = re.compile(r'(?<!^)[A-Z]{2,4}(?!-)', re.I)
+
+
+    _court_case_type_code_dict = {
+        'AC' : 'Application for Criminal Complaint',
+        'AD' : 'Appeal',
+        'BP' : 'Bail Petition',
+        'CI' : 'Civil Infraction',
+        'CR' : 'Criminal',
+        'CV' : 'Civil',
+        'IC' : 'Interstate Compact',
+        'IN' : 'Inquest',
+        'MH' : 'Mental Health',
+        'MV' : 'Motor Vehicle',
+        'PC' : 'Probable Cause',
+        'RO' : 'Abuse Prevention Order',
+        'SC' : 'Small Claims',
+        'SP' : 'Supplementary Process',
+        'SU' : 'Summary Process',
+        'SW' : 'Administrative Search Warrant',
+        'TK' : 'Ticket Hearings',
+        'PS' : 'Permit Session',
+        'SM' : 'Service Members',
+        'TL' : 'Tax Lien',
+        'REG': 'Registration',
+        'SBQ': 'Subsequent',
+        'MISC': 'Miscellaneous'
+    }
+
+    _land_court_case_type_code_dict = {
+        'PS' : 'Permit Session',
+        'SM' : 'Service Members',
+        'TL' : 'Tax Lien',
+        'REG': 'Registration',
+        'SBQ': 'Subsequent',
+        'MISC': 'Miscellaneous'
+    }
+
+    _probate_family_court_case_type_code_dict = {
+        'AB' : 'Protection from Abuse',
+        'AD' : 'Adoption',
+        'CA' : 'Change of Name',
+        'CS' : 'Custody, Support, and Parenting Time',
+        'CW' : 'Child Welfare',
+        'DO' : 'Domestic Relations, Other',
+        'DR' : 'Domestic Relations',
+        'EA' : 'Estates and Administration',
+        'GD' : 'Guardianship',
+        'JP' : 'Joint Petition',
+        'PE' : 'Paternity in Equity',
+        'PM' : 'Probate Abuse / Conservator',
+        'PO' : 'Probate, Other',
+        'PP' : 'Equity-Partition',
+        'QC' : 'Equity Complaint',
+        'QP' : 'Equity Petition',
+        'SK' : 'Wills for Safekeeping',
+        'WD' : 'Paternity',
+        'XY' : 'Proxy Guardianship'
+    }
+
+    _probate_family_court_case_group_code_dict = {
+        'A' : 'Adoption',
+        'C' : 'Change of Name',
+        'D' : 'Domestic Relations',
+        'E' : 'Equity',
+        'W' : 'Paternity',
+        'P' : 'Probate',
+        'R' : 'Protection from Abuse',
+        'X' : 'Proxy Guardianship',
+        'S' : 'Wills for Safekeeping'
+    }
+
+    # map from these court codes in docket numbers to the real court codes
+    _alt_court_codes = {
+        'BA' : 'P72', # Barnstable Probate and Family Court
+        'BR' : 'P73', # Bristol Probate and Family Court
+        'DU' : 'P74', # Dukes Probate and Family Court
+        'BE' : 'P76', # Berkshire Probate and Family Court'
+        'ES' : 'P77', # Essex Probate and Family Court
+        'FR' : 'P78', # Franklin Probate and Family Court
+        'HD' : 'P79', # Hampden Probate and Family Court
+        'HS' : 'P80', # Hampshire Probate and Family Court
+        'MI' : 'P81', # Middlesex Probate and Family Court
+        'NA' : 'P75', # Nantucket Probate and Family Court
+        'NO' : 'P82', # Norfolk Probate and Family Court
+        'PL' : 'P83', # Plymouth Probate and Family Court
+        'SU' : 'P84', # Suffolk Probate and Family Court
+        'WO' : 'P85', # Worcester Probate and Family Court
+    }
+
+    _appellate_court_code_dict = {
+        'P'  : 'Appeals Court (Panel)',
+        'J'  : 'Appeals Court (Single Justice)',
+    }
+
+    _sjc_code_dict = {
+        'SJC': 'Supreme Judicial Court',
+        'SJ' : 'Supreme Judicial Court (Single Justice)',
+        'BD' : 'Supreme Judicial Court (Bar Docket)'
+    }
+
+    def courts_from_docket_number(self, docket_number:str) -> List[MACourt]:
+        """Gets the court objects that matches a given docket number. There
+        will be one object per court session (physical location)"""
+        search = self._find_court_code_re.search(docket_number)
+        court_code = search.group() if search else None
+        if not court_code:
+            for key in self._land_court_case_type_code_dict:
+                if key in docket_number:
+                    return [self.matching_land_court(None)]
+            else:
+                for key in self._sjc_code_dict:
+                    if key in docket_number:
+                        # TODO(brycew): integrate this into the MA Courts properly
+                        court = MACourt()
+                        court.name = self._sjc_code_dict[key]
+                        court.court_code = key
+                        court.description = 'The Supreme Judicial Court of Massachusetts'
+                        return [court]
+                for key, name in self._appellate_court_code_dict.items():
+                    if key in docket_number:
+                        matching_courts = [court for court in self.elements if name.lower() in court.name.rstrip().lower()]
+                        if matching_courts:
+                            return matching_courts
+                else:
+                    raise KeyError(f"{docket_number} doesn't have a court code, and isn't an appellate case, might be a variant")
+                    # The docket number is missing court code. Currently, because
+                    # the initial check_proper_format check excludes docket numbers
+                    # missing court codes (or at least what appears to be court
+                    # codes), this part is superfluous but won't be once the code
+                    # is edited to address variations, which might not include
+                    # court codes.
+        else:
+            if court_code in self._alt_court_codes:
+              search_court_code = self._alt_court_codes[court_code]
+            else:
+              search_court_code = court_code
+            matching_courts = [court for court in self.elements if court.court_code.strip() == search_court_code]
+            if not matching_courts:
+              raise KeyError(f"{court_code} (i.e. {search_court_code}) (from {docket_number}) isn't a valid court code")
+            return matching_courts
+
+    def court_from_docket_number(self, docket_number:str) -> Optional[MACourt]:
+        """Returns only the information that is the same between different court sessions for that docket_number
+        (i.e., name, court_code, and description)"""
+        matching_courts = self.courts_from_docket_number(docket_number)
+        court = MACourt()
+        court.name = matching_courts[0].name if len(set([c.name for c in matching_courts])) == 1 else None
+        court.court_code = matching_courts[0].court_code if len(set([c.court_code for c in matching_courts])) == 1 else None
+        court.description = matching_courts[0].description if len(set([c.description for c in matching_courts])) == 1 else None
+        if court.name is None and court.court_code is None and court.description is None:
+            return None
+        return court
+
+    def case_type_from_docket_number(self, docket_number:str) -> Optional[str]:
+        court = self.court_from_docket_number(docket_number)
+        if not court:
+          return None
+        search = self.find_case_type_code_re.search(docket_number)
+        case_type_code = search.group() if search else None
+        if not case_type_code:
+            if 'appeals' in court.name.lower() or 'supreme' in court.name.lower():
+                return 'Appellate'
+                # Without the docket number for the case in the lower court, we
+                # cannot discern the case type. Not using the case-type code 'AD'
+                # ('Appeal') here because 'AD' is a case-type code for trial,
+                # rather than appellate, courts.
+            return None
+            # The docket number is missing case-type code. See above comment in
+            # identify_court_name function re check_proper_format and variations.
+        else:
+            if 'probate' in court.name.lower():
+                for key in self._probate_family_court_case_type_code_dict:
+                    if key == case_type_code:
+                        return self._probate_family_court_case_type_code_dict[key]
+                raise Exception
+
+            # Case-type identification separates Probate and Family Court from other
+            # courts because 'AD' refers to 'Adoption' in Probate and Family Court
+            # while it refers to 'Appeal' in others.
+            else:
+                for key in self._court_case_type_code_dict:
+                    if key == case_type_code:
+                        return self._court_case_type_code_dict[key]
+                raise Exception
+                # The docket number has incorrect (nonexistent) case-type code.
+
+find_year_re = re.compile(r'^\d{2}(?=\d{2}[A-Z]|H|\s)|(?<=^[A-Z]{2})\d{2}|'
+                          r'\d{4}(?=-)|\d{2}(?=-)', re.I)
+
+def get_year_from_docket_number(docket_number:str) -> Optional[str]:
+    search = find_year_re.search(docket_number)
+    case_year = search.group() if search else None
+    if not case_year:
+        return None
+        # Remember: except for panel SJC docket numbers, ALL others, incl.
+        # variations, include the year.
+    else:
+        if case_year[-2:] > time.strftime('%y'):
+            raise ValueError(f'docket number has a year in the future: {case_year}')
+            # The docket number has incorrect year: it refers to a case that has
+            # not yet been filed, i.e., a case that does not exist.
+        else:
+            if len(case_year) == 4:
+                return case_year
+            else:
+                return time.strftime('%Y')[:2] + case_year
+
+find_sequence_number_re = re.compile(r'\d{2,}(?=$|[A-Z]+$)', re.I)
+
+def get_sequence_number_from_docket_number(docket_number:str) -> Optional[str]:
+    search = find_sequence_number_re.search(docket_number)
+    return search.group() if search else None
+
 def parse_division_from_name(court_name):
     rules = {
         "District Court": r'(.*)( District Court)',
@@ -1113,7 +1338,7 @@ def match(item, other):
     if not item is None and not other is None:
         return round(item.location.latitude,3) == round(other.location.latitude,3) and round(item.location.longitude,3) == round(other.location.longitude,3)
 
-if __name__ == '__main__':
-    import pprint
-    courts = get_courts_from_massgov_url('https://www.mass.gov/orgs/district-court/locations')
-    pprint.pprint(courts)
+#if __name__ == '__main__':
+#    import pprint
+#    courts = get_courts_from_massgov_url('https://www.mass.gov/orgs/district-court/locations')
+#    pprint.pprint(courts)

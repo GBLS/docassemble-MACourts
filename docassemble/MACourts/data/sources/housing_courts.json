@@ -97,27 +97,8 @@
       "address": "24 New Chardon St."
     },
     "description": "The Eastern Division of the Housing Court serves Boston, Brookline and Newton.",
-    "court_code": "H84"
-  },
-  {
-    "fax": "",
-    "name": "Eastern Housing Court - Middlesex Session",
-    "phone": "(781) 306-2715",
-    "has_po_box": false,
-    "location": {
-      "latitude": 42.4048336,
-      "longitude": -71.0893853
-    },
-    "address": {
-      "city": "Medford",
-      "zip": "02155",
-      "orig_address": "4040 Mystic Valley Parkway, Medford, MA 02155",
-      "county": "Middlesex County",
-      "state": "MA",
-      "address": "4040 Mystic Valley Parkway"
-    },
-    "description": "The Middlesex Session of the Eastern Housing Court serves Arlington, Belmont, and Cambridge, Medford, Newton and Somerville",
-    "court_code": "H84"
+    "court_code": "H84",
+    "tyler_id": "537"
   },
   {
     "fax": "(508) 894-4168",
