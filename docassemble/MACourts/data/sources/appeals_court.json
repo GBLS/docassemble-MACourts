@@ -2,6 +2,7 @@
   {
     "fax": "",
     "court_code": "P",
+    "tyler_code": "appeals:acp",
     "name": "Massachusetts Appeals Court (Panel)",
     "phone": "(617) 921-4443",
     "has_po_box": false,
@@ -22,6 +23,7 @@
   {
     "fax": "",
     "court_code": "J",
+    "tyler_code": "appeals:acsj",
     "name": "Massachusetts Appeals Court (Single Justice)",
     "phone": "(617) 921-4443",
     "has_po_box": false,
