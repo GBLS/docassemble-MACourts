@@ -497,6 +497,7 @@ class MACourtList(DAList):
             # translate the dictionary data into an MACourtList
             court = self.appendObject()
             court.court_code = item.get('court_code')
+            court.tyler_code = item.get('tyler_code')
             court.name = item['name']
             court.department = court_department
             court.division = parse_division_from_name(item['name'])
@@ -1172,6 +1173,10 @@ class MACourtList(DAList):
                         court = MACourt()
                         court.name = self._sjc_code_dict[key]
                         court.court_code = key
+                        # TODO(brycew): there are several more SJC tyler codes:
+                        # [sjcab, sjc:commar, sjc:commar2, sjc:commfc, sjc:commonwealth2, sjc:fullcoruts2,
+                        #  sjc:pab, sjc:singlej, sjc:suffolk]. Do each need to be distinguished?
+                        court.tyler_code = 'sjc'
                         court.description = 'The Supreme Judicial Court of Massachusetts'
                         return [court]
                 for key, name in self._appellate_court_code_dict.items():
@@ -1204,6 +1209,7 @@ class MACourtList(DAList):
         court = MACourt()
         court.name = matching_courts[0].name if len(set([c.name for c in matching_courts])) == 1 else None
         court.court_code = matching_courts[0].court_code if len(set([c.court_code for c in matching_courts])) == 1 else None
+        court.tyler_code = matching_courts[0].tyler_code if len(set([c.tyler_code for c in matching_courts])) == 1 else None
         court.description = matching_courts[0].description if len(set([c.description for c in matching_courts])) == 1 else None
         if court.name is None and court.court_code is None and court.description is None:
             return None
