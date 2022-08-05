@@ -17,7 +17,8 @@
       "state": "MA",
       "address": "52 Academy Hill Rd."
     },
-    "description": "The Brighton division of the BMC serves Allston and Brighton. Please note that as of March 1, the Brighton Division of the Boston Municipal Court has temporarily relocated to Brookline District Court while the Brighton courthouse undergoes renovations. "
+    "description": "The Brighton division of the BMC serves Allston and Brighton. Please note that as of March 1, the Brighton Division of the Boston Municipal Court has temporarily relocated to Brookline District Court while the Brighton courthouse undergoes renovations. ",
+    "lower_court_code": "1753"
   },
   {
     "fax": "(617) 788-8465",
@@ -37,7 +38,8 @@
       "state": "MA",
       "address": "24 New Chardon Street"
     },
-    "description": "This court serves the Downtown Boston area, Chinatown, North End, South End through Massachusetts Avenue, West End, and Beacon Hill."
+    "description": "This court serves the Downtown Boston area, Chinatown, North End, South End through Massachusetts Avenue, West End, and Beacon Hill.",
+    "lower_court_code": "1754"
   },
   {
     "fax": "(617) 242-1677",
@@ -57,7 +59,8 @@
       "state": "MA",
       "address": "3 City Square"
     },
-    "description": "The Charlestown Division of the Boston Municipal Court serves Charlestown."
+    "description": "The Charlestown Division of the Boston Municipal Court serves Charlestown.",
+    "lower_court_code": "1755"
   },
   {
     "fax": "(617) 436-8250 ",
@@ -77,7 +80,8 @@
       "state": "MA",
       "address": "510 Washington St."
     },
-    "description": "This court serves Dorchester."
+    "description": "This court serves Dorchester.",
+    "lower_court_code": "1756"
   },
   {
     "fax": "(617) 561-4988 ",
@@ -97,7 +101,8 @@
       "state": "MA",
       "address": "37 Meridian St."
     },
-    "description": "This court serves East Boston, Winthrop, Logan Airport, and the Sumner and Callahan Tunnels."
+    "description": "This court serves East Boston, Winthrop, Logan Airport, and the Sumner and Callahan Tunnels.",
+    "lower_court_code": "1757"
   },
   {
     "fax": "(617) 541-0286",
@@ -117,7 +122,8 @@
       "state": "MA",
       "address": "85 Warren St."
     },
-    "description": "This court serves Roxbury."
+    "description": "This court serves Roxbury.",
+    "lower_court_code": "1758"
   },
   {
     "fax": "(617) 983-0243 ",
@@ -137,7 +143,8 @@
       "state": "MA",
       "address": "445 Arborway"
     },
-    "description": "This court serves Hyde Park, Jamaica Plain, Roslindale, West Roxbury, parts of Mattapan, and parts of Mission Hill."
+    "description": "This court serves Hyde Park, Jamaica Plain, Roslindale, West Roxbury, parts of Mattapan, and parts of Mission Hill.",
+    "lower_court_code": "1760"
   },
   {
     "fax": "(617) 268-7321",
@@ -157,6 +164,7 @@
       "state": "MA",
       "address": "535 East Broadway"
     },
-    "description": "This court serves South Boston."
+    "description": "This court serves South Boston.",
+    "lower_court_code": "1759"
   }
 ]
