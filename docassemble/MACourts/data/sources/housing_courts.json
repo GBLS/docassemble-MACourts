@@ -172,7 +172,8 @@
     },
     "description": "The Lawrence Session of the Northeast Housing Court serves Amesbury, Andover, Boxford, Georgetown, Groveland, Haverhill, Lawrence, Merrimac, Methuen, Newbury, Newburyport, North Andover, Rowley, Salisbury, and West Newbury.  ",
     "court_code": "H77",
-    "tyler_code": "516"
+    "tyler_code": "516",
+    "lower_court_code": "1828"
   },
   {
     "fax": "",
@@ -193,7 +194,8 @@
     },
     "description": "The Lowell session of the Northeast Housing Court serves Acton, Ashby, Ayer, Billerica, Boxborough, Carlisle, Chelmsford, Devens, Dracut, Dunstable, Groton, Littleton, Lowell, Maynard, Pepperell, Shirley, Stow, Tewksbury, Townsend, Tyngsborough, and Westford.",
     "court_code": "H77",
-    "tyler_code": "516"
+    "tyler_code": "516",
+    "lower_court_code": "1828"
   },
   {
     "fax": "",
