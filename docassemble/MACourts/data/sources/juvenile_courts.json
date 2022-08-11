@@ -2,7 +2,7 @@
   {
     "fax": "",
     "court_code": "J34",
-    "lower_court_code": "1839",
+    "tyler_lower_court_code": "1839",
     "name": "Attleboro Juvenile Court",
     "phone": "(508) 222-5350",
     "has_po_box": false,
@@ -23,7 +23,7 @@
   {
     "fax": "",
     "court_code": "J25",
-    "lower_court_code": "1832",
+    "tyler_lower_court_code": "1832",
     "name": "Barnstable Juvenile Court",
     "phone": "(508) 362-1389",
     "has_po_box": true,
@@ -44,7 +44,7 @@
   {
     "fax": "",
     "court_code": "J46",
-    "lower_court_code": "1845",
+    "tyler_lower_court_code": "1845",
     "name": "Belchertown Juvenile Court",
     "phone": "(413) 323-4056",
     "has_po_box": false,
@@ -65,7 +65,7 @@
   {
     "fax": "(617) 788-8991",
     "court_code": "71",
-    "lower_court_code": "1852",
+    "tyler_lower_court_code": "1852",
     "name": "Boston Juvenile Court",
     "phone": "(617) 788-8525",
     "has_po_box": true,
@@ -86,7 +86,7 @@
   {
     "fax": "",
     "court_code": "J15",
-    "lower_court_code": "1849",
+    "tyler_lower_court_code": "1849",
     "name": "Brockton Juvenile Court",
     "phone": "(508) 897-4900",
     "has_po_box": false,
@@ -107,7 +107,7 @@
   {
     "fax": "",
     "court_code": "J52",
-    "lower_court_code": "1847",
+    "tyler_lower_court_code": "1847",
     "name": "Cambridge Juvenile Court",
     "phone": "(617) 494-4100",
     "has_po_box": false,
@@ -128,7 +128,7 @@
   {
     "fax": "(617) 660-9222",
     "court_code": "J14",
-    "lower_court_code": "1852",
+    "tyler_lower_court_code": "1852",
     "name": "Chelsea Juvenile Court",
     "phone": "(617) 660-9225",
     "has_po_box": false,
@@ -149,7 +149,7 @@
   {
     "fax": "",
     "court_code": "J54",
-    "lower_court_code": "1848",
+    "tyler_lower_court_code": "1848",
     "name": "Dedham Juvenile Court",
     "phone": "(781) 329-1500",
     "has_po_box": false,
@@ -170,7 +170,7 @@
   {
     "fax": "(617) 436-3595",
     "court_code": "J7",
-    "lower_court_code": "1852",
+    "tyler_lower_court_code": "1852",
     "name": "Dorchester Juvenile Court",
     "phone": "(617) 288-9500 x400",
     "has_po_box": false,
@@ -191,7 +191,7 @@
   {
     "fax": "",
     "court_code": "J64",
-    "lower_court_code": "1853",
+    "tyler_lower_court_code": "1853",
     "name": "Dudley Juvenile Court",
     "phone": "(508) 949-3070",
     "has_po_box": false,
@@ -212,7 +212,7 @@
   {
     "fax": "",
     "court_code": "J35",
-    "lower_court_code": "1833",
+    "tyler_lower_court_code": "1833",
     "name": "Edgartown Juvenile Court",
     "phone": "(508) 627-8983",
     "has_po_box": true,
@@ -234,7 +234,7 @@
   {
     "fax": "",
     "court_code": "J32",
-    "lower_court_code": "1840",
+    "tyler_lower_court_code": "1840",
     "name": "Fall River Juvenile Court",
     "phone": "(508) 676-0090",
     "has_po_box": false,
@@ -256,7 +256,7 @@
   {
     "fax": "",
     "court_code": "J89",
-    "lower_court_code": "1834",
+    "tyler_lower_court_code": "1834",
     "name": "Falmouth Juvenile Court",
     "phone": "(508) 495-1696",
     "has_po_box": false,
@@ -277,7 +277,7 @@
   {
     "fax": "",
     "court_code": "J16",
-    "lower_court_code": "1853",
+    "tyler_lower_court_code": "1853",
     "name": "Fitchburg Juvenile Court",
     "phone": "(978) 345-7620",
     "has_po_box": false,
@@ -298,7 +298,7 @@
   {
     "fax": "",
     "court_code": "J49",
-    "lower_court_code": "1847",
+    "tyler_lower_court_code": "1847",
     "name": "Framingham Juvenile Court",
     "phone": "(508) 879-3561",
     "has_po_box": false,
@@ -319,7 +319,7 @@
   {
     "fax": "",
     "court_code": "J29",
-    "lower_court_code": "1838",
+    "tyler_lower_court_code": "1838",
     "name": "Great Barrington Juvenile Court",
     "phone": "(413) 528-3520",
     "has_po_box": false,
@@ -340,7 +340,7 @@
   {
     "fax": "(413) 775-9201",
     "court_code": "J41",
-    "lower_court_code": "1845",
+    "tyler_lower_court_code": "1845",
     "name": "Greenfield Juvenile Court",
     "phone": "(413) 775-0014",
     "has_po_box": false,
@@ -361,7 +361,7 @@
   {
     "fax": "(413) 587-0191",
     "court_code": "J45",
-    "lower_court_code": "1845",
+    "tyler_lower_court_code": "1845",
     "name": "Hadley Juvenile Court",
     "phone": "(413) 584-7686",
     "has_po_box": false,
@@ -383,7 +383,7 @@
   {
     "fax": "",
     "court_code": "J58",
-    "lower_court_code": "1850",
+    "tyler_lower_court_code": "1850",
     "name": "Hingham Juvenile Court",
     "phone": "(781) 741-6007",
     "has_po_box": false,
@@ -404,7 +404,7 @@
   {
     "fax": "",
     "court_code": "J17",
-    "lower_court_code": "1846",
+    "tyler_lower_court_code": "1846",
     "name": "Holyoke Juvenile Court",
     "phone": "(413) 322-6700",
     "has_po_box": false,
@@ -425,7 +425,7 @@
   {
     "fax": "",
     "court_code": "J18",
-    "lower_court_code": "1844",
+    "tyler_lower_court_code": "1844",
     "name": "Lawrence Juvenile Court",
     "phone": "(978) 725-4900 x2",
     "has_po_box": false,
@@ -447,7 +447,7 @@
   {
     "fax": "",
     "court_code": "J11",
-    "lower_court_code": "1847",
+    "tyler_lower_court_code": "1847",
     "name": "Lowell Juvenile Court",
     "phone": "(978) 441-2630",
     "has_po_box": false,
@@ -468,7 +468,7 @@
   {
     "fax": "",
     "court_code": "J13",
-    "lower_court_code": "1844",
+    "tyler_lower_court_code": "1844",
     "name": "Lynn Juvenile Court",
     "phone": " (781) 586-0415 x4",
     "has_po_box": false,
@@ -489,7 +489,7 @@
   {
     "fax": "",
     "court_code": "J66",
-    "lower_court_code": "1853",
+    "tyler_lower_court_code": "1853",
     "name": "Milford Juvenile Court",
     "phone": "(508) 478-8638",
     "has_po_box": false,
@@ -510,7 +510,7 @@
   {
     "fax": "",
     "court_code": "J88",
-    "lower_court_code": "1835",
+    "tyler_lower_court_code": "1835",
     "name": "Nantucket Juvenile Court",
     "phone": "",
     "has_po_box": false,
@@ -531,7 +531,7 @@
   {
     "fax": "",
     "court_code": "J33",
-    "lower_court_code": "1841",
+    "tyler_lower_court_code": "1841",
     "name": "New Bedford Juvenile Court",
     "phone": "(508) 999-9700",
     "has_po_box": false,
@@ -552,7 +552,7 @@
   {
     "fax": "",
     "court_code": "J22",
-    "lower_court_code": "1844", 
+    "tyler_lower_court_code": "1844", 
     "name": "Newburyport Juvenile Court",
     "phone": "(978) 462-0617 x5",
     "has_po_box": false,
@@ -573,7 +573,7 @@
   {
     "fax": "413-664-7788",
     "court_code": "J28",
-    "lower_court_code": "1838",
+    "tyler_lower_court_code": "1838",
     "name": "North Adams Juvenile Court",
     "phone": "(413) 664-8700",
     "has_po_box": false,
@@ -594,7 +594,7 @@
   {
     "fax": "",
     "court_code": "J42",
-    "lower_court_code": "1845",
+    "tyler_lower_court_code": "1845",
     "name": "Orange Juvenile Court",
     "phone": "(978) 544-5125",
     "has_po_box": false,
@@ -615,7 +615,7 @@
   {
     "fax": "",
     "court_code": "J26",
-    "lower_court_code": "1836",
+    "tyler_lower_court_code": "1836",
     "name": "Orleans Juvenile Court",
     "phone": "(508) 240-5044",
     "has_po_box": false,
@@ -636,7 +636,7 @@
   {
     "fax": "",
     "court_code": "J43",
-    "lower_court_code": "1846",
+    "tyler_lower_court_code": "1846",
     "name": "Palmer Juvenile Court",
     "phone": "(413) 283-1057",
     "has_po_box": false,
@@ -658,7 +658,7 @@
   {
     "fax": "413-443-8672",
     "court_code": "J27",
-    "lower_court_code": "1838",
+    "tyler_lower_court_code": "1838",
     "name": "Pittsfield Juvenile Court",
     "phone": "(413) 443-8533",
     "has_po_box": false,
@@ -679,7 +679,7 @@
   {
     "fax": "",
     "court_code": "J59",
-    "lower_court_code": "1837",
+    "tyler_lower_court_code": "1837",
     "name": "Plymouth Juvenile Court",
     "phone": "(508) 747-0858",
     "has_po_box": false,
@@ -701,7 +701,7 @@
   {
     "fax": "",
     "court_code": "J56",
-    "lower_court_code": "1848",
+    "tyler_lower_court_code": "1848",
     "name": "Quincy Juvenile Court",
     "phone": "(617) 376-7505",
     "has_po_box": false,
@@ -722,7 +722,7 @@
   {
     "fax": "",
     "court_code": "J36",
-    "lower_court_code": "1844",
+    "tyler_lower_court_code": "1844",
     "name": "Salem Juvenile Court",
     "phone": "(978) 745-9660 x1",
     "has_po_box": false,
@@ -743,7 +743,7 @@
   {
     "fax": "",
     "court_code": "J23",
-    "lower_court_code": "1846",
+    "tyler_lower_court_code": "1846",
     "name": "Springfield Juvenile Court",
     "phone": "(413) 748-7860",
     "has_po_box": false,
@@ -764,7 +764,7 @@
   {
     "fax": "",
     "court_code": "J69",
-    "lower_court_code": "1846",
+    "tyler_lower_court_code": "1846",
     "name": "Springfield Juvenile Court",
     "phone": "(413) 748-7860",
     "has_po_box": false,
@@ -785,7 +785,7 @@
   {
     "fax": "",
     "court_code": "J55",
-    "lower_court_code": "1848",
+    "tyler_lower_court_code": "1848",
     "name": "Stoughton Juvenile Court",
     "phone": "",
     "has_po_box": false,
@@ -806,7 +806,7 @@
   {
     "fax": "",
     "court_code": "J31",
-    "lower_court_code": "1842",
+    "tyler_lower_court_code": "1842",
     "name": "Taunton Juvenile Court",
     "phone": "(508) 977-4910",
     "has_po_box": false,
@@ -828,7 +828,7 @@
   {
     "fax": "",
     "court_code": "J51",
-    "lower_court_code": "1847",
+    "tyler_lower_court_code": "1847",
     "name": "Waltham Juvenile Court",
     "phone": "(781) 899-7672",
     "has_po_box": false,
@@ -849,7 +849,7 @@
   {
     "fax": "",
     "court_code": "J60",
-    "lower_court_code": "1851",
+    "tyler_lower_court_code": "1851",
     "name": "Wareham Juvenile Court",
     "phone": "(508) 291-8407",
     "has_po_box": false,
@@ -870,7 +870,7 @@
   {
     "fax": "(617) 524-7335",
     "court_code": "J6",
-    "lower_court_code": "1852",
+    "tyler_lower_court_code": "1852",
     "name": "West Roxbury Juvenile Court",
     "phone": "(617) 971-1154",
     "has_po_box": false,
@@ -891,7 +891,7 @@
   {
     "fax": "",
     "court_code": "J62",
-    "lower_court_code": "1853",
+    "tyler_lower_court_code": "1853",
     "name": "Worcester Juvenile Court",
     "phone": "(508) 831-2000",
     "has_po_box": false,

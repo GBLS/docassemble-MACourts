@@ -2,7 +2,7 @@
   {
     "fax": "",
     "court_code": "unknown",
-    "lower_court_code": "1854",
+    "tyler_lower_court_code": "1854",
     "name": "Land Court",
     "phone": "",
     "has_po_box": false,

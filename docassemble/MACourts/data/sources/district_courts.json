@@ -2,7 +2,7 @@
   {
     "fax": "",
     "court_code": "34",
-    "lower_court_code": "1764",
+    "tyler_lower_court_code": "1764",
     "name": "Attleboro District Court",
     "phone": "(508) 222-5900 ",
     "has_po_box": false,
@@ -23,7 +23,7 @@
   {
     "fax": "(978) 772-5345",
     "court_code": "48",
-    "lower_court_code": "1765",
+    "tyler_lower_court_code": "1765",
     "name": "Ayer District Court",
     "phone": "(978) 772-2100",
     "has_po_box": false,
@@ -44,7 +44,7 @@
   {
     "fax": "",
     "court_code": "25",
-    "lower_court_code": "1766",
+    "tyler_lower_court_code": "1766",
     "name": "Barnstable District Court",
     "phone": "(508) 375-6778",
     "has_po_box": true,
@@ -65,7 +65,7 @@
   {
     "fax": "(508) 587-6791",
     "court_code": "15",
-    "lower_court_code": "1767",
+    "tyler_lower_court_code": "1767",
     "name": "Brockton District Court",
     "phone": "(508) 587-8000",
     "has_po_box": false,
@@ -86,7 +86,7 @@
   {
     "fax": "",
     "court_code": "09",
-    "lower_court_code": "1768",
+    "tyler_lower_court_code": "1768",
     "name": "Brookline District Court",
     "phone": "(617) 232-4660",
     "has_po_box": false,
@@ -107,7 +107,7 @@
   {
     "fax": "(781) 395-2035",
     "court_code": "52",
-    "lower_court_code": "1769",
+    "tyler_lower_court_code": "1769",
     "name": "Cambridge District Court",
     "phone": "(781) 306-2715",
     "has_po_box": false,
@@ -128,7 +128,7 @@
   {
     "fax": "(617) 660-9215",
     "court_code": "14",
-    "lower_court_code": "1770",
+    "tyler_lower_court_code": "1770",
     "name": "Chelsea District Court",
     "phone": "(617) 660-9200",
     "has_po_box": false,
@@ -149,7 +149,7 @@
   {
     "fax": "(413) 594-6187",
     "court_code": "20",
-    "lower_court_code": "1771",
+    "tyler_lower_court_code": "1771",
     "name": "Chicopee District Court",
     "phone": "(413) 598-0099",
     "has_po_box": false,
@@ -170,7 +170,7 @@
   {
     "fax": "(978) 368-7827",
     "court_code": "68",
-    "lower_court_code": "1772",
+    "tyler_lower_court_code": "1772",
     "name": "Clinton District Court",
     "phone": "(978) 368-7811",
     "has_po_box": false,
@@ -191,7 +191,7 @@
   {
     "fax": "(978) 371-2945",
     "court_code": "47",
-    "lower_court_code": "1773",
+    "tyler_lower_court_code": "1773",
     "name": "Concord District Court",
     "phone": "(978) 369-0500",
     "has_po_box": false,
@@ -212,7 +212,7 @@
   {
     "fax": "",
     "court_code": "54",
-    "lower_court_code": "1774",
+    "tyler_lower_court_code": "1774",
     "name": "Dedham District Court",
     "phone": "(781) 329-4777",
     "has_po_box": false,
@@ -233,7 +233,7 @@
   {
     "fax": "",
     "court_code": "64",
-    "lower_court_code": "1775",
+    "tyler_lower_court_code": "1775",
     "name": "Dudley District Court",
     "phone": "(508) 943-7123",
     "has_po_box": false,
@@ -254,7 +254,7 @@
   {
     "fax": "(508) 885-7623",
     "court_code": "69",
-    "lower_court_code": "1776",
+    "tyler_lower_court_code": "1776",
     "name": "East Brookfield District Court",
     "phone": "(508) 885-6305",
     "has_po_box": false,
@@ -275,7 +275,7 @@
   {
     "fax": "(413) 323-6803",
     "court_code": "98",
-    "lower_court_code": "1777",
+    "tyler_lower_court_code": "1777",
     "name": "Eastern Hampshire District Court",
     "phone": "(413) 323-4056",
     "has_po_box": false,
@@ -297,7 +297,7 @@
   {
     "fax": "",
     "court_code": "35",
-    "lower_court_code": "1778",
+    "tyler_lower_court_code": "1778",
     "name": "Edgartown District Court",
     "phone": "",
     "has_po_box": false,
@@ -318,7 +318,7 @@
   {
     "fax": "",
     "court_code": "32",
-    "lower_court_code": "1779",
+    "tyler_lower_court_code": "1779",
     "name": "Fall River District Court",
     "phone": "",
     "has_po_box": false,
@@ -340,7 +340,7 @@
   {
     "fax": "",
     "court_code": "89",
-    "lower_court_code": "1780",
+    "tyler_lower_court_code": "1780",
     "name": "Falmouth District Court",
     "phone": "(508) 495-1500",
     "has_po_box": false,
@@ -361,7 +361,7 @@
   {
     "fax": "(978) 342-2461",
     "court_code": "16",
-    "lower_court_code": "1781",
+    "tyler_lower_court_code": "1781",
     "name": "Fitchburg District Court",
     "phone": "(978) 345-2111",
     "has_po_box": false,
@@ -382,7 +382,7 @@
   {
     "fax": "",
     "court_code": "49",
-    "lower_court_code": "1782",
+    "tyler_lower_court_code": "1782",
     "name": "Framingham District Court",
     "phone": "(508) 875-7461",
     "has_po_box": false,
@@ -403,7 +403,7 @@
   {
     "fax": "(978) 630-3902",
     "court_code": "63",
-    "lower_court_code": "1783",
+    "tyler_lower_court_code": "1783",
     "name": "Gardner District Court",
     "phone": "(978) 632-2373",
     "has_po_box": false,
@@ -424,7 +424,7 @@
   {
     "fax": "(978) 283-8784",
     "court_code": "39",
-    "lower_court_code": "1784",
+    "tyler_lower_court_code": "1784",
     "name": "Gloucester District Court",
     "phone": "(978) 283-2620",
     "has_po_box": false,
@@ -445,7 +445,7 @@
   {
     "fax": "(413) 774-5328",
     "court_code": "41",
-    "lower_court_code": "1785",
+    "tyler_lower_court_code": "1785",
     "name": "Greenfield District Court",
     "phone": "(413) 774-5533",
     "has_po_box": false,
@@ -466,7 +466,7 @@
   {
     "fax": "",
     "court_code": "38",
-    "lower_court_code": "1786",
+    "tyler_lower_court_code": "1786",
     "name": "Haverhill District Court",
     "phone": "(978) 521-7300",
     "has_po_box": false,
@@ -487,7 +487,7 @@
   {
     "fax": "(781) 740-8390",
     "court_code": "58",
-    "lower_court_code": "1787",
+    "tyler_lower_court_code": "1787",
     "name": "Hingham District Court",
     "phone": "(781) 749-7000",
     "has_po_box": false,
@@ -508,7 +508,7 @@
   {
     "fax": "(413) 533-7165",
     "court_code": "17",
-    "lower_court_code": "1788",
+    "tyler_lower_court_code": "1788",
     "name": "Holyoke District Court",
     "phone": "(413) 538-9710",
     "has_po_box": false,
@@ -529,7 +529,7 @@
   {
     "fax": "(978) 462-5641",
     "court_code": "40",
-    "lower_court_code": "1789",
+    "tyler_lower_court_code": "1789",
     "name": "Ipswich District Court",
     "phone": "(978) 462-2652",
     "has_po_box": false,
@@ -550,7 +550,7 @@
   {
     "fax": "",
     "court_code": "18",
-    "lower_court_code": "1790",
+    "tyler_lower_court_code": "1790",
     "name": "Lawrence District Court",
     "phone": "(978) 687-7184",
     "has_po_box": false,
@@ -572,7 +572,7 @@
   {
     "fax": "(978) 537-3970",
     "court_code": "61",
-    "lower_court_code": "1791",
+    "tyler_lower_court_code": "1791",
     "name": "Leominster District Court",
     "phone": "(978) 537-3722",
     "has_po_box": false,
@@ -593,7 +593,7 @@
   {
     "fax": "(978) 937-2486",
     "court_code": "11",
-    "lower_court_code": "1792",
+    "tyler_lower_court_code": "1792",
     "name": "Lowell District Court",
     "phone": "(978) 459-4101",
     "has_po_box": false,
@@ -614,7 +614,7 @@
   {
     "fax": "(781) 598-4350",
     "court_code": "13",
-    "lower_court_code": "1793",
+    "tyler_lower_court_code": "1793",
     "name": "Lynn District Court",
     "phone": "(781) 598-5200",
     "has_po_box": false,
@@ -635,7 +635,7 @@
   {
     "fax": "(781) 322-0169",
     "court_code": "50",
-    "lower_court_code": "1794",
+    "tyler_lower_court_code": "1794",
     "name": "Malden District Court",
     "phone": "(781) 322-7500",
     "has_po_box": false,
@@ -656,7 +656,7 @@
   {
     "fax": "(508) 485-1575",
     "court_code": "21",
-    "lower_court_code": "1795",
+    "tyler_lower_court_code": "1795",
     "name": "Marlborough District Court",
     "phone": "(508) 485-3700",
     "has_po_box": false,
@@ -677,7 +677,7 @@
   {
     "fax": "(508) 634-8477",
     "court_code": "66",
-    "lower_court_code": "1796",
+    "tyler_lower_court_code": "1796",
     "name": "Milford District Court",
     "phone": "(508) 473-1260",
     "has_po_box": false,
@@ -698,7 +698,7 @@
   {
     "fax": "(508) 325-5759",
     "court_code": "88",
-    "lower_court_code": "1797",
+    "tyler_lower_court_code": "1797",
     "name": "Nantucket District Court",
     "phone": "(508) 228-0460",
     "has_po_box": false,
@@ -719,7 +719,7 @@
   {
     "fax": "(508) 990-8094 ",
     "court_code": "33",
-    "lower_court_code": "1799",
+    "tyler_lower_court_code": "1799",
     "name": "New Bedford District Court",
     "phone": "(508) 999-9700",
     "has_po_box": false,
@@ -740,7 +740,7 @@
   {
     "fax": "(978) 465-6471",
     "court_code": "22",
-    "lower_court_code": "1800",
+    "tyler_lower_court_code": "1800",
     "name": "Newburyport District Court",
     "phone": "(978) 462-2652",
     "has_po_box": false,
@@ -761,7 +761,7 @@
   {
     "fax": "(617) 243-7291",
     "court_code": "12",
-    "lower_court_code": "1801",
+    "tyler_lower_court_code": "1801",
     "name": "Newton District Court",
     "phone": "(617) 244-3600",
     "has_po_box": false,
@@ -782,7 +782,7 @@
   {
     "fax": "(413) 586-1980",
     "court_code": "45",
-    "lower_court_code": "1802",
+    "tyler_lower_court_code": "1802",
     "name": "Northampton District Court",
     "phone": "(413) 584-7400",
     "has_po_box": false,
@@ -803,7 +803,7 @@
   {
     "fax": "(413) 664-7209",
     "court_code": "28",
-    "lower_court_code": "1803",
+    "tyler_lower_court_code": "1803",
     "name": "Northern Berkshire District Court",
     "phone": "(413) 663-5339",
     "has_po_box": false,
@@ -824,7 +824,7 @@
   {
     "fax": "(978) 544-5204",
     "court_code": "42",
-    "lower_court_code": "1804",
+    "tyler_lower_court_code": "1804",
     "name": "Orange District Court",
     "phone": "(978) 544-8277",
     "has_po_box": false,
@@ -845,7 +845,7 @@
   {
     "fax": "(508) 240-1150",
     "court_code": "26",
-    "lower_court_code": "1805",
+    "tyler_lower_court_code": "1805",
     "name": "Orleans District Court",
     "phone": "(508) 255-4700",
     "has_po_box": false,
@@ -866,7 +866,7 @@
   {
     "fax": "(413) 283-6775",
     "court_code": "43",
-    "lower_court_code": "1806",
+    "tyler_lower_court_code": "1806",
     "name": "Palmer District Court",
     "phone": "(413) 283-8916",
     "has_po_box": false,
@@ -888,7 +888,7 @@
   {
     "fax": "(978) 531-8524",
     "court_code": "86",
-    "lower_court_code": "1807",
+    "tyler_lower_court_code": "1807",
     "name": "Peabody District Court",
     "phone": "(978) 532-3100",
     "has_po_box": false,
@@ -909,7 +909,7 @@
   {
     "fax": "(413) 499-7327",
     "court_code": "27",
-    "lower_court_code": "1808",
+    "tyler_lower_court_code": "1808",
     "name": "Pittsfield District Court",
     "phone": "(413) 499-0558",
     "has_po_box": true,
@@ -930,7 +930,7 @@
   {
     "fax": "(508) 830-9303",
     "court_code": "59",
-    "lower_court_code": "1809",
+    "tyler_lower_court_code": "1809",
     "name": "Plymouth District Court",
     "phone": "(508) 747-8400",
     "has_po_box": false,
@@ -951,7 +951,7 @@
   {
     "fax": "(617) 472-1924",
     "court_code": "56",
-    "lower_court_code": "1810",
+    "tyler_lower_court_code": "1810",
     "name": "Quincy District Court",
     "phone": "(617) 471-1650",
     "has_po_box": false,
@@ -972,7 +972,7 @@
   {
     "fax": "",
     "court_code": "36",
-    "lower_court_code": "1811",
+    "tyler_lower_court_code": "1811",
     "name": "Salem District Court",
     "phone": "(978) 744-1167",
     "has_po_box": false,
@@ -993,7 +993,7 @@
   {
     "fax": "(617) 776-2111",
     "court_code": "10",
-    "lower_court_code": "1812",
+    "tyler_lower_court_code": "1812",
     "name": "Somerville District Court",
     "phone": "(617) 666-8000",
     "has_po_box": false,
@@ -1014,7 +1014,7 @@
   {
     "fax": "(413) 528-0757",
     "court_code": "29",
-    "lower_court_code": "1813",
+    "tyler_lower_court_code": "1813",
     "name": "Southern Berkshire District Court",
     "phone": "(413) 528-3520",
     "has_po_box": false,
@@ -1035,7 +1035,7 @@
   {
     "fax": "",
     "court_code": "23",
-    "lower_court_code": "1814",
+    "tyler_lower_court_code": "1814",
     "name": "Springfield District Court",
     "phone": "(413) 748-8600",
     "has_po_box": true,
@@ -1056,7 +1056,7 @@
   {
     "fax": "(781) 341-8744",
     "court_code": "55",
-    "lower_court_code": "1815",
+    "tyler_lower_court_code": "1815",
     "name": "Stoughton District Court",
     "phone": "(781) 344-2131",
     "has_po_box": false,
@@ -1077,7 +1077,7 @@
   {
     "fax": "(508) 824-2282",
     "court_code": "31",
-    "lower_court_code": "1816",
+    "tyler_lower_court_code": "1816",
     "name": "Taunton District Court",
     "phone": "(508) 977-6000",
     "has_po_box": false,
@@ -1098,7 +1098,7 @@
   {
     "fax": "(508) 278-2929",
     "court_code": "65",
-    "lower_court_code": "1817",
+    "tyler_lower_court_code": "1817",
     "name": "Uxbridge District Court",
     "phone": "(508) 278-2454",
     "has_po_box": false,
@@ -1119,7 +1119,7 @@
   {
     "fax": "",
     "court_code": "51",
-    "lower_court_code": "1818",
+    "tyler_lower_court_code": "1818",
     "name": "Waltham District Court",
     "phone": "(781) 894-4500",
     "has_po_box": false,
@@ -1140,7 +1140,7 @@
   {
     "fax": "(508) 291-6376",
     "court_code": "60",
-    "lower_court_code": "1819",
+    "tyler_lower_court_code": "1819",
     "name": "Wareham District Court",
     "phone": "(508) 295-8300",
     "has_po_box": false,
@@ -1161,7 +1161,7 @@
   {
     "fax": "(508) 366-8268",
     "court_code": "67",
-    "lower_court_code": "1820",
+    "tyler_lower_court_code": "1820",
     "name": "Westborough District Court",
     "phone": "(508) 366-8266",
     "has_po_box": false,
@@ -1182,7 +1182,7 @@
   {
     "fax": "(413) 568-4863",
     "court_code": "44",
-    "lower_court_code": "1821",
+    "tyler_lower_court_code": "1821",
     "name": "Westfield District Court",
     "phone": "(413) 568-8946",
     "has_po_box": false,
@@ -1203,7 +1203,7 @@
   {
     "fax": "(978) 632-3580",
     "court_code": "70",
-    "lower_court_code": "1822",
+    "tyler_lower_court_code": "1822",
     "name": "Winchendon District Court",
     "phone": "(978) 632-6326",
     "has_po_box": false,
@@ -1224,7 +1224,7 @@
   {
     "fax": "(781) 933-4404",
     "court_code": "53",
-    "lower_court_code": "1823",
+    "tyler_lower_court_code": "1823",
     "name": "Woburn District Court",
     "phone": "(781) 935-4000",
     "has_po_box": false,
@@ -1245,7 +1245,7 @@
   {
     "fax": "",
     "court_code": "62",
-    "lower_court_code": "1824",
+    "tyler_lower_court_code": "1824",
     "name": "Worcester District Court",
     "phone": "(508) 831-2010",
     "has_po_box": false,
@@ -1266,7 +1266,7 @@
   {
     "fax": "",
     "court_code": "57",
-    "lower_court_code": "1825",
+    "tyler_lower_court_code": "1825",
     "name": "Wrentham District Court",
     "phone": "(508) 384-3106",
     "has_po_box": false,
