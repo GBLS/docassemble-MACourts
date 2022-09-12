@@ -1,7 +1,9 @@
 from docassemble.base.core import DAObject, DAList
 from docassemble.base.util import path_and_mimetype, Address, LatitudeLongitude, prevent_dependency_satisfaction
 from docassemble.base.legal import Court
+import traceback
 import io, json, re, os, time
+import typing
 from typing import Any, Callable, List, Mapping, Optional, Set, Union, Tuple
 from docassemble.webapp.playground import PlaygroundSection
 from collections.abc import Iterable
@@ -325,7 +327,7 @@ class MACourtList(DAList):
         else:
             return None
 
-    def matching_courts(self, address: Union[Address, Iterable[Address]], court_types: Union[str, Iterable[str]]=None) -> List[MACourt]:
+    def matching_courts(self, address: Union[Address, typing.Iterable[Address]], court_types: Union[str, typing.Iterable[str]]=None) -> List[MACourt]:
         """Return a list of courts serving the specified address(es). Optionally limit to one or more types of courts"""
         if isinstance(address, Iterable):
             courts: Set[MACourt] = set()
@@ -345,7 +347,7 @@ class MACourtList(DAList):
         else:
             return self.matching_courts_single_address(address, court_types)
 
-    def matching_courts_single_address(self, address: Address, court_types: Union[str, Iterable[str]]=None) -> List[MACourt]:
+    def matching_courts_single_address(self, address: Address, court_types: Union[str, typing.Iterable[str]]=None) -> List[MACourt]:
         try:
           # Don't match Suffolk County in New York, e.g.
           if not address.state.lower() in ["ma","massachusetts"]:
@@ -380,7 +382,7 @@ class MACourtList(DAList):
             matches: Set[MACourt] = set()
             for court_type in court_types:
               if court_type in court_type_map:
-                res =  court_type_map[court_type](address)
+                res = court_type_map[court_type](address)
                 if isinstance(res, Iterable):
                     matches.update(filter(lambda el: el is not None, res))
                 elif not res is None:
@@ -402,9 +404,25 @@ class MACourtList(DAList):
         #     return None
         return list(matches)
 
-    def load_courts(self, courts=['housing_courts','bmc','district_courts','superior_courts'], data_path='docassemble.MACourts:data/sources/'):
-        """Load a set of courts into the MACourtList. Courts should be a list of names of JSON files in the data/sources directory.
-        Will fall back on loading courts directly from MassGov if the cached file doesn't exist. Available courts: district_courts, housing_courts,bmc,superior_courts,land_court,juvenile_courts,probate_and_family_courts,appeals_court"""
+    def load_courts(self, courts=['housing_courts','bmc','district_courts','superior_courts'], data_path=None):
+        """
+        Load a set of courts into the MACourtList. Courts should be a list of names of JSON files in the data/sources directory.
+        Will fall back on loading courts directly from MassGov if the cached file doesn't exist.
+        Available courts:
+        * district_courts,
+        * housing_courts,
+        * bmc,
+        * superior_courts,
+        * land_court,
+        * juvenile_courts,
+        * probate_and_family_courts,
+        * appeals_court
+        """
+        if data_path is None:
+          if hasattr(self, 'data_path'):
+            data_path = self.data_path
+          else:
+            data_path = 'docassemble.MACourts:data/sources/'
         try:
             for court in courts:
                 self.load_courts_from_file(court, data_path=data_path)
@@ -491,7 +509,7 @@ class MACourtList(DAList):
         elif court_name == "appeals_court":
             court_department = "Appeals Court"
 
-        path = path_and_mimetype(os.path.join(data_path,json_path+'.json'))[0]
+        path = path_and_mimetype(os.path.join(data_path, json_path+'.json'))[0]
         if path is None:
           # fallback, for running on non-docassemble.
           path = os.path.join(data_path, json_path + '.json')
@@ -977,7 +995,7 @@ class MACourtList(DAList):
         
         # Try one time to match the normalized address instead of the 
         # literal provided address if first match fails
-        if depth==0 and not local_housing_court:
+        if depth == 0 and not local_housing_court:
             return self.matching_housing_court_name(address.norm_long, depth=1)
         return local_housing_court
 
@@ -990,11 +1008,14 @@ class MACourtList(DAList):
                 court_name = self.get_boston_ward_number(address)[1] + ' Division, Boston Municipal Court'
             except:
                 return None
-        return next ((court for court in self.elements if court.name.rstrip().lower() == court_name.lower()), None)
+        return next((court for court in self.elements if court.name.rstrip().lower() == court_name.lower()), None)
 
-    def load_boston_wards_from_file(self, json_path, data_path='docassemble.MACourts:data/sources/') -> GeoDataFrame:
+    def load_boston_wards_from_file(self, json_path) -> GeoDataFrame:
         """load geojson file for boston wards"""
-        path = path_and_mimetype(os.path.join(data_path,json_path+'.geojson'))[0]
+        path = path_and_mimetype(os.path.join(self.data_path, json_path+'.geojson'))[0]
+        if path is None:
+          # fallback, for running on non-docassemble (i.e. unit tests)
+          path = os.path.join(self.data_path, json_path+'.geojson')
         wards = gpd.read_file(path)
         
         return wards
