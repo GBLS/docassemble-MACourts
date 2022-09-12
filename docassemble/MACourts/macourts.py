@@ -2,7 +2,7 @@ from docassemble.base.core import DAObject, DAList
 from docassemble.base.util import path_and_mimetype, Address, LatitudeLongitude, prevent_dependency_satisfaction
 from docassemble.base.legal import Court
 import io, json, re, os, time
-from typing import List, Optional
+from typing import List, Optional, Set
 from docassemble.webapp.playground import PlaygroundSection
 from collections.abc import Iterable
 import copy
@@ -630,7 +630,7 @@ class MACourtList(DAList):
             return self.matching_juvenile_court_name(address, depth=1)
         return set(matches)
 
-    def matching_probate_and_family_court(self, address):
+    def matching_probate_and_family_court(self, address) -> Set:
         """Returns either single matching MACourt object or a set of MACourts"""
         court_names = self.matching_probate_and_family_court_name(address)
         if isinstance(court_names,Iterable):
@@ -641,14 +641,14 @@ class MACourtList(DAList):
         else:
             return set([court for court in self.elements if court.name.rstrip().lower() == court_names.lower()])
 
-    def matching_probate_and_family_court_name(self, address, depth=0):
+    def matching_probate_and_family_court_name(self, address, depth=0) -> List:
         """Multiple P&F courts may serve the same address"""
         if depth==1 and hasattr(address, 'norm_long') and hasattr(address.norm_long, 'city') and hasattr(address.norm_long, 'county'):
             address_to_compare = address.norm_long
         else:
             address_to_compare = address
         if (not hasattr(address_to_compare, 'county')) or (address_to_compare.county.lower().strip() == ''):
-            return ''
+            return []
         matches = []
 
         if (address_to_compare.county.lower() == "barnstable county") or (address_to_compare.city.lower() in ["bourne", "brewster", "chatham", "dennis", "eastham", "falmouth", "harwich", "mashpee", "orleans", "provincetown", "sandwich", "truro", "wellfleet", "yarmouth"]):
@@ -656,7 +656,7 @@ class MACourtList(DAList):
         if (address_to_compare.county.lower() == "berkshire county") or (address_to_compare.city.lower() in ["adams", "alford", "becket", "cheshire", "clarksburg", "dalton", "egremont", "florida", "great barrington", "hancock", "hinsdale", "lanesborough", "lee", "lenox", "monterey", "mount washington", "new ashford", "new marlborough", "north adams", "otis", "peru", "pittsfield", "richmond", "sandisfield", "savoy", "sheffield", "stockbridge", "tyringham", "washington", "west stockbridge", "williamstown", "windsor"]):
             matches.append("Berkshire Probate and Family Court")
         if (address_to_compare.county.lower() == "bristol county") or (address_to_compare.city.lower() in ["acushnet", "attleboro", "berkley", "dartmouth", "dighton", "easton", "fairhaven", "fall river", "freetown", "mansfield", "new bedford", "north attleborough", "norton", "raynham", "rehoboth", "seekonk", "somerset", "swansea", "taunton", "westport"]):
-            matches.append(["Bristol Probate and Family Court","Fall River Probate and Family Court","New Bedford Probate and Family Court"])
+            matches.extend(["Bristol Probate and Family Court","Fall River Probate and Family Court","New Bedford Probate and Family Court"])
         if (address_to_compare.county.lower() == "dukes county") or (address_to_compare.city.lower() in ["aquinnah", "chilmark", "edgartown", "gosnold", "oak bluffs", "tisbury", "west tisbury"]):
             matches.append("Dukes Probate and Family Court")
         if (address_to_compare.county.lower() == "essex county") or (address_to_compare.city.lower() in ["amesbury", "andover", "beverly", "boxford", "danvers", "essex", "georgetown", "gloucester", "groveland", "hamilton", "haverhill", "ipswich", "lawrence", "lynn", "lynnfield", "manchester by the sea", "manchester-by-the-sea", "marblehead", "merrimac", "methuen", "middleton", "nahunt", "newbury", "newburyport", "north andover", "peabody", "rockport", "rowley", "salem", "salisbury", "saugus", "swampscott", "topsfield", "wenham", "west newbury"]):
