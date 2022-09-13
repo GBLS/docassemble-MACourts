@@ -1,0 +1,7 @@
+docassemble.base>=1.4
+docassemble.webapp
+geopandas>=0.1.0
+Shapely>=1.0.15
+usaddress>=0.5.10
+hypothesis
+mypy

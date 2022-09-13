@@ -2,13 +2,15 @@ from docassemble.base.core import DAObject, DAList
 from docassemble.base.util import path_and_mimetype, Address, LatitudeLongitude, prevent_dependency_satisfaction
 from docassemble.base.legal import Court
 import io, json, re, os, time
-from typing import List, Optional, Set
+import typing
+from typing import Any, Callable, List, Mapping, Optional, Set, Union, Tuple
 from docassemble.webapp.playground import PlaygroundSection
 from collections.abc import Iterable
 import copy
 
 # Needed for Boston Municipal Court
 import geopandas as gpd
+from geopandas import GeoDataFrame
 from shapely.geometry import Point
 
 __all__= ['MACourt','MACourtList','combined_locations', 'get_year_from_docket_number']
@@ -225,7 +227,7 @@ __all__= ['MACourt','MACourtList','combined_locations', 'get_year_from_docket_nu
 #    #     f.close()
 #    #sources.finalize()
 
-def test_write():
+def test_write() -> str:
     area = PlaygroundSection('sources').get_area()
     fpath = os.path.join(area.directory, "test" + '.json')
     jdata = "test"
@@ -253,10 +255,10 @@ class MACourt(Court):
     def phone_number(self):
       return getattr(self, 'phone')
     
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.name)
       
-    def _map_info(self):
+    def _map_info(self) -> List[Mapping[str, Any]]:
         the_info = str(self.name)
         the_info += "  [NEWLINE]  " + self.address.block()
         result = {'latitude': self.location.latitude, 'longitude': self.location.longitude, 'info': the_info}
@@ -264,7 +266,7 @@ class MACourt(Court):
             result['icon'] = self.icon
         return [result]
       
-    def short_label(self):
+    def short_label(self) -> str:
       """
       Returns a string that represents a nice, disambiguated label for the court.
       This may not match the court's name. If the name omits city, we
@@ -276,14 +278,14 @@ class MACourt(Court):
       else:
         return str(self.name) + ' (' + self.address.city + ')'
     
-    def short_label_and_address(self):
+    def short_label_and_address(self) -> str:
       """
       Returns a markdown formatted string with the name and address of the court.
       More concise version without description; suitable for a responsive case.
       """
       return '**' + self.short_label() + '**' + '[BR]' + self.address.on_one_line()
     
-    def short_description(self):
+    def short_description(self) -> str:
       """
       Returns a Markdown formatted string that includes the disambiguated name and 
       the description of the court, for inclusion in the results page with radio
@@ -307,8 +309,9 @@ class MACourtList(DAList):
             elif self.courts is True:
                 self.load_courts(data_path=self.data_path)
 
-    def filter_courts(self, court_types):
-        """Return the list of courts matching the specified department(s). E.g., Housing Court. court_types may be list or single court department."""
+    def filter_courts(self, court_types: Union[str, Iterable]) -> Optional[List]:
+        """Return the list of courts matching the specified department(s). 
+        E.g., Housing Court. court_types may be list or single court department."""
         if isinstance(court_types, str):
             return self.filter(department=court_types)
         elif isinstance(court_types, Iterable):
@@ -316,18 +319,17 @@ class MACourtList(DAList):
         else:
             return None
 
-    def get_court_by_code(self, court_code):
+    def get_court_by_code(self, court_code: str) -> Optional[MACourt]:
         """Return a court that has the matching court_code"""
-        # TODO: the court code should always be string, not numeric!
         if isinstance(court_code, str):
             return next((court for court in self if str(court.court_code).lower() == court_code.lower()), None)
         else:
             return None
 
-    def matching_courts(self, address, court_types=None):
+    def matching_courts(self, address: Union[Address, typing.Iterable[Address]], court_types: Union[str, typing.Iterable[str]]=None) -> List[MACourt]:
         """Return a list of courts serving the specified address(es). Optionally limit to one or more types of courts"""
         if isinstance(address, Iterable):
-            courts = set()
+            courts: Set[MACourt] = set()
             for add in address:
                 try:
                     # It's helpful to normalize the address, but it's OK if 
@@ -337,22 +339,21 @@ class MACourtList(DAList):
                     pass
                 res = self.matching_courts_single_address(add, court_types)
                 if isinstance(res, Iterable):
-                    res = filter(lambda el: el is not None, res)
-                    courts.update(res)
+                    courts.update(filter(lambda el: el is not None, res))
                 elif not res is None:
                     courts.add(res)
             return list(courts)
         else:
             return self.matching_courts_single_address(address, court_types)
 
-    def matching_courts_single_address(self, address, court_types=[]):
+    def matching_courts_single_address(self, address: Address, court_types: Union[str, typing.Iterable[str]]=None) -> List[MACourt]:
         try:
           # Don't match Suffolk County in New York, e.g.
           if not address.state.lower() in ["ma","massachusetts"]:
             return []
         except:
           pass
-        court_type_map = {
+        court_type_map: Mapping[str, Callable[[Address], Union[Set[MACourt], MACourt, None]]] = {
             'Housing Court': self.matching_housing_court,
             'District Court': self.matching_district_court,
             'Boston Municipal Court': self.matching_bmc,
@@ -362,20 +363,27 @@ class MACourtList(DAList):
             'Superior Court': self.matching_superior_court,
             'Appeals Court': self.matching_appeals_court,
         }
+        if court_types is None:
+            court_types = []
 
         if isinstance(court_types, str):
           if court_types in court_type_map:
-            return court_type_map[court_types](address)
+            res = court_type_map[court_types](address)
+            if isinstance(res, Iterable):
+              return list(res)
+            elif res is not None:
+              return [res]
+            else:
+              return []
           else:
             return []
         elif isinstance(court_types, Iterable):
-            matches = set()
+            matches: Set[MACourt] = set()
             for court_type in court_types:
               if court_type in court_type_map:
-                res =  court_type_map[court_type](address)
+                res = court_type_map[court_type](address)
                 if isinstance(res, Iterable):
-                    res = filter(lambda el: el is not None, res)
-                    matches.update(res)
+                    matches.update(filter(lambda el: el is not None, res))
                 elif not res is None:
                     matches.add(res)
               else:
@@ -395,9 +403,25 @@ class MACourtList(DAList):
         #     return None
         return list(matches)
 
-    def load_courts(self, courts=['housing_courts','bmc','district_courts','superior_courts'], data_path='docassemble.MACourts:data/sources/'):
-        """Load a set of courts into the MACourtList. Courts should be a list of names of JSON files in the data/sources directory.
-        Will fall back on loading courts directly from MassGov if the cached file doesn't exist. Available courts: district_courts, housing_courts,bmc,superior_courts,land_court,juvenile_courts,probate_and_family_courts,appeals_court"""
+    def load_courts(self, courts=['housing_courts','bmc','district_courts','superior_courts'], data_path=None):
+        """
+        Load a set of courts into the MACourtList. Courts should be a list of names of JSON files in the data/sources directory.
+        Will fall back on loading courts directly from MassGov if the cached file doesn't exist.
+        Available courts:
+        * district_courts,
+        * housing_courts,
+        * bmc,
+        * superior_courts,
+        * land_court,
+        * juvenile_courts,
+        * probate_and_family_courts,
+        * appeals_court
+        """
+        if data_path is None:
+          if hasattr(self, 'data_path'):
+            data_path = self.data_path
+          else:
+            data_path = 'docassemble.MACourts:data/sources/'
         try:
             for court in courts:
                 self.load_courts_from_file(court, data_path=data_path)
@@ -484,7 +508,7 @@ class MACourtList(DAList):
         elif court_name == "appeals_court":
             court_department = "Appeals Court"
 
-        path = path_and_mimetype(os.path.join(data_path,json_path+'.json'))[0]
+        path = path_and_mimetype(os.path.join(data_path, json_path+'.json'))[0]
         if path is None:
           # fallback, for running on non-docassemble.
           path = os.path.join(data_path, json_path + '.json')
@@ -516,7 +540,7 @@ class MACourtList(DAList):
             court.address.county = item['address']['county']
             court.address.orig_address = item['address'].get('orig_address')
 
-    def matching_juvenile_court(self, address):
+    def matching_juvenile_court(self, address) -> Set[MACourt]:
         """Returns either single matching MACourt object or a set of MACourts"""
         court_name = self.matching_juvenile_court_name(address)
         
@@ -530,20 +554,20 @@ class MACourtList(DAList):
             # one court name, which may match more than one court location. Sessions/sittings don't always get unique names
             return set([court for court in self.elements if court.name.rstrip().lower() == court_name.lower()])
 
-    def matching_juvenile_court_name(self, address, depth=0):
+    def matching_juvenile_court_name(self, address, depth=0) -> Set[str]:
         if depth == 1 and hasattr(address, 'norm_long') and hasattr(address.norm_long, 'city') and hasattr(address.norm_long, 'county'):
             address_to_compare = address.norm_long
         else:
             address_to_compare = address
         if (not hasattr(address_to_compare, 'county')) or (address_to_compare.county.lower().strip() == ''):
-            return ''
+            return set()
 
         matches = []
         # Special case for two areas of Boston -- concurrent with BMC jurisdiction. Need to match these first
         if str(self.matching_bmc(address)) == "West Roxbury Division, Boston Municipal Court":
-            return "West Roxbury Juvenile Court"
+            return set(["West Roxbury Juvenile Court"])
         elif str(self.matching_bmc(address)) == "Dorchester Division, Boston Municipal Court":
-            return "Dorchester Juvenile Court"
+            return set(["Dorchester Juvenile Court"])
         if address_to_compare.city.lower() in ["attleboro", "mansfield", "north attleboro","north attleborough", "norton"]:
             matches.append("Attleboro Juvenile Court")
         if address_to_compare.city.lower() in ["barnstable", "sandwich", "yarmouth"]:
@@ -630,25 +654,22 @@ class MACourtList(DAList):
             return self.matching_juvenile_court_name(address, depth=1)
         return set(matches)
 
-    def matching_probate_and_family_court(self, address) -> Set:
+    def matching_probate_and_family_court(self, address) -> Set[MACourt]:
         """Returns either single matching MACourt object or a set of MACourts"""
         court_names = self.matching_probate_and_family_court_name(address)
-        if isinstance(court_names,Iterable):
-            courts = set()
-            for court_item in court_names:
-                courts.update([court for court in self.elements if court.name.rstrip().lower() == court_item.lower()])
-            return courts
-        else:
-            return set([court for court in self.elements if court.name.rstrip().lower() == court_names.lower()])
+        courts = set()
+        for court_item in court_names:
+            courts.update([court for court in self.elements if court.name.rstrip().lower() == court_item.lower()])
+        return courts
 
-    def matching_probate_and_family_court_name(self, address, depth=0) -> List:
+    def matching_probate_and_family_court_name(self, address, depth=0) -> Set[str]:
         """Multiple P&F courts may serve the same address"""
         if depth==1 and hasattr(address, 'norm_long') and hasattr(address.norm_long, 'city') and hasattr(address.norm_long, 'county'):
             address_to_compare = address.norm_long
         else:
             address_to_compare = address
         if (not hasattr(address_to_compare, 'county')) or (address_to_compare.county.lower().strip() == ''):
-            return []
+            return set()
         matches = []
 
         if (address_to_compare.county.lower() == "barnstable county") or (address_to_compare.city.lower() in ["bourne", "brewster", "chatham", "dennis", "eastham", "falmouth", "harwich", "mashpee", "orleans", "provincetown", "sandwich", "truro", "wellfleet", "yarmouth"]):
@@ -686,9 +707,9 @@ class MACourtList(DAList):
 
         if not matches and depth==0:
             return self.matching_probate_and_family_court_name(address, depth=1)
-        return matches
+        return set(matches)
 
-    def matching_superior_court(self, address):
+    def matching_superior_court(self, address: Address) -> Set[MACourt]:
         """Returns either single matching MACourt object or a set of MACourts"""
         court_name = self.matching_superior_court_name(address)
         # if isinstance(court_name,Iterable):
@@ -697,10 +718,10 @@ class MACourtList(DAList):
         #         courts.update(set([court for court in self.elements if court.name.rstrip().lower() == court_item.lower()]))
         #     return courts
         # else:
-        return [court for court in self.elements if court.name.rstrip().lower() == court_name.lower()]
+        return set([court for court in self.elements if court.name.rstrip().lower() == court_name.lower()])
         # return next ((court for court in self.elements if court.name.rstrip().lower() == court_name.lower()), None)
 
-    def matching_superior_court_name(self, address, depth=0):
+    def matching_superior_court_name(self, address: Address, depth=0) -> str:
         if depth == 1 and hasattr(address, 'norm_long') and hasattr(address.norm_long, 'city') and hasattr(address.norm_long, 'county'):
             address_to_compare = address.norm_long
         else:
@@ -743,26 +764,25 @@ class MACourtList(DAList):
             return self.matching_superior_court_name(address, depth=1)
         return local_superior_court
 
-    def matching_land_court(self, address):
+    def matching_land_court(self, address: Address) -> Optional[MACourt]:
         """There's currently only one Land Court"""
         return next((court for court in self.elements if court.name.rstrip().lower() == 'land court'),None)
       
-    def matching_appeals_court(self, address):
+    def matching_appeals_court(self, address: Address) -> Optional[MACourt]:
         """Two appeals courts: single justice and panel. Returns the single justice one by default."""
         return next((court for court in self.elements if court.name.rstrip().lower() == 'massachusetts appeals court (single justice)'),None)
       
-    def matching_district_court(self, address):
+    def matching_district_court(self, address: Address) -> Set[MACourt]:
         """Return list of MACourts representing the District Court(s) serving the given address"""
         court_name = self.matching_district_court_name(address)
-        if isinstance(court_name,Iterable):
-            courts = set()
-            for court_item in court_name:
-                courts.add(next ((court for court in self.elements if court.name.rstrip().lower() == court_item.lower()),None))
-            return courts
-        else:
-            return [court for court in self.elements if court.name.rstrip().lower() == court_name.lower()]
+        courts = set()
+        for court_item in court_name:
+            matching_obj = next((court for court in self.elements if court.name.rstrip().lower() == court_item.lower()), None)
+            if matching_obj:
+                courts.add(matching_obj)
+        return courts
 
-    def matching_district_court_name(self, address, depth=0):
+    def matching_district_court_name(self, address: Address, depth=0) -> Set[str]:
         """Returns the name of the MACourt(s) representing the district court that covers the specified address.
         Harcoded and must be updated if court jurisdictions or names change. Address must specify county attribute
         
@@ -774,7 +794,7 @@ class MACourtList(DAList):
         else:
             address_to_compare = address
         if (not hasattr(address_to_compare, 'county')) or (address_to_compare.county.lower().strip() == ''):
-            return ['']
+            return set()
         matches = []
         if (address_to_compare.county.lower() == "dukes county") or (address_to_compare.city.lower() in ["edgartown", "oak bluffs", "tisbury", "west tisbury", "chilmark", "aquinnah", "gosnold", "elizabeth islands"]):
             matches.append("Edgartown District Court")
@@ -899,17 +919,17 @@ class MACourtList(DAList):
         if address_to_compare.city.lower() in ["auburn", "millbury", "worcester"]:
             matches.append("Worcester District Court")
         if address_to_compare.city.lower() in ["foxborough", "franklin", "medway", "millis", "norfolk", "plainville", "walpole", "wrentham"]:
-            matches.append("Wrentham District Court")            
+            matches.append("Wrentham District Court")
         if not matches and depth == 0:
             return self.matching_district_court_name(address, depth=1)
-        return matches
+        return set(matches)
 
-    def matching_housing_court(self, address):
+    def matching_housing_court(self, address: Address) -> Optional[MACourt]:
         """Return the MACourt representing the Housing Court serving the given address"""
         court_name = self.matching_housing_court_name(address)
         return next ((court for court in self.elements if court.name.rstrip().lower() == court_name.lower()), None)
 
-    def matching_housing_court_name(self,address, depth=0):
+    def matching_housing_court_name(self, address: Address, depth=0) -> str:
         """Returns the name of the MACourt representing the housing court that covers the specified address.
         Harcoded and must be updated if court jurisdictions or names change. Address must specify county attribute"""
 
@@ -974,11 +994,11 @@ class MACourtList(DAList):
         
         # Try one time to match the normalized address instead of the 
         # literal provided address if first match fails
-        if depth==0 and not local_housing_court:
+        if depth == 0 and not local_housing_court:
             return self.matching_housing_court_name(address.norm_long, depth=1)
         return local_housing_court
 
-    def matching_bmc(self, address):
+    def matching_bmc(self, address: Address) -> Optional[MACourt]:
         if address.city.lower() in ["winthrop"]:
             # This city is not in Boston but is served by East Boston BMC
             court_name = "East Boston Division, Boston Municipal Court"
@@ -987,16 +1007,24 @@ class MACourtList(DAList):
                 court_name = self.get_boston_ward_number(address)[1] + ' Division, Boston Municipal Court'
             except:
                 return None
-        return next ((court for court in self.elements if court.name.rstrip().lower() == court_name.lower()), None)
+        return next((court for court in self.elements if court.name.rstrip().lower() == court_name.lower()), None)
 
-    def load_boston_wards_from_file(self, json_path, data_path='docassemble.MACourts:data/sources/'):
+    def load_boston_wards_from_file(self, json_path, data_path=None) -> GeoDataFrame:
         """load geojson file for boston wards"""
-        path = path_and_mimetype(os.path.join(data_path,json_path+'.geojson'))[0]
+        if data_path is None:
+          if hasattr(self, 'data_path'):
+            data_path = self.data_path
+          else:
+            data_path = 'docassemble.MACourts:data/sources/'
+        path = path_and_mimetype(os.path.join(self.data_path, json_path+'.geojson'))[0]
+        if path is None:
+          # fallback, for running on non-docassemble (i.e. unit tests)
+          path = os.path.join(self.data_path, json_path+'.geojson')
         wards = gpd.read_file(path)
         
         return wards
 
-    def get_boston_ward_number(self, address):
+    def get_boston_ward_number(self, address: Address) -> Tuple[str, str]:
         """
         This function takes an address object as input,
         filters a geojson file to only include the ward
@@ -1014,9 +1042,6 @@ class MACourtList(DAList):
         2.Shapely for constructing Point object
         """
         
-        #load geojson Boston Ward map
-        boston_wards = self.load_boston_wards_from_file(json_path = "boston_wards")
-
         #if location data is not in address object, return empty string
         if (not hasattr(address, 'location')):
             return '',''
@@ -1025,6 +1050,9 @@ class MACourtList(DAList):
         elif address.norm.city.lower() in ['boston','east boston','charlestown']:
             #assign point object
             p1 = Point(address.location.longitude, address.location.latitude)
+
+            #load geojson Boston Ward map
+            boston_wards = self.load_boston_wards_from_file(json_path = "boston_wards")
 
             #find ward containing point object
             ward = boston_wards[[p1.within(boston_wards.geometry[i]) for i in range(len(boston_wards))]]
@@ -1166,7 +1194,11 @@ class MACourtList(DAList):
         if not court_code:
             for key in self._land_court_case_type_code_dict:
                 if key in docket_number:
-                    return [self.matching_land_court(None)]
+                    only_land_court = self.matching_land_court(None)
+                    if only_land_court:
+                      return [only_land_court]
+                    else:
+                      return []
             else:
                 for key in self._sjc_code_dict:
                     if key in docket_number:
@@ -1276,7 +1308,7 @@ def get_sequence_number_from_docket_number(docket_number:str) -> Optional[str]:
     search = find_sequence_number_re.search(docket_number)
     return search.group() if search else None
 
-def parse_division_from_name(court_name):
+def parse_division_from_name(court_name) -> str:
     rules = {
         "District Court": r'(.*)( District Court)',
         "Boston Municipal Court": r"(.*)(, Boston Municipal Court)",
@@ -1323,6 +1355,19 @@ def combined_locations(locations):
     """
 
     places = list()
+    def has_match(locations, other) -> bool:
+        for item in locations:
+            if match(item, other):
+                return True
+        return False
+
+    def match(item, other) -> bool:
+        if not item is None and not other is None:
+            return (
+                round(item.location.latitude, 3) == round(other.location.latitude, 3) and
+                round(item.location.longitude, 3) == round(other.location.longitude, 3)
+            )
+        return False
 
     for location in locations:
         if isinstance(location, DAObject):
@@ -1335,15 +1380,6 @@ def combined_locations(locations):
                             place.description += "  [NEWLINE]  " + str(location)
     return places
 
-def has_match(locations, other):
-    for item in locations:
-        if match(item,other):
-            return True
-    return False
-
-def match(item, other):
-    if not item is None and not other is None:
-        return round(item.location.latitude,3) == round(other.location.latitude,3) and round(item.location.longitude,3) == round(other.location.longitude,3)
 
 #if __name__ == '__main__':
 #    import pprint
