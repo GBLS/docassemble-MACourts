@@ -1,7 +1,6 @@
 from docassemble.base.core import DAObject, DAList
 from docassemble.base.util import path_and_mimetype, Address, LatitudeLongitude, prevent_dependency_satisfaction
 from docassemble.base.legal import Court
-import traceback
 import io, json, re, os, time
 import typing
 from typing import Any, Callable, List, Mapping, Optional, Set, Union, Tuple
@@ -1010,8 +1009,13 @@ class MACourtList(DAList):
                 return None
         return next((court for court in self.elements if court.name.rstrip().lower() == court_name.lower()), None)
 
-    def load_boston_wards_from_file(self, json_path) -> GeoDataFrame:
+    def load_boston_wards_from_file(self, json_path, data_path=None) -> GeoDataFrame:
         """load geojson file for boston wards"""
+        if data_path is None:
+          if hasattr(self, 'data_path'):
+            data_path = self.data_path
+          else:
+            data_path = 'docassemble.MACourts:data/sources/'
         path = path_and_mimetype(os.path.join(self.data_path, json_path+'.geojson'))[0]
         if path is None:
           # fallback, for running on non-docassemble (i.e. unit tests)
