@@ -1038,9 +1038,6 @@ class MACourtList(DAList):
         2.Shapely for constructing Point object
         """
         
-        #load geojson Boston Ward map
-        boston_wards = self.load_boston_wards_from_file(json_path = "boston_wards")
-
         #if location data is not in address object, return empty string
         if (not hasattr(address, 'location')):
             return '',''
@@ -1049,6 +1046,9 @@ class MACourtList(DAList):
         elif address.norm.city.lower() in ['boston','east boston','charlestown']:
             #assign point object
             p1 = Point(address.location.longitude, address.location.latitude)
+
+            #load geojson Boston Ward map
+            boston_wards = self.load_boston_wards_from_file(json_path = "boston_wards")
 
             #find ward containing point object
             ward = boston_wards[[p1.within(boston_wards.geometry[i]) for i in range(len(boston_wards))]]
