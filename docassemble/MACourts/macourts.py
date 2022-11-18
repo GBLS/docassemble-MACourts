@@ -326,7 +326,7 @@ class MACourtList(DAList):
         else:
             return None
 
-    def matching_courts(self, address: Union[Address, typing.Iterable[Address]], court_types: Union[str, typing.Iterable[str]]=None) -> List[MACourt]:
+    def matching_courts(self, address: Union[Address, typing.Iterable[Address]], court_types: Optional[Union[str, typing.Iterable[str]]]=None) -> List[MACourt]:
         """Return a list of courts serving the specified address(es). Optionally limit to one or more types of courts"""
         if isinstance(address, Iterable):
             courts: Set[MACourt] = set()
@@ -346,7 +346,7 @@ class MACourtList(DAList):
         else:
             return self.matching_courts_single_address(address, court_types)
 
-    def matching_courts_single_address(self, address: Address, court_types: Union[str, typing.Iterable[str]]=None) -> List[MACourt]:
+    def matching_courts_single_address(self, address: Address, court_types: Optional[Union[str, typing.Iterable[str]]]=None) -> List[MACourt]:
         try:
           # Don't match Suffolk County in New York, e.g.
           if not address.state.lower() in ["ma","massachusetts"]:
@@ -403,7 +403,7 @@ class MACourtList(DAList):
         #     return None
         return list(matches)
 
-    def load_courts(self, courts=['housing_courts','bmc','district_courts','superior_courts'], data_path=None):
+    def load_courts(self, courts=['housing_courts','bmc','district_courts','superior_courts'], data_path:Optional[str]=None):
         """
         Load a set of courts into the MACourtList. Courts should be a list of names of JSON files in the data/sources directory.
         Will fall back on loading courts directly from MassGov if the cached file doesn't exist.
@@ -1009,7 +1009,7 @@ class MACourtList(DAList):
                 return None
         return next((court for court in self.elements if court.name.rstrip().lower() == court_name.lower()), None)
 
-    def load_boston_wards_from_file(self, json_path, data_path=None) -> GeoDataFrame:
+    def load_boston_wards_from_file(self, json_path, data_path:Optional[str]=None) -> GeoDataFrame:
         """load geojson file for boston wards"""
         if data_path is None:
           if hasattr(self, 'data_path'):
