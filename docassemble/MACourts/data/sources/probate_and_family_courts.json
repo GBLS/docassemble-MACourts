@@ -18,6 +18,18 @@
       "state": "MA",
       "address": "3195 Main St. P.O. Box 346"
     },
+    "ADA Coordinator" 
+      {
+        "name": "Caitin G. Mark",    
+        "phone": "508-375-6846",  
+        "email": "caitlin.mark@jud.state.ma.us" 
+      },
+      {
+        "name": "Katharine H. Prunty",
+        "phone": "(508) 375- 6725", 
+        "email": "katharine.prunty@jud.state.ma.us" 
+      }
+    ],
     "description": "This court serves all cities and towns in Barnstable County."
   },
   {
@@ -39,6 +51,18 @@
       "state": "MA",
       "address": "44 Bank Row"
     },
+    "ADA Coordinator" 
+      {
+        "name": "Alida McDarby", 
+        "phone": "(413) 442-6941 ext. 7207", 
+        "email": "alida.mcdarby@jud.state.ma.us" 
+      },
+      {
+        "name": "Karen Lacey", 
+        "phone": "(413) 442-6941 ext. 7245", 
+        "email": "karen.lacey@jud.state.ma.us"
+      }
+    ],
     "description": "This location serves all cities and towns of Berkshire County."
   },
   {
@@ -61,6 +85,13 @@
       "address": "40 Broadway",
       "unit": "Suite 240"
     },
+    "ADA Coordinator" 
+      {
+        "name": "Sharon Lemrise",   
+        "phone": "508-977-6076",   
+        "email": "sharon.lemrise@jud.state.ma.us"   
+      }
+    ],
     "description": "The Bristol Probate and Family Court in Taunton serves all the cities and towns in Bristol County. "
   },
   {
@@ -82,6 +113,13 @@
       "state": "MA",
       "address": "215 Main St."
     },
+    "ADA Coordinator" 
+      {
+        "name": "Claudia Magnus",   
+        "phone": "(508) 897-5439",  
+        "email": "claudia.magnus@jud.state.ma.us"   
+      }
+    ],
     "description": "This court serves Abington, Bridgewater, Brockton, Carver, Duxbury, East Bridgewater, Halifax, Hanover, Hanson, Hingham, Hull, Kingston, Lakeville, Marion, Marshfield, Mattapoisett, Middleboro, Norwell, Pembroke , Plymouth, Plympton, Rochester, Rockland, Scituate, Wareham, West Bridgewater, and Whitman."
   },
   {
@@ -103,6 +141,13 @@
       "state": "MA",
       "address": "81 Main St., P.O. Box 237"
     },
+    "ADA Coordinator" 
+      {
+        "name": "Mallory Calamare",   
+        "phone": "(508) 627-4703",  
+        "email": "mallory.calamare@jud.state.ma.us"   
+      }
+    ],
     "description": "This court serves all the towns of Dukes County."
   },
   {
@@ -124,6 +169,18 @@
       "state": "MA",
       "address": "36 Federal St."
     },
+    "ADA Coordinator" 
+      {
+        "name": "Maritza Mercedes",    
+        "phone": "978 744-1020",   
+        "email": "maritza.mercedes@jud.state.ma.us"  
+      },
+      {
+        "name": "Zona Sharfman",   
+        "phone": "978 744-1020", 
+        "email": "zona.sharfman@jud.state.ma.us"
+      }
+    ],
     "description": "This court serves all cities and towns in Essex County. "
   },
   {
@@ -167,6 +224,13 @@
       "state": "MA",
       "address": "43 Hope St., PO Box 590"
     },
+    "ADA Coordinator" 
+      {
+        "name": "Brennan McGuane",    
+        "phone": "413-775-7460",   
+        "email": "brennan.mcguane@jud.state.ma.us" 
+      }
+    ],
     "description": "This court serves all cities and towns in Franklin County."
   },
   {
@@ -188,6 +252,13 @@
       "state": "MA",
       "address": "50 State St., P.O. Box 559"
     },
+    "ADA Coordinator" 
+      {
+        "name": "Theresa Cullinan",     
+        "phone": "413-748-7770",   
+        "email": "theresa.cullinan@jud.state.ma.us"  
+      }
+    ],
     "description": "This court serves the cities and towns of Hampden County."
   },
   {
@@ -210,6 +281,13 @@
       "address": "33 King St.",
       "unit": "Suite 3"
     },
+    "ADA Coordinator" 
+      {
+        "name": "Mark Ames",    
+        "phone": "413-587-5229",    
+        "email": "mark.ames@jud.state.ma.us"   
+      }
+    ],
     "description": "This court serves all the cities and towns in Hampshire County."
   },
   {
@@ -231,6 +309,13 @@
       "state": "MA",
       "address": "10-U Commerce Way"
     },
+    "ADA Coordinator" 
+      {
+        "name": "Lauren Fraser", 
+        "phone": "(781) 865-4072",    
+        "email": "(617) 225-0781"    
+      }
+    ],
     "description": "This court serves cities and towns in Southern Middlesex County."
   },
     {
@@ -252,6 +337,13 @@
       "state": "MA",
       "address": "370 Jackson Street, 5th floor"
     },
+    "ADA Coordinator" 
+      {
+        "name": "Jillian Martin",    
+        "phone": "(978) 656-7744",  
+        "email": "jillian.martin@jud.state.ma.us"   
+      }
+    ],  
     "description": "This court serves all cities and towns in Northern Middlesex County."
   },
   {
@@ -273,6 +365,13 @@
       "state": "MA",
       "address": "19 Broad St."
     },
+    "ADA Coordinator" 
+      {
+        "name": "Sarah Maxwell",    
+        "phone": "(508) 228-2669",   
+        "email": "sarah.maxwell@jud.state.ma.us"  
+      }
+    ],
     "description": "This court serves Nantucket county."
   },
   {
@@ -294,6 +393,13 @@
       "state": "MA",
       "address": "35 Shawmut Road"
     },
+    "ADA Coordinator" 
+      {
+        "name": "Jay Fielding",     
+        "phone": "(781) 830-1221",  
+        "email": "jay.fielding@jud.state.ma.us"   
+      }
+    ],
     "description": "This court serves all cities and towns in Norfolk County."
   },
   {
@@ -315,6 +421,13 @@
       "state": "MA",
       "address": "52 Obery St."
     },
+    "ADA Coordinator" 
+      {
+        "name": "Claudia Magnus",   
+        "phone": "508-897-5439",  
+        "email": "claudia.magnus@jud.state.ma.us"   
+      }
+    ],
     "description": "This court serves all cities and towns in Plymouth County."
   },
   {
@@ -336,6 +449,13 @@
       "state": "MA",
       "address": "24 New Chardon St."
     },
+    "ADA Coordinator" 
+      {
+        "name": "Kristen Antolini",    
+        "phone": "617-788-8983",    
+        "email": "kristen.antolini@jud.state.ma.us" 
+      }
+    ],
     "description": "This court serves Boston, Brighton, Charlestown, Chelsea, Dorchester, East Boston, Hyde Park, Jamaica Plain, Revere, Roslindale, South Boston, and Winthrop."
   },
   {
@@ -352,11 +472,23 @@
     "address": {
       "city": "Worcester",
       "zip": "01608",
-      "orig_address": "225 Main Street , Worcester, MA 01608",
+      "orig_address": "225 Main Street, Worcester, MA 01608",
       "county": "Worcester County",
       "state": "MA",
       "address": "225 Main Street"
     },
+    "ADA Coordinator" 
+      {
+        "name": "Alicia Doherty",    
+        "phone": "(508) 831-2241",  
+        "email": "alicia.doherty@jud.state.ma.us"  
+      },
+      {
+        "name": "Megan Brown", 
+        "phone": "(508) 831-2237", 
+        "email": "megan.brown@jud.state.ma.us"
+      }
+    ],
     "description": "This court serves all cities and towns in Worcester County."
   }
 ]
