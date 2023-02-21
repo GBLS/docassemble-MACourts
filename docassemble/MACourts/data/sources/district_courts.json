@@ -19,6 +19,13 @@
       "state": "MA",
       "address": "88 North Main St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Virginia Richardson", 
+        "phone": "(508) 222-5900, ext. 313"
+        "email": "virginia.richardson@jud.state.ma.us"
+      }
+    ], 
     "description": "The Attleboro District Court serves Attleboro, Mansfield, North Attleboro, and Norton."
   },
   {
@@ -41,6 +48,13 @@
       "state": "MA",
       "address": "25 East Main St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Tina Ramos",
+        "phone": "978-772-2100 ext. 217",
+        "email": "tina.ramos@jud.state.ma.us"
+      }
+    ], 
     "description": "The Ayer District Court serves Ashby, Ayer, Boxborough, Dunstable, Groton, Littleton, Pepperell, Shirley, Townsend, Westford, and Devens Regional Enterprise Zone."
   },
   {
@@ -63,6 +77,13 @@
       "state": "MA",
       "address": "3195 Main St., P.O. Box 398"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Louise Johnson",
+        "phone": "(508) 362-0274",
+        "email": "louise.johnson@jud.state.ma.us"
+      }
+    ], 
     "description": "The Barnstable District Court serves Barnstable, Yarmouth, and Sandwich."
   },
   {
@@ -85,6 +106,13 @@
       "state": "MA",
       "address": "215 Main St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Roderick Wilmore",
+        "phone": "508-897-2717",
+        "email": "roderick.wilmore@jud.state.ma.us"
+      }
+    ], 
     "description": "This court serves Abington, Bridgewater, Brockton, East Bridgewater, West Bridgewater, and Whitman."
   },
   {
@@ -107,6 +135,18 @@
       "state": "MA",
       "address": "360 Washington St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Kristin O'Hara",
+        "phone": "(617) 232-4660 ext. 115",
+        "email": "kristin.ohara@jud.state.ma.us"
+      },
+      {
+        "name": "Janice Sennott",
+        "phone": "(617) 232-4660", 
+        "email": "janice.sennott@jud.state.ma.us"
+      }
+    ], 
     "description": "The Brookline District Court serves the town of Brookline. As of March 1, 2019, this location is also the interim location for the Brighton Division of the Boston Municipal Court while the Brighton courthouse undergoes renovations. "
   },
   {
@@ -129,6 +169,18 @@
       "state": "MA",
       "address": "4040 Mystic Valley Parkway"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Domenic Strazzullo",
+        "phone": "(781) 306-2764", 
+        "email": "Domenic.strazzullo@jud.state.ma.us"
+      },
+      {
+        "name": "Daniel Tabares",
+        "phone": "(781) 306-2740",
+        "email": "Daniel.tabares@jud.state.ma.us"
+      }
+    ], 
     "description": "The Cambridge District Court, also known as Third District Court, serves Cambridge, Arlington, and Belmont."
   },
   {
@@ -151,6 +203,13 @@
       "state": "MA",
       "address": "120 Broadway"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Carmine DiRuzza", 
+        "phone": "617-660-9273", 
+        "email": "carmine.diruzza@jud.state.ma.us"
+      }
+    ], 
     "description": "This court serves Chelsea and Revere."
   },
   {
@@ -173,6 +232,18 @@
       "state": "MA",
       "address": "30 Church St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Carol DiBernardo",
+        "phone": "(413) 598-0099 ext. 209",
+        "email": "carol.diBernardo@jud.state.ma.us"
+      },
+      {
+        "name": "Barbara Burton", 
+        "phone": "(413) 598-0099 ext. 245",
+        "email": "barbara.burton@jud.state.ma.us"
+      }
+    ], 
     "description": "This court serves Chicopee."
   },
   {
@@ -195,6 +266,13 @@
       "state": "MA",
       "address": "300 Boylston St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Mary Rauscher", 
+        "phone": "978-368-7811 x239",
+        "email": "mary.rauscher@jud.state.ma.us"
+      }
+    ], 
     "description": "This court serves Berlin, Bolton, Boylston, Clinton, Harvard, Lancaster, Sterling, and West Boylston."
   },
   {
@@ -217,6 +295,13 @@
       "state": "MA",
       "address": "305 Walden St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Evan Gilman",
+        "phone": "(978) 369-0500 ext. 623",
+        "email": "evan.gilman@jud.state.ma.us
+      }
+    ], 
     "description": "This court serves Concord, Carlisle, Lincoln, Lexington, Bedford, Acton, Maynard, and Stow."
   },
   {
@@ -239,6 +324,13 @@
       "state": "MA",
       "address": "631 High St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Eileen M. McDonnell",
+        "phone": "781-329-4777 x:303", 
+        "email": "eileen.mcdonnell@jud.state.ma.us"
+      }
+    ], 
     "description": "This court serves Dedham, Dover, Medfield, Needham, Norwood, Wellesley, and Westwood."
   },
   {
@@ -261,6 +353,13 @@
       "state": "MA",
       "address": "279 West Main St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Joseph Moriarty",
+        "phone": "508-943-7123 x133",
+        "email": "joseph.moriarty@jud.state.ma.us"
+      }
+    ], 
     "description": "This court serves Charlton, Dudley, Oxford, Southbridge, Sturbridge, and Webster."
   },
   {
@@ -283,6 +382,18 @@
       "state": "MA",
       "address": "544 East Main St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Lisa Skutnik", 
+        "phone": "508-885-6305 ext. 2711811",
+        "email": "lisa.skutnik@jud.state.ma.us"
+      },
+      {
+        "name": "Klaudio Tanto",
+        "phone": "508-885-6305 ext. 2711819",
+        "email": "klaudio.tanto@jud.state.ma.us"
+      }
+    ], 
     "description": "This court serves Barre, Brookfield, East Brookfield, Hardwick, Leicester, New Braintree, North Brookfield, Oakham, Paxton, Rutland, Spencer, Warren, and West Brookfield."
   },
   {
@@ -306,6 +417,18 @@
       "address": "205 State St.",
       "unit": "Route 202"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Kathleen Mitchell", 
+        "phone": "413-213-7659",
+        "email": "kathleen.mitchell@jud.state.ma.us"
+      },
+      {
+        "name": "Robin Balicki", 
+        "phone": "413-323-4056 x2242",
+        "email": "robin.balicki@jud.state.ma.us"
+      }
+    ], 
     "description": "This court serves Amherst, Belchertown, Granby, Hadley, Pelham, South Hadley, Ware , M.D.C. Quabbin Reservoir, and the Watershed Area."
   },
   {
@@ -327,7 +450,7 @@
       "county": "Dukes County",
       "state": "MA",
       "address": "81 Main St."
-    },
+    }, 
     "description": "This court serves Edgartown, Oak Bluffs, Tisbury, West Tisbury, Chilmark, Aquinnah (formerly Gay Head), Gosnold, and Elizabeth Islands."
   },
   {
@@ -351,6 +474,13 @@
       "address": "186 S. Main St.",
       "unit": "5th Floor"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Maura Donovan", 
+        "phone": "508-491-3264", 
+        "email": "maura.donovan@jud.state.ma.us"
+      }
+    ], 
     "description": "This court serves Fall River, Freetown, Somerset, Swansea, and Westport."
   },
   {
@@ -373,6 +503,13 @@
       "state": "MA",
       "address": "161 Jones Rd."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Tee Sadler", 
+        "phone": "508-495-1500",
+        "email": "tee.sadler@jud.state.ma.us"
+      }
+    ], 
     "description": "This court serves Bourne, Falmouth, and Mashpee. "
   },
   {
@@ -395,6 +532,18 @@
       "state": "MA",
       "address": "100 Elm St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Sharon Shosey",   
+        "phone": "978-345-2111",
+        "email": "sharon.shosey@jud.state.ma.us" 
+      },
+      {
+        "name": "Denise Vasko", 
+        "phone": "978-345-2111", 
+        "email": "denise.vasko@jud.state.ma.us"
+      }
+    ], 
     "description": "This court serves Fitchburg and Lunenburg."
   },
   {
@@ -439,6 +588,13 @@
       "state": "MA",
       "address": "108 Matthews St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Kimberly A Walsh",  
+        "phone": "978-632-2373 x112", 
+        "email": "kimberly.walsh@jud.state.ma.us"
+      }
+    ], 
     "description": "This court serves Gardner, Hubbardston, Petersham, and Westminster."
   },
   {
@@ -461,6 +617,13 @@
       "state": "MA",
       "address": "197 Main St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Melissa Joy Teixeira", 
+        "phone": "978-283-2620 x3007", 
+        "email": "melissa.teixeira@jud.state.ma.us"
+      }
+    ], 
     "description": "This court serves Essex, Gloucester, and Rockport."
   },
   {
@@ -483,6 +646,13 @@
       "state": "MA",
       "address": "43 Hope St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Robin Massa", 
+        "phone": "413-774-7427",  
+        "email": "robin.massa@jud.state.ma.us" 
+      }
+    ], 
     "description": "This court serves Ashfield, Bernardston, Buckland, Charlemont, Colrain, Conway, Deerfield, Gill, Greenfield, Hawley, Heath, Leyden, Monroe, Montague, Northfield, Rowe, Shelburne, Sunderland, and Whately."
   },
   {
@@ -505,6 +675,18 @@
       "state": "MA",
       "address": "45 Ginty Boulevard"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Katherine Lauranzano",  
+        "phone": "(978) 521-7371", 
+        "email": "katherine.lauranzano@jud.state.ma.us"
+      }
+      {
+        "name": "Jennifer J. Mailhot", 
+        "phone": "(978) 521-7338", 
+        "email": "jennifer.mailhot@jud.state.ma.us"
+      }
+    ],
     "description": "The Haverhill District Court in Haverhill serves Boxford, Bradford, Georgetown, Groveland and Haverhill."
   },
   {
@@ -527,6 +709,13 @@
       "state": "MA",
       "address": "28 George Washington Blvd."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Caroline Field",  
+        "phone": "781-749-7000 x201",
+        "email": "caroline.field@jud.state.ma.us"
+      }
+    ],
     "description": "This court serves Hanover, Hingham, Hull, Norwell, Rockland, and Scituate."
   },
   {
@@ -549,6 +738,13 @@
       "state": "MA",
       "address": "20 Court Plaza"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Azizah Yasin",   
+        "phone": "(413) 493-0253", 
+        "email": "azizah.yasin@jud.state.ma.us"
+      }
+    ],
     "description": "This court serves Holyoke."
   },
   {
@@ -571,6 +767,13 @@
       "state": "MA",
       "address": "188 State St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Cara Ring",  
+        "phone": "(978) 499-6828", 
+        "email": "cara.ring@jud.state.ma.us" 
+      }
+    ],
     "description": "The Ipswich District Court sits in Newburyport and serves Ipswich, Hamilton, Wenham, and Topsfield."
   },
   {
@@ -594,6 +797,13 @@
       "address": "2 Appleton St.",
       "unit": "Fenton Judicial Center"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Nicole Ouelette", 
+        "phone": "(978) 687-7184 ext: 5022332", 
+        "email": "nicole.ouelette@jud.state.ma.us" 
+      }
+    ],
     "description": "This court serves Andover, Lawrence, Methuen, and North Andover."
   },
   {
@@ -616,6 +826,18 @@
       "state": "MA",
       "address": "25 School St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Sheila Carter",   
+        "phone": "(978) 537-3722  ext. 105",  
+        "email": "sheila.carter@jud.state.ma.us"
+      },
+      {
+        "name": "Julie Guisti", 
+        "phone": "(978) 537-3722 ext. 101", 
+        "email": "julie.giusti@jud.state.ma.us"
+      }
+    ],
     "description": "This court serves Holden, Princeton, and Leominster."
   },
   {
@@ -638,6 +860,13 @@
       "state": "MA",
       "address": "41 Hurd St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Meredith Mingolelli Cotter",  
+        "phone": "978-442-3268",  
+        "email": "meredith.mingolelli-cotter@jud.state.ma.us" 
+      }
+    ],
     "description": "This court serves Billerica, Chelmsford, Dracut, Lowell, Tewksbury, and Tyngsboro."
   },
   {
@@ -660,6 +889,12 @@
       "state": "MA",
       "address": "580 Essex St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Paul Hickey", 
+        "email": "paul.hickey@jud.state.ma.us"
+      }
+    ],
     "description": "This court serves Lynn, Marblehead, Nahant, Saugus, and Swampscott."
   },
   {
@@ -682,6 +917,18 @@
       "state": "MA",
       "address": "89 Summer St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Cynthia Russell",  
+        "phone": "(781) 322-7500 x219-1408", 
+        "email": "cynthia.russell@jud.state.ma.us"
+      }, 
+      {
+        "name": "Alyssa Stewart", 
+        "phone": "(781) 338-1412",
+        "email": "alyssa.stewart@jud.state.ma.us"
+      }
+    ],
     "description": "This court serves Malden, Melrose, Everett, and Wakefield."
   },
   {
@@ -704,6 +951,18 @@
       "state": "MA",
       "address": "45 Williams St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "James Fahey", 
+        "phone": "(508) 485-3700 x206", 
+        "email": "james.fahey@jud.state.ma.us"
+      }
+      {
+        "name": "Andrew Souto",
+        "phone": "(508) 485-3700 x207", 
+        "email": "andrew.souto@jud.state.ma.us"
+      }
+    ],
     "description": "This court serves Marlborough and Hudson."
   },
   {
@@ -726,6 +985,13 @@
       "state": "MA",
       "address": "161 West St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Thomas Carrigan",  
+        "phone": "508-473-1260 x110", 
+        "email": "thomas.carrigan@jud.state.ma.us"  
+      }
+    ],
     "description": "This court serves Mendon, Upton, Hopedale, Milford, and Bellingham."
   },
   {
@@ -748,6 +1014,13 @@
       "state": "MA",
       "address": "16 Broad St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Susan Beamish",  
+        "phone": "508-228-2669",  
+        "email": "susan.beamish@jud.state.ma.us" 
+      }
+    ],
     "description": "This court serves Nantucket County."
   },
   {
@@ -770,6 +1043,18 @@
       "state": "MA",
       "address": "75 N. Sixth St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Patrick Walsh", 
+        "phone": "(508) 999-9377",  
+        "email": "patrick.walsh@jud.state.ma.us" 
+      }
+      {
+        "name": "John DiSanto", 
+        "phone": "(508) 990-9374", 
+        "email": "john.disanto@jud.state.ma.us"
+      }
+    ],
     "description": "This court serves Acushnet, Dartmouth, Fairhaven, Freetown, New Bedford, and Westport."
   },
   {
@@ -792,6 +1077,13 @@
       "state": "MA",
       "address": "188 State St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Cara Ring", 
+        "phone": "(978) 499-6828",  
+        "email": "cara.ring@jud.state.ma.us" 
+      }
+    ],
     "description": "This court serves Amesbury, Merrimac, Newbury, Newburyport, Rowley, Salisbury, and West Newbury.\r\n\r\n"
   },
   {
@@ -814,6 +1106,13 @@
       "state": "MA",
       "address": "1309 Washington St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Kathleen Sheridan", 
+        "phone": "617-243-7206",  
+        "email": "kathleen.sheridan@jud.state.ma.us"  
+      }
+    ],
     "description": "This court serves Newton."
   },
   {
@@ -836,6 +1135,13 @@
       "state": "MA",
       "address": "15 Gothic St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Linda Devine", 
+        "phone": "413-584-7400 x247",   
+        "email": "linda.devine@jud.state.ma.us" 
+      }
+    ],
     "description": "This court serves Chesterfield, Cummington, Easthampton, Goshen, Hatfield, Huntington, Middlefield, Northampton, Plainfield, Southampton, Westhampton, Williamsburg, and Worthington."
   },
   {
@@ -858,6 +1164,13 @@
       "state": "MA",
       "address": "111 Holden St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Timothy Morey",  
+        "phone": "413-663-5339", 
+        "email": "timothy.morey@jud.state.ma.us"  
+      }
+    ],
     "description": "The Northern Berkshire District Court in North Adams serves Adams, Cheshire, Clarksburg, Florida, Hancock, New Ashford, North Adams, Savoy, Williamstown, and Windsor. Note: Pittsfield Division Exercising Concurrent Jurisdiction in Windsor and Hancock"
   },
   {
@@ -902,6 +1215,13 @@
       "state": "MA",
       "address": "237 Rock Harbor Road"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Marion Broiderick", 
+        "phone": "508-255-4700 x148", 
+        "email": "marion.broidrick@jud.state.ma.us" 
+      }
+    ],
     "description": "This court serves Brewster, Chatham, Dennis, Eastham, Orleans, Harwich, Truro, Wellfleet, and Provincetown."
   },
   {
@@ -925,6 +1245,13 @@
       "address": "235 Sykes St.",
       "unit": "Suite 3"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Yvonne Robinson", 
+        "phone": "413-283-8916", 
+        "email": "yvonne.robinson@jud.state.ma.us" 
+      }
+    ],
     "description": "This court serves Brimfield, East Longmeadow, Hampden, Holland, Ludlow, Monson, Palmer, Wales, and Wilbraham."
   },
   {
@@ -947,6 +1274,13 @@
       "state": "MA",
       "address": "1 Lowell St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Rosalind Faretra",  
+        "phone": "978-532-3100 x303",  
+        "email": "rosalind.faretra@jud.state.ma.us"  
+      }
+    ],
     "description": "This court serves Lynnfield and Peabody."
   },
   {
@@ -969,6 +1303,13 @@
       "state": "MA",
       "address": "24 Wendell Ave., P.O. Box 875"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Shannon Crouse", 
+        "phone": "413-442-5468", 
+        "email": "shannon.crouse@jud.state.ma.us"  
+      }
+    ],
     "description": "This court serves Becket, Dalton, Hancock, Hinsdale, Lanesborough, Lenox, Peru, Pittsfield, Richmond, Washington, and Windsor."
   },
   {
@@ -991,6 +1332,18 @@
       "state": "MA",
       "address": "52 Obery St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Angela Martin",  
+        "phone": "508-747-8446", 
+        "email": "angela.martin@jud.state.ma.us" 
+      },
+      {
+        "name": "Noel Plourde", 
+        "phone": "508-747-8438", 
+        "email": "noel.plourde@jud.state.ma.us"
+      } 
+    ],
     "description": "This court serves Duxbury, Halifax, Hanson, Kingston, Marshfield, Pembroke, Plymouth, and Plympton."
   },
   {
@@ -1013,6 +1366,13 @@
       "state": "MA",
       "address": "1 Dennis Ryan Parkway"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Rosanna Guarino", 
+        "phone": "(617) 471-1650 x138", 
+        "email": "rosaria.guarino-galvin@jud.state.ma.us" 
+      }
+    ],
     "description": "This court serves Braintree, Cohasset, Holbrook, Milton, Quincy, Randolph, and Weymouth."
   },
   {
@@ -1035,6 +1395,13 @@
       "state": "MA",
       "address": "56 Federal St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Andrew Stahnke", 
+        "phone": "978-825-3091",  
+        "email": "andrew.stahnke@jud.state.ma.us"
+      }
+    ],
     "description": "This court serves Beverly, Danvers, Manchester by the Sea, Middleton, and Salem."
   },
   {
@@ -1057,6 +1424,13 @@
       "state": "MA",
       "address": "175 Fellsway"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Donna Langill",  
+        "phone": "617-666-8000 x758",  
+        "email": "donna.langill@jud.state.ma.us"
+      }
+    ],
     "description": "This court serves Medford and Somerville. "
   },
   {
@@ -1079,6 +1453,13 @@
       "state": "MA",
       "address": "9 Gilmore Ave."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Calandra Austin", 
+        "phone": "413-528-3520 x3",  
+        "email": "calandra.austin@jud.state.ma.us" 
+      }
+    ],
     "description": "The Southern Berkshire District Court in Great Barrington serves Alford, Becket, Egremont, Great Barrington, Lee, Lenox, Monterey, Mt. Washington, New Marlborough, Otis, Sandisfield, Sheffield, Stockbridge, Tyringham, and West Stockbridge. Pittsfield District Court exercises concurrent jurisdiction in Becket and Lenox."
   },
   {
@@ -1101,6 +1482,13 @@
       "state": "MA",
       "address": "50 State St., P.O. Box 2421"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Susanne Moultrie", 
+        "phone": "413-748-8643",  
+        "email": "susanne.moultrie@jud.state.ma.us"
+      }
+    ],
     "description": "This court serves Longmeadow, Springfield, and West Springfield. The courthouse is officially named the Roderick J. Ireland Courthouse. "
   },
   {
@@ -1123,6 +1511,13 @@
       "state": "MA",
       "address": "1288 Central St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Linda Siegel",  
+        "phone": "781-344-2131 x217",  
+        "email": "linda.siegel@jud.state.ma.us" 
+      }
+    ],
     "description": "This court serves Avon, Canton, Sharon and Stoughton."
   },
   {
@@ -1145,6 +1540,18 @@
       "state": "MA",
       "address": "40 Broadway"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Cheri Sigman",  
+        "phone": "(508) 977-6159",  
+        "email": "cheri.sigman@jud.state.ma.us" 
+      },
+      {
+        "name": "Melissa Corr", 
+        "phone": "508-977-6101", 
+        "email": "melissa.corr@jud.state.ma.us" 
+      }
+    ],
     "description": "This court serves Berkley, Dighton, Easton, Raynham, Rehoboth, Seekonk, and Taunton."
   },
   {
@@ -1167,6 +1574,13 @@
       "state": "MA",
       "address": "261 South Main Street"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Pamela Gervais", 
+        "phone": "508-278-2454 x115",  
+        "email": "pamela.gervais@jud.state.ma.us"  
+      }
+    ],
     "description": "This court serves Blackstone, Douglas, Millville, Northbridge, Sutton and Uxbridge."
   },
   {
@@ -1189,6 +1603,13 @@
       "state": "MA",
       "address": "38 Linden Street"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Darlene Gambucci",  
+        "phone": "781-894-4500 x239",  
+        "email": "darlene.gambucci@jud.state.ma.us" 
+      }
+    ],
     "description": "This court serves Waltham, Watertown and Weston. "
   },
   {
@@ -1211,6 +1632,13 @@
       "state": "MA",
       "address": "2200 Cranberry Highway"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Sinceré Goodman",  
+        "phone": "508-295-8300 x315",   
+        "email": "sincere.goodman@jud.state.ma.us" 
+      }
+    ],
     "description": "This court serves Carver, Lakeville, Marion, Mattapoisett, Middleboro, Rochester and Wareham."
   },
   {
@@ -1233,6 +1661,13 @@
       "state": "MA",
       "address": "186 Oak Street"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Kimberly Cancelli",  
+        "phone": "(508) 366-8266 ext. 310-2007", 
+        "email": "kimberly.cancelli@jud.state.ma.us" 
+      }
+    ],
     "description": "This court serves Grafton, Northborough, Shrewsbury, Southborough and Westborough."
   },
   {
@@ -1255,6 +1690,13 @@
       "state": "MA",
       "address": "224 Elm Street"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Robbin Conde", 
+        "phone": "413-568-8946", 
+        "email": "robbin.conde@jud.state.ma.us"  
+      }
+    ],
     "description": "This court serves Agawam, Blandford, Chester, Granville, Montgomery, Russell, Southwick, Tolland and Westfield."
   },
   {
@@ -1277,6 +1719,13 @@
       "state": "MA",
       "address": "108 Matthews Street"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Kimberly A Walsh",  
+        "phone": "978-632-2373 x112", 
+        "email": "kimberly.walsh@jud.state.ma.us"  
+      }
+    ],
     "description": "The Winchendon District Court sits in Gardner and serves Ashburnham, Phillipston, Royalston, Templeton and Winchendon."
   },
   {
@@ -1299,6 +1748,18 @@
       "state": "MA",
       "address": "30 Pleasant Street"
     },
+    "ADA Coordinators": [
+      {
+        "name": "Deborah Earl",  
+        "phone": "781-935-4000 x236",  
+        "email": "deborah.earl@jud.state.ma.us" 
+      },
+      {
+        "name": "Paula Viola", 
+        "phone": "781-935-4000 x246", 
+        "email": "paula.viola@jud.state.ma.us"
+      }
+    ],
     "description": "This court serves  Burlington, North Reading, Reading, Stoneham, Wilmington, Winchester, and Woburn."
   },
   {
@@ -1321,6 +1782,18 @@
       "state": "MA",
       "address": "225 Main St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Darlene Perro", 
+        "phone": "(508) 831-2040",   
+        "email": "darlene.perro@jud.state.ma.us" 
+      }, 
+      {
+        "name": "Konstantina Panagiotou", 
+        "phone": "(508) 831-2133", 
+        "email": "k.panagiotou@jud.state.ma.us" 
+      }
+    ],
     "description": "The Worcester District Court serves Auburn, Millbury, and Worcester. "
   },
   {
@@ -1343,6 +1816,13 @@
       "state": "MA",
       "address": "60 East St."
     },
+    "ADA Coordinators": [
+      {
+        "name": "Diane Duffey", 
+        "phone": "508-384-3106 ext. 229", 
+        "email": "diane.duffey@jud.state.ma.us"  
+      }
+    ],
     "description": "This court serves Foxborough, Franklin, Medway, Millis, Norfolk, Plainville, Walpole, and Wrentham."
   }
 ]
