@@ -19,6 +19,13 @@
       "state": "MA",
       "address": "52 Academy Hill Rd."
     },
+    "ada_coordinators": [ 
+      {
+        "name": "John Corbett",    
+        "phone": "617-782-6540 x302",  
+        "email": "john.corbett@jud.state.ma.us" 
+      }
+    ],
     "description": "The Brighton division of the BMC serves Allston and Brighton. Please note that as of March 1, the Brighton Division of the Boston Municipal Court has temporarily relocated to Brookline District Court while the Brighton courthouse undergoes renovations. "
   },
   {
@@ -41,6 +48,18 @@
       "state": "MA",
       "address": "24 New Chardon Street"
     },
+    "ada_coordinators": [ 
+      {
+        "name": "Denise Donovan",      
+        "phone": "617-788-8668",   
+        "email": "denise.donovan@jud.state.ma.us" 
+      },
+      {
+        "name": "Marcella Gerardi", 
+        "phone": "617-788-8772", 
+        "email": "marcella.gerardi@jud.state.ma.us"
+      }
+    ],
     "description": "This court serves the Downtown Boston area, Chinatown, North End, South End through Massachusetts Avenue, West End, and Beacon Hill."
   },
   {
@@ -63,6 +82,18 @@
       "state": "MA",
       "address": "3 City Square"
     },
+    "ada_coordinators": [ 
+      {
+        "name": "Stephen Pearson",     
+        "phone": "617-242-5400 x238",  
+        "email": "stephen.pearson@jud.state.ma.us"
+      },
+      {
+        "name": "Sean Norris", 
+        "phone": "617-242-5400 x247", 
+        "email": "sean.norris@jud.state.ma.us"
+      }
+    ],
     "description": "The Charlestown Division of the Boston Municipal Court serves Charlestown."
   },
   {
@@ -85,6 +116,18 @@
       "state": "MA",
       "address": "510 Washington St."
     },
+    "ada_coordinators": [ 
+      {
+        "name": "Kim MacDonald",      
+        "phone": "617-288-9500 x225", 
+        "email": "kimberly.macdonald@jud.state.ma.us"
+      },
+      {
+        "name": "Leslie Martinez", 
+        "phone": "617-288-9500 x200", 
+        "email": "leslie.martinez@jud.state.ma.us"
+      }
+    ],
     "description": "This court serves Dorchester."
   },
   {
@@ -107,6 +150,13 @@
       "state": "MA",
       "address": "37 Meridian St."
     },
+    "ada_coordinators": [ 
+      {
+        "name": "Ann-Marie Gioia",      
+        "phone": "617-569-7550 x125", 
+        "email": "ann-marie.gioia@jud.state.ma.us"
+      }
+    ],
     "description": "This court serves East Boston, Winthrop, Logan Airport, and the Sumner and Callahan Tunnels."
   },
   {
@@ -129,6 +179,13 @@
       "state": "MA",
       "address": "85 Warren St."
     },
+    "ada_coordinators": [ 
+      {
+        "name": "Vilma Altamirano",      
+        "phone": "617-427-7000 x415",  
+        "email": "vilma.altamirano@jud.state.ma.us" 
+      }
+    ],
     "description": "This court serves Roxbury."
   },
   {
@@ -151,6 +208,13 @@
       "state": "MA",
       "address": "445 Arborway"
     },
+    "ada_coordinators": [ 
+      {
+        "name": "Brian K. Doxtader",   
+        "phone": "(617) 971-1231", 
+        "email": "brian.doxtader@jud.state.ma.us" 
+      }
+    ],
     "description": "This court serves Hyde Park, Jamaica Plain, Roslindale, West Roxbury, parts of Mattapan, and parts of Mission Hill."
   },
   {
@@ -173,6 +237,18 @@
       "state": "MA",
       "address": "535 East Broadway"
     },
+    "ada_coordinators": [ 
+      {
+        "name": "Claire Smallcomb",      
+        "phone": "(617) 268-9292 x244", 
+        "email": "claire.smallcomb@jud.state.ma.us" 
+      },
+      {
+        "name": "Lori Previte", 
+        "phone": "(617) 464-5019", 
+        "email": "lori.previte@jud.state.ma.us"
+      }
+    ],
     "description": "This court serves South Boston."
   }
 ]
