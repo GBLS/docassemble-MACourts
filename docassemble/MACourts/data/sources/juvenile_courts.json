@@ -18,7 +18,7 @@
       "state": "MA",
       "address": "88 North Main St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Simone DeSousa", 
         "phone": "508-222-5350 x348", 
@@ -51,7 +51,7 @@
       "state": "MA",
       "address": "3195 Main Street, P.O. Box 427"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Aldonna Lamarche", 
         "phone": "508-362-1389 x228",  
@@ -79,7 +79,7 @@
       "state": "MA",
       "address": "205 State St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Carrie Mayer", 
         "phone": "413-775-0014", 
@@ -107,7 +107,7 @@
       "state": "MA",
       "address": "24 New Chardon St., P.O. Box 9663"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Diane McDermott", 
         "phone": "617-788-8525", 
@@ -135,7 +135,7 @@
       "state": "MA",
       "address": "215 Main St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Carolyn Gomes", 
         "phone": "508-897-4929", 
@@ -163,7 +163,7 @@
       "state": "MA",
       "address": "121 Third St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Jean Ward", 
         "phone": "978-441-3151 x3", 
@@ -201,7 +201,7 @@
       "state": "MA",
       "address": "120 Broadway"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Colleen Moran", 
         "phone": "617-660-9357", 
@@ -229,7 +229,7 @@
       "state": "MA",
       "address": "55 Allied Drive"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Charlene Ali", 
         "phone": "781-329-1500", 
@@ -262,7 +262,7 @@
       "state": "MA",
       "address": "510 Washington St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Kim MacDonald", 
         "phone": "617-288-9500 x225", 
@@ -295,7 +295,7 @@
       "state": "MA",
       "address": "100 West Main Street"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Will George", 
         "phone": "508-943-7123", 
@@ -346,7 +346,7 @@
       "address": "289 Rock St.",
       "unit": "4th Floor"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Ann Pacheco", 
         "phone": "(508) 676-0090 x116", 
@@ -379,7 +379,7 @@
       "state": "MA",
       "address": "161 Jones Rd."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Tee Sadler", 
         "phone": "508-495-1500", 
@@ -407,7 +407,7 @@
       "state": "MA",
       "address": "120 Elm Street"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Sharon Shosey", 
         "phone": "978-345-2111", 
@@ -440,7 +440,7 @@
       "state": "MA",
       "address": "110 Mount Wayte Ave."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Jean Ward", 
         "phone": "978-441-3151 x3", 
@@ -478,7 +478,7 @@
       "state": "MA",
       "address": "9 Gilmore Ave."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Calandra Austin", 
         "phone": "413-528-3520 x3", 
@@ -506,7 +506,7 @@
       "state": "MA",
       "address": "43 Hope St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Carrie Mayer", 
         "phone": "413-775-0014", 
@@ -535,7 +535,7 @@
       "address": "116 Russell St.",
       "unit": "Route 9"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Carrie Mayer", 
         "phone": "413-775-0014", 
@@ -563,7 +563,7 @@
       "state": "MA",
       "address": "28 George Washington Blvd."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Carolyn Gomes",
         "phone": "508-897-4929", 
@@ -591,7 +591,7 @@
       "state": "MA",
       "address": "121 Elm Street"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Joyce Jerard", 
         "phone": "413-748-7705", 
@@ -620,7 +620,7 @@
       "address": "2 Appleton Street",
       "unit": "Fenton Judicial Center"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Marina Greeke", 
         "phone": "(978) 725-4900", 
@@ -648,7 +648,7 @@
       "state": "MA",
       "address": "370 Jackson Street"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Jean Ward", 
         "phone": "978-441-3151 x3", 
@@ -686,7 +686,7 @@
       "state": "MA",
       "address": "139 Central Ave."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Marina Greeke", 
         "phone": "(978) 725-4900", 
@@ -714,7 +714,7 @@
       "state": "MA",
       "address": "161 West Street"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Thomas Carrigan", 
         "phone": "508-473-1260 x110", 
@@ -763,7 +763,7 @@
       "state": "MA",
       "address": "75 N. Sixth St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Karin Butler",
         "phone": "508-990-4608", 
@@ -796,7 +796,7 @@
       "state": "MA",
       "address": "188 State St. Route 1, Traffic Circle"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Marina Greeke", 
         "phone": "(978) 725-4900", 
@@ -829,7 +829,7 @@
       "state": "MA",
       "address": "21 Holden St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Julie Salatino", 
         "phone": "413-443-8597", 
@@ -857,7 +857,7 @@
       "state": "MA",
       "address": "1 Court Square"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Carrie Mayer", 
         "phone": "413-775-0014", 
@@ -907,7 +907,7 @@
       "address": "235 Sykes Street",
       "unit": "Suite 3"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Joyce Jerard",  
         "phone": "413-748-7705", 
@@ -940,7 +940,7 @@
       "state": "MA",
       "address": "190 North Street"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Julie Salatino", 
         "phone": "413-443-8597", 
@@ -969,7 +969,7 @@
       "address": "52 Obery St.",
       "unit": "Suite 1092"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Aldonna Lamarche", 
         "phone": "508-362-1389 x228", 
@@ -997,7 +997,7 @@
       "state": "MA",
       "address": "1 Dennis Ryan Parkway"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Charlene Ali", 
         "phone": "781-329-1500", 
@@ -1030,7 +1030,7 @@
       "state": "MA",
       "address": "56 Federal St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Marina Greeke",  
         "phone": "(978) 725-4900", 
@@ -1063,7 +1063,7 @@
       "state": "MA",
       "address": "80 State Street"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Joyce Jerard", 
         "phone": "413-748-7705", 
@@ -1096,7 +1096,7 @@
       "state": "MA",
       "address": "80 State Street"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Joyce Jerard", 
         "phone": "413-748-7705", 
@@ -1129,7 +1129,7 @@
       "state": "MA",
       "address": "1288 Central St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Charlene Ali", 
         "phone": "781-329-1500", 
@@ -1163,7 +1163,7 @@
       "address": "40 Broadway",
       "unit": "Suite 1521"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Carol Fitzsimmons", 
         "phone": "508-977-4910 ext. 612-4907", 
@@ -1196,7 +1196,7 @@
       "state": "MA",
       "address": "38 Linden St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Lissette Rivera", 
         "phone": "617-494-4110 x226", 
@@ -1229,7 +1229,7 @@
       "state": "MA",
       "address": "2200 Cranberry Highway"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Carolyn Gomes", 
         "phone": "508-897-4929", 
@@ -1257,7 +1257,7 @@
       "state": "MA",
       "address": "445 Arborway"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Maria Hidalgo",
         "phone": "617-971-1213", 
@@ -1285,7 +1285,7 @@
       "state": "MA",
       "address": "225 Main Street"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Katherine Walsh", 
         "phone": "508-831-2481", 

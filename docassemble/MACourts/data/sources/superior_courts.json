@@ -18,7 +18,7 @@
       "state": "MA",
       "address": "3195 Main St., P.O. Box 425"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Christine Higginbotham",   
         "phone": "(508) 375-6683",  
@@ -46,7 +46,7 @@
       "state": "MA",
       "address": "76 East St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Michele Dillon",  
         "phone": "(413) 499-7487 x7404", 
@@ -74,7 +74,7 @@
       "state": "MA",
       "address": "9 Court St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Aaron Strojny",   
         "phone": "508-823-6588", 
@@ -102,7 +102,7 @@
       "state": "MA",
       "address": "186 S. Main St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Jennifer Sullivan", 
         "phone": "508-491-3300",  
@@ -131,7 +131,7 @@
       "address": "441 County St.",
       "unit": "1st Floor"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Jennifer Sullivan", 
         "phone": "508-491-3300", 
@@ -159,7 +159,7 @@
       "state": "MA",
       "address": "81 Main St., P.O. Box 1267"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Deanna L. Ruiz",  
         "phone": "508-627-4668", 
@@ -187,7 +187,7 @@
       "state": "MA",
       "address": "56 Federal St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Rebecca Matuza", 
         "phone": "978-825-4813", 
@@ -197,7 +197,7 @@
         "name": "Maria Dres", 
         "phone": "978-825-4823", 
         "email": "maria.dres@jud.state.ma.us"
-      }
+      },
       {
         "name": "Lisa Gomes", 
         "phone": "978-825-4830", 
@@ -225,7 +225,7 @@
       "state": "MA",
       "address": "43 Appleton Way"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Stefano J. Cornelio, Esq.", 
         "phone": "978-242-1901", 
@@ -253,7 +253,7 @@
       "state": "MA",
       "address": "145 High St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Dawn Mansfield", 
         "phone": "(978) 462-4474",  
@@ -281,7 +281,7 @@
       "state": "MA",
       "address": "43 Hope St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Brittney Smith",   
         "email": "brittney.smith@jud.state.ma.us"
@@ -313,7 +313,7 @@
       "state": "MA",
       "address": "50 State St., P.O. Box 559"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Sheree Cope", 
         "phone": "413-748-7650", 
@@ -341,7 +341,7 @@
       "state": "MA",
       "address": "15 Gothic St., P.O. Box 1119"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Kelley Devine",  
         "phone": "413-584-5810 x287",  
@@ -375,7 +375,7 @@
       "address": "200 Trade Center",
       "unit": "2nd Floor"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Matt Day", 
         "phone": "781-939-2700 x2802", 
@@ -403,7 +403,7 @@
       "state": "MA",
       "address": "360 Gorham St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Matt Day",    
         "phone": "781-939-2700 x2802", 
@@ -431,7 +431,7 @@
       "state": "MA",
       "address": "16 Broad St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Susan Beamish",  
         "phone": "508-228-2669",  
@@ -459,7 +459,7 @@
       "state": "MA",
       "address": "650 High Street"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Mary Hickey",   
         "phone": "(781) 326-1600 x354",  
@@ -487,7 +487,7 @@
       "state": "MA",
       "address": "52 Obery St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Ulisses Varela", 
         "phone": "(508) 747-8566",   
@@ -515,7 +515,7 @@
       "state": "MA",
       "address": "72 Belmont St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Ulisses Varela",    
         "phone": "(508) 747-8566",  
@@ -543,7 +543,7 @@
       "state": "MA",
       "address": "3 Pemberton Square"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Margaret Buckley", 
         "phone": "(617) 788-8110",  
@@ -581,11 +581,11 @@
       "state": "MA",
       "address": "225 Main St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Amanda Karalus",   
         "phone": "508-831-2347", 
-        "email": "amanda.calocci@jud.state.ma.us",  
+        "email": "amanda.calocci@jud.state.ma.us"
       }
     ],
     "description": "This court serves all cities and towns in Worcester County."

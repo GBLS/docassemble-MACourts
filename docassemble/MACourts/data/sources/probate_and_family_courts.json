@@ -18,7 +18,7 @@
       "state": "MA",
       "address": "3195 Main St. P.O. Box 346"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Caitin G. Mark",    
         "phone": "508-375-6846",  
@@ -51,7 +51,7 @@
       "state": "MA",
       "address": "44 Bank Row"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Alida McDarby", 
         "phone": "(413) 442-6941 ext. 7207", 
@@ -85,7 +85,7 @@
       "address": "40 Broadway",
       "unit": "Suite 240"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Sharon Lemrise",   
         "phone": "508-977-6076",   
@@ -113,7 +113,7 @@
       "state": "MA",
       "address": "215 Main St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Claudia Magnus",   
         "phone": "(508) 897-5439",  
@@ -141,7 +141,7 @@
       "state": "MA",
       "address": "81 Main St., P.O. Box 237"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Mallory Calamare",   
         "phone": "(508) 627-4703",  
@@ -169,7 +169,7 @@
       "state": "MA",
       "address": "36 Federal St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Maritza Mercedes",    
         "phone": "978 744-1020",   
@@ -224,7 +224,7 @@
       "state": "MA",
       "address": "43 Hope St., PO Box 590"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Brennan McGuane",    
         "phone": "413-775-7460",   
@@ -252,7 +252,7 @@
       "state": "MA",
       "address": "50 State St., P.O. Box 559"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Theresa Cullinan",     
         "phone": "413-748-7770",   
@@ -281,7 +281,7 @@
       "address": "33 King St.",
       "unit": "Suite 3"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Mark Ames",    
         "phone": "413-587-5229",    
@@ -309,7 +309,7 @@
       "state": "MA",
       "address": "10-U Commerce Way"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Lauren Fraser", 
         "phone": "(781) 865-4072",    
@@ -337,7 +337,7 @@
       "state": "MA",
       "address": "370 Jackson Street, 5th floor"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Jillian Martin",    
         "phone": "(978) 656-7744",  
@@ -365,7 +365,7 @@
       "state": "MA",
       "address": "19 Broad St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Sarah Maxwell",    
         "phone": "(508) 228-2669",   
@@ -393,7 +393,7 @@
       "state": "MA",
       "address": "35 Shawmut Road"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Jay Fielding",     
         "phone": "(781) 830-1221",  
@@ -421,7 +421,7 @@
       "state": "MA",
       "address": "52 Obery St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Claudia Magnus",   
         "phone": "508-897-5439",  
@@ -449,7 +449,7 @@
       "state": "MA",
       "address": "24 New Chardon St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Kristen Antolini",    
         "phone": "617-788-8983",    
@@ -477,7 +477,7 @@
       "state": "MA",
       "address": "225 Main Street"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Alicia Doherty",    
         "phone": "(508) 831-2241",  

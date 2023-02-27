@@ -16,7 +16,7 @@
       "state": "MA",
       "address": "279 West Main St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Katie LaGorce",    
         "phone": "(508) 831-2065", 
@@ -50,7 +50,7 @@
       "state": "MA",
       "address": "25 School St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Katie LaGorce",    
         "phone": "(508) 831-2065", 
@@ -84,7 +84,7 @@
       "state": "MA",
       "address": "45 Williams St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Katie LaGorce",    
         "phone": "(508) 831-2065", 
@@ -118,7 +118,7 @@
       "state": "MA",
       "address": "225 Main St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Katie LaGorce",    
         "phone": "(508) 831-2065", 
@@ -152,7 +152,7 @@
       "state": "MA",
       "address": "24 New Chardon St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Natasha Woodley",    
         "phone": "(617) 788-6523",  
@@ -182,7 +182,7 @@
       "address": "215 Main St.",
       "unit": "Suite 160"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Catarina Andrade",  
         "phone": "(508) 897-2910",  
@@ -210,7 +210,7 @@
       "state": "MA",
       "address": "35 Shawmut Road"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Catarina Andrade",   
         "phone": "(508) 897-2910", 
@@ -239,7 +239,7 @@
       "address": "2 Appleton St.",
       "unit": "2nd Floor"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Cynthia Kappotis",   
         "phone": "(978) 689-7833",   
@@ -268,7 +268,7 @@
       "state": "MA",
       "address": "360 Gorham St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Cynthia Kappotis",   
         "phone": "(978) 689-7833",   
@@ -297,7 +297,7 @@
       "state": "MA",
       "address": "56 Federal"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Cynthia Kappotis",   
         "phone": "(978) 689-7833",   
@@ -326,7 +326,7 @@
       "state": "MA",
       "address": "56 Federal"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Cynthia Kappotis",   
         "phone": "(978) 689-7833",   
@@ -356,7 +356,7 @@
       "address": "200 Trade Center",
       "unit": "Courtroom 540 5th Floor"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Cynthia Kappotis",   
         "phone": "(978) 689-7833",   
@@ -385,7 +385,7 @@
       "state": "MA",
       "address": "289 Rock St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Suzette Fagan Clarke",  
         "phone": "508-677-1505",  
@@ -414,7 +414,7 @@
       "state": "MA",
       "address": "139 Hathaway Road"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Suzette Fagan Clarke",  
         "phone": "508-677-1505",  
@@ -443,7 +443,7 @@
       "state": "MA",
       "address": "52 Obery St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Suzette Fagan Clarke",  
         "phone": "508-677-1505",  
@@ -472,7 +472,7 @@
       "state": "MA",
       "address": "40 Broadway"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Suzette Fagan Clarke",  
         "phone": "508-677-1505",  
@@ -501,7 +501,7 @@
       "state": "MA",
       "address": "43 Hope St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Arlene Correa",     
         "phone": "413-748-7838", 
@@ -530,7 +530,7 @@
       "state": "MA",
       "address": "116 Russell St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Arlene Correa",     
         "phone": "413-748-7838", 
@@ -560,7 +560,7 @@
       "address": "76 East St.",
       "unit": "Room 2"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Arlene Correa",     
         "phone": "413-748-7838", 
@@ -589,7 +589,7 @@
       "state": "MA",
       "address": "37 Elm Street, P.O. Box 559"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Arlene Correa",     
         "phone": "413-748-7838", 
@@ -620,7 +620,7 @@
       "county": "Middlesex County",
       "orig_address": "4040 Mystic Valley Parkway, Medford, MA 02155"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Natasha Woodley", 
         "phone": "(617) 788-6523",  
@@ -649,7 +649,7 @@
       "state": "MA",
       "address": "3195 Main Street"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Suzette Fagan Clarke",   
         "phone": "508-677-1505", 
@@ -678,7 +678,7 @@
       "state": "MA",
       "address": "120 Broadway, Chelsea, MA 02150"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Natasha Woodley",   
         "phone": "(617) 788-6523",  

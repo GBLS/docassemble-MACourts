@@ -19,7 +19,7 @@
       "state": "MA",
       "address": "52 Academy Hill Rd."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "John Corbett",    
         "phone": "617-782-6540 x302",  
@@ -48,7 +48,7 @@
       "state": "MA",
       "address": "24 New Chardon Street"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Denise Donovan",      
         "phone": "617-788-8668",   
@@ -82,7 +82,7 @@
       "state": "MA",
       "address": "3 City Square"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Stephen Pearson",     
         "phone": "617-242-5400 x238",  
@@ -116,7 +116,7 @@
       "state": "MA",
       "address": "510 Washington St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Kim MacDonald",      
         "phone": "617-288-9500 x225", 
@@ -150,7 +150,7 @@
       "state": "MA",
       "address": "37 Meridian St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Ann-Marie Gioia",      
         "phone": "617-569-7550 x125", 
@@ -179,7 +179,7 @@
       "state": "MA",
       "address": "85 Warren St."
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Vilma Altamirano",      
         "phone": "617-427-7000 x415",  
@@ -208,7 +208,7 @@
       "state": "MA",
       "address": "445 Arborway"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Brian K. Doxtader",   
         "phone": "(617) 971-1231", 
@@ -237,7 +237,7 @@
       "state": "MA",
       "address": "535 East Broadway"
     },
-    "ADA Coordinator" 
+    "ada_coordinators": [ 
       {
         "name": "Claire Smallcomb",      
         "phone": "(617) 268-9292 x244", 
