@@ -763,27 +763,6 @@
   },
   {
     "fax": "",
-    "court_code": "J69",
-    "tyler_lower_court_code": "1846",
-    "name": "Springfield Juvenile Court",
-    "phone": "(413) 748-7860",
-    "has_po_box": false,
-    "location": {
-      "latitude": 42.1002,
-      "longitude": -72.588418
-    },
-    "address": {
-      "city": "Springfield",
-      "zip": "01103",
-      "orig_address": "80 State Street, Springfield, MA 01103",
-      "county": "Hampden County",
-      "state": "MA",
-      "address": "80 State Street"
-    },
-    "description": "The Hampden County Juvenile Court in Springfield serves Agawam, Chicopee, Longmeadow, Springfield, and West Springfield."
-  },
-  {
-    "fax": "",
     "court_code": "J55",
     "tyler_lower_court_code": "1848",
     "name": "Stoughton Juvenile Court",
