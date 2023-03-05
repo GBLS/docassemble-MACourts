@@ -532,13 +532,13 @@ class MACourtList(DAList):
             court.location.longitude = item['location']['longitude']
             court.has_po_box = item.get('has_po_box')
             court.description = item.get('description')
-
             court.address.address = item['address']['address']
             court.address.city = item['address']['city']
             court.address.state = item['address']['state']
             court.address.zip = item['address']['zip']
             court.address.county = item['address']['county']
             court.address.orig_address = item['address'].get('orig_address')
+            court.ada_coordinators = item.get("ada_coordinators",[])
 
     def matching_juvenile_court(self, address) -> Set[MACourt]:
         """Returns either single matching MACourt object or a set of MACourts"""
