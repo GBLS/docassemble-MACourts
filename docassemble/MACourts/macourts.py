@@ -560,7 +560,10 @@ class MACourtList(DAList):
         else:
             address_to_compare = address
         if (not hasattr(address_to_compare, 'county')) or (address_to_compare.county.lower().strip() == ''):
-            return set()
+            if address_to_compare.city.lower() in ['boston', 'charlestown', 'dorchester','roxbury', 'jamaica plain', 'brighton', 'allston']:
+                address_to_compare.county = "Suffolk County"
+            else:
+                return set()
 
         matches = []
         # Special case for two areas of Boston -- concurrent with BMC jurisdiction. Need to match these first
@@ -669,7 +672,10 @@ class MACourtList(DAList):
         else:
             address_to_compare = address
         if (not hasattr(address_to_compare, 'county')) or (address_to_compare.county.lower().strip() == ''):
-            return set()
+            if address_to_compare.city.lower() in ['boston', 'charlestown', 'dorchester','roxbury', 'jamaica plain', 'brighton', 'allston']:
+                address_to_compare.county = "Suffolk County"
+            else:
+                return set()
         matches = []
 
         if (address_to_compare.county.lower() == "barnstable county") or (address_to_compare.city.lower() in ["bourne", "brewster", "chatham", "dennis", "eastham", "falmouth", "harwich", "mashpee", "orleans", "provincetown", "sandwich", "truro", "wellfleet", "yarmouth"]):
@@ -727,7 +733,10 @@ class MACourtList(DAList):
         else:
             address_to_compare = address
         if (not hasattr(address_to_compare, 'county')) or (address_to_compare.county.lower().strip() == ''):
-            return ''
+            if address_to_compare.city.lower() in ['boston', 'charlestown', 'dorchester','roxbury', 'jamaica plain', 'brighton', 'allston']:
+                address_to_compare.county = "Suffolk County"
+            else:
+                return ''
         if (address_to_compare.county.lower() == "barnstable county") or (address_to_compare.city.lower() in ["barnstable", "bourne", "brewster", "chatham", "dennis", "eastham", "falmouth", "harwich", "mashpee", "orleans", "provincetown", "sandwich", "truro", "wellfleet", "yarmouth"]):
                 local_superior_court = "Barnstable County Superior Court"
         elif (address_to_compare.county.lower() == "berkshire county") or (address_to_compare.city.lower() in ["adams", "alford", "becket", "cheshire", "clarksburg", "dalton", "egremont", "florida", "great barrington", "hancock", "hinsdale", "lanesborough", "lee", "lenox", "monterey", "mount washington", "new ashford", "new marlborough", "north adams", "otis", "peru", "pittsfield", "richmond", "sandisfield", "savoy", "sheffield", "stockbridge", "tyringham", "washington", "west stockbridge", "williamstown", "windsor"]):
@@ -794,7 +803,10 @@ class MACourtList(DAList):
         else:
             address_to_compare = address
         if (not hasattr(address_to_compare, 'county')) or (address_to_compare.county.lower().strip() == ''):
-            return set()
+            if address_to_compare.city.lower() in ['boston', 'charlestown', 'dorchester','roxbury', 'jamaica plain', 'brighton', 'allston']:
+                address_to_compare.county = "Suffolk County"
+            else:
+                return set()
         matches = []
         if (address_to_compare.county.lower() == "dukes county") or (address_to_compare.city.lower() in ["edgartown", "oak bluffs", "tisbury", "west tisbury", "chilmark", "aquinnah", "gosnold", "elizabeth islands"]):
             matches.append("Edgartown District Court")
@@ -939,8 +951,11 @@ class MACourtList(DAList):
         #    address_to_compare = address
         address_to_compare = address # don't normalize -- this screws up some addresses in small towns
         if (not hasattr(address_to_compare, 'county')) or (address_to_compare.county.lower().strip() == ''):
-            return ''
-        if ((address_to_compare.city.lower()) in ['chelsea','revere','winthrop', 'east boston','e. boston'] or
+            if address_to_compare.city.lower() in ['boston', 'charlestown', 'dorchester','roxbury', 'jamaica plain', 'brighton', 'allston']:
+                address_to_compare.county = "Suffolk County"
+            else:
+                return ''
+        if ((address_to_compare.city.lower()) in ['charlestown','chelsea','revere','winthrop', 'east boston','e. boston'] or
             (hasattr(address_to_compare,'neighborhood') and ((address_to_compare.city.lower() == "boston") and
                 address_to_compare.neighborhood.lower() in ["east boston","central square", "day square", "eagle hill", "maverick square", "orient heights","jeffries point"]))):
             local_housing_court = "Eastern Housing Court - Chelsea Session"
