@@ -1,4 +1,5 @@
 [
+
   {
     "fax": "",
     "court_code": "34",
@@ -569,6 +570,28 @@
     "description": "This court serves Ashland, Framingham, Holliston, Hopkinton, Sudbury, and Wayland."
   },
   {
+    "fax": "(508) 620-9118",
+    "court_code": "87",
+    "tyler_lower_court_code": "",
+    "tyler_code": "443",
+    "name": "Natick District Court",
+    "phone": "(508) 620-9110",
+    "has_po_box": false,
+    "location": {
+      "latitude": 42.293395,
+      "longitude": -71.409619
+    },
+    "address": {
+      "city": "Framingham",
+      "zip": "01701",
+      "orig_address": "600 Concord St., Framingham, MA 01701",
+      "county": "Middlesex County",
+      "state": "MA",
+      "address": "600 Concord St."
+    },
+    "description": " The Natick District Court sits in Framingham and serves Natick and Sherborn."
+  },  
+  {
     "fax": "(978) 630-3902",
     "court_code": "63",
     "tyler_lower_court_code": "1783",
@@ -855,10 +878,10 @@
     "address": {
       "city": "Lowell",
       "zip": "01852",
-      "orig_address": "41 Hurd St., Lowell, MA 01852",
+      "orig_address": "370 Jackson St., Lowell, MA 01852",
       "county": "Middlesex County",
       "state": "MA",
-      "address": "41 Hurd St."
+      "address": "370 Jackson St."
     },
     "ADA Coordinators": [
       {

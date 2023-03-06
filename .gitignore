@@ -3,3 +3,5 @@
 .hypothesis/
 
 __pycache__/
+
+.history/
