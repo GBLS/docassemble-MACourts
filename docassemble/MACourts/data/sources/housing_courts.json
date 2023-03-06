@@ -263,10 +263,10 @@
     "address": {
       "city": "Lowell",
       "zip": "01852",
-      "orig_address": "360 Gorham St., Lowell, MA 01852",
+      "orig_address": "370 Jackson St., Lowell, MA 01852",
       "county": "Middlesex County",
       "state": "MA",
-      "address": "360 Gorham St."
+      "address": "370 Jackson St."
     },
     "ada_coordinators": [ 
       {
