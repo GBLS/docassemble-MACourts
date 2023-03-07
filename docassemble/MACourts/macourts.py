@@ -1,3 +1,5 @@
+from docassemble.base.functions import server
+from docassemble.base.geocode import GoogleV3GeoCoder
 from docassemble.base.core import DAObject, DAList
 from docassemble.base.util import path_and_mimetype, Address, LatitudeLongitude, prevent_dependency_satisfaction
 from docassemble.base.legal import Court
@@ -26,6 +28,32 @@ def test_write() -> str:
     f.close()
     area.finalize()
     return fpath
+
+def try_to_populate_county(address: Address, force:bool = False) -> None:
+    """Try to fill in the `county` attribute of the specified address by geocoding the address.
+    Sometimes Google's database is incomplete. If so, reverse geocode the latitude and longitude
+    to try to get the county again. Finally, fall back to setting the `county` attribute to "unknown". """
+    # Fill in location attributes if not already defined
+    if not hasattr(address, "location") or not hasattr(address.location, "latitude") or not address.location.latitude:
+        try:
+            address.geocode()
+        except:
+            pass
+    # Don't reverse geocode if the address already has a county
+    if not force and hasattr(address, "county"):
+        return
+
+    geocoder = GoogleV3GeoCoder(server=server)
+    geocoder.initialize()
+    county = 'Unknown'
+    try:
+        for item in geocoder.geocoder.reverse((address.location.latitude, address.location.longitude)).raw["address_components"]:
+            if "administrative_area_level_2" in item["types"]:
+                county = item["long_name"]
+                break
+    except:
+        pass
+    address.county = county   
 
 class MACourt(Court):
     """Object representing a court in Massachusetts.
@@ -124,7 +152,8 @@ class MACourtList(DAList):
                 try:
                     # It's helpful to normalize the address, but it's OK if 
                     # geolocation fails
-                    add.geolocate()
+                    # Populating county also geocodes
+                    try_to_populate_county(add)
                 except:
                     pass
                 res = self.matching_courts_single_address(add, court_types)
@@ -134,6 +163,7 @@ class MACourtList(DAList):
                     courts.add(res)
             return sorted(list(courts), key=lambda y: y.name)
         else:
+            try_to_populate_county(address)
             return self.matching_courts_single_address(address, court_types)
 
     def matching_courts_single_address(self, address: Address, court_types: Optional[Union[str, typing.Iterable[str]]]=None) -> List[MACourt]:

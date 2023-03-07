@@ -18,8 +18,12 @@ class TestCourtFinder(unittest.TestCase):
     def test_search_in_bristol(self):
         address = Address(address="91 Highland Road", city="Swansea", state="Massachusetts", county="Bristol County", zip="02777")
         court_list = self.all_courts.matching_probate_and_family_court(address)
-        self.assertGreaterEqual(len(court_list), 1)
-        self.assertEqual(list(court_list)[0].name, "Bristol Probate and Family Court")
+        self.assertGreaterEqual(len(court_list), 3)
+        self.assertIn([
+            court.name
+            for court
+            in court_list
+        ], "Bristol Probate and Family Court")
 
     def test_search_boston(self):
         address = Address(address="1234 Soldiers Field Road", city="Boston", county="Suffolk County", 
