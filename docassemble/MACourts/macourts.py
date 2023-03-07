@@ -30,10 +30,14 @@ def test_write() -> str:
     return fpath
 
 def try_to_populate_county(address: Address, force:bool = False) -> None:
-    """Try to fill in the `county` attribute of the specified address by geocoding the address.
+    """
+    Jurisdiction depends on exactly matching names for county, city, etc. but we can't ask
+    the user to say what county they live in as people do not know in Massachusetts.
+
+    Try to fill in the `county` attribute of the specified address by geocoding the address.
     Sometimes Google's database is incomplete. If so, reverse geocode the latitude and longitude
     to try to get the county again. Finally, fall back to setting the `county` attribute to "unknown". """
-    # Fill in location attributes if not already defined
+    # Geocoding will fill in location attributes if not already defined
     if not hasattr(address, "location") or not hasattr(address.location, "latitude") or not address.location.latitude:
         try:
             address.geocode()
@@ -42,10 +46,13 @@ def try_to_populate_county(address: Address, force:bool = False) -> None:
     # Don't reverse geocode if the address already has a county
     if not force and hasattr(address, "county"):
         return
-
-    geocoder = GoogleV3GeoCoder(server=server)
-    geocoder.initialize()
     county = 'Unknown'
+    try:
+        geocoder = GoogleV3GeoCoder(server=server)
+        geocoder.initialize()
+    except:
+        address.county = county
+        return
     try:
         for item in geocoder.geocoder.reverse((address.location.latitude, address.location.longitude)).raw["address_components"]:
             if "administrative_area_level_2" in item["types"]:
