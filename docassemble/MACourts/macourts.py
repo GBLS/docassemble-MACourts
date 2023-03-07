@@ -1,3 +1,5 @@
+from docassemble.base.functions import server
+from docassemble.base.geocode import GoogleV3GeoCoder
 from docassemble.base.core import DAObject, DAList
 from docassemble.base.util import path_and_mimetype, Address, LatitudeLongitude, prevent_dependency_satisfaction
 from docassemble.base.legal import Court
@@ -15,217 +17,7 @@ from shapely.geometry import Point
 
 __all__= ['MACourt','MACourtList','combined_locations', 'get_year_from_docket_number']
 
-# import bs4
-# import usaddress
-# import requests
-# from uszipcode import SearchEngine
-#def get_courts_from_massgov_url(url, shim_ehc_middlesex=True, shim_nhc_woburn=True):
-#    searcher = SearchEngine(simple_zipcode=True)
-#    """Load specified court directory page on Mass.gov and returns an MACourtList
-#    Properties include name, phone, fax, address, description (usually includes cities or county served), latitude, longitude
-#    """
-#    page = requests.get(url)
-#    soup = bs4.BeautifulSoup(page.text, 'html.parser')
-#    jstring = soup.find_all( attrs={"data-drupal-selector":"drupal-settings-json"} )[0].text # this is the element that has the JSON data as of 6/19/2018
-#    jdata = json.loads(jstring)
-#    markers = jdata['locations']['googleMap']['markers']
 
-#    courts = []
-#
-#    # The address and description are in a different part of the JSON
-#    for marker in markers:
-#        html_name = marker['infoWindow']['name']
-#        for item in jdata['locations']['imagePromos']['items']:
-#            description = ''
-#            if item['title']['text'] in html_name:
-#                name = item['title']['text'].rstrip()
-#                description = item['description']['richText']['rteElements'][0]['data']['rawHtml']['content']['#context']['value']
-#                break
-#
-#        address = Address()
-#        orig_address = marker['infoWindow']['address'] # The geolocate method does _not_ work with PO Boxes (silently discards)
-#        clean_address = re.sub(r' *PO Box .*?,',"",orig_address)
-#        clean_address = re.sub(r' *P.O. Box .*?,',"",orig_address)
-#        has_po_box = not clean_address == orig_address # We want to track if there was a PO Box where mail should be delivered
-#        address.address = orig_address
-#
-#        # See: https://usaddress.readthedocs.io/en/latest/ which explains how the mapping below prevents a RepeatedLabelError.
-#        # Basically parsing into line 1, line 2, etc is good enough for our use case.
-#        tag_mapping={
-#            'Recipient': 'recipient',
-#            'AddressNumber': 'address',
-#            'AddressNumberPrefix': 'address',
-#            'AddressNumberSuffix': 'address',
-#            'StreetName': 'address',
-#            'StreetNamePreDirectional': 'address',
-#            'StreetNamePreModifier': 'address',
-#            'StreetNamePreType': 'address',
-#            'StreetNamePostDirectional': 'address',
-#            'StreetNamePostModifier': 'address',
-#            'StreetNamePostType': 'address',
-#            'CornerOf': 'address',
-#            'IntersectionSeparator': 'address',
-#            'LandmarkName': 'address',
-#            'USPSBoxGroupID': 'address',
-#            'USPSBoxGroupType': 'address',
-#            'USPSBoxID': 'address',
-#            'USPSBoxType': 'address',
-#            'BuildingName': 'unit',
-#            'OccupancyType': 'unit',
-#            'OccupancyIdentifier': 'unit',
-#            'SubaddressIdentifier': 'unit',
-#            'SubaddressType': 'unit',
-#            'PlaceName': 'city',
-#            'StateName': 'state',
-#            'ZipCode': 'zip',
-#            }
-#        try:
-#            address_parts = usaddress.tag(orig_address, tag_mapping=tag_mapping)
-#        except usaddress.RepeatedLabelError:
-#            address_parts = usaddress.tag(clean_address, tag_mapping=tag_mapping) # Discard the PO box entry if necessary - not a valid address
-#
-#        try:
-#            if address_parts[1].lower() == 'street address':
-#                address.address = address_parts[0].get('address')
-#                if address_parts[0].get('unit'):
-#                    address.unit = address_parts[0].get('unit')
-#                address.city = address_parts[0].get('city')
-#                address.state = address_parts[0].get('state')
-#                address.zip = address_parts[0].get('zip')
-#                zipinfo = searcher.by_zipcode(address.zip)
-#                address.county = zipinfo.county
-#                del zipinfo
-#            else:
-#                raise Exception('We expected a Street Address.')
-#        except:
-#            address.address = orig_address
-#            #address.geolocate(self.elements.get('full_address',''))
-#
-#        if not hasattr(address,'address'):
-#            address.address = ''
-#        if not hasattr(address, 'city'):
-#            address.city = ''
-#        if not hasattr(address, 'state'):
-#            address.state = ''
-#        if not hasattr(address, 'zip'):
-#            address.zip = ''
-#        if not hasattr(address, 'county'):
-#            address.county = ''
-#        #if not hasattr(address, 'unit'):
-#            #address.unit = ''
-#
-#        # store the data in a serializable format. maybe could refactor to use object_hooks, but would need to go all the way down to DAObject?
-#        court = {
-#            'name': name,
-#            'description': description,
-#            'has_po_box' : has_po_box,
-#            'phone':marker['infoWindow']['phone'],
-#            'fax':marker['infoWindow']['fax'],
-#            'address': {
-#                'city': address.city,
-#                'address': address.address,
-#                'state': address.state,
-#                'zip': address.zip,
-#                'county': address.county,
-#                'orig_address':  orig_address # the one-line original address, which may include a PO Box
-#            },
-#            'location': {
-#                'latitude': marker['position']['lat'],
-#                'longitude': marker['position']['lng']
-#            }
-#        }
-#        if hasattr(address, 'unit'):
-#            court['address']['unit']= address.unit
-#
-#        courts.append(court)
-#
-#    # if shim_ehc_middlesex and url == 'https://www.mass.gov/orgs/housing-court/locations':
-#    #     court = {
-#    #         'name': "Eastern Housing Court - Middlesex Session",
-#    #         'description': "The Middlesex Session of the Eastern Housing Court serves Arlington, Belmont, and Cambridge, Medford and Somerville",
-#    #         'has_po_box' : False,
-#    #         'phone': "(781) 306-2715",
-#    #         'fax':"",
-#    #         'address': {
-#    #             'city': "Medford",
-#    #             'address': "4040 Mystic Valley Parkway",
-#    #             'state': "MA",
-#    #             'zip': "02155",
-#    #             'county': "Middlesex County",
-#    #             'orig_address':  "4040 Mystic Valley Parkway, Medford, MA 02155"
-#    #         },
-#    #         'location': {
-#    #             'latitude': 42.4048336,
-#    #             'longitude': -71.0893853
-#    #         }
-#    #     }
-#    #     courts.append(court)
-## 
-#    # if shim_nhc_woburn and url == 'https://www.mass.gov/orgs/housing-court/locations':
-#    #     court = {
-#    #         'name': "Northeast Housing Court - Woburn Session",
-#    #         'description': "The Woburn session of the Northeast Housing Court serves Bedford, Burlington, Concord, Everett,Lexington, Lincoln, Malden, Melrose, North Reading, Reading, Stoneham, Wakefield, Waltham, Watertown, Weston, Wilmington, Winchester, and Woburn.",
-#    #         'has_po_box' : False,
-#    #         'phone': "(978) 689-7833",
-#    #         'fax':"",
-#    #         'address': {
-#    #             'city': "Woburn",
-#    #             'address': "200 Trade Center",
-#    #             'unit': "Courtroom 540 - 5th Floor",
-#    #             'state': "MA",
-#    #             'zip': "01801",
-#    #             'county': "Middlesex County",
-#    #             'orig_address':  "200 Trade Center, Courtroom 540 - 5th Floor, Woburn, MA 01801"
-#    #         },
-#    #         'location': {
-#    #             'latitude': 42.500543,
-#    #             'longitude': -71.1656604
-#    #         }
-#    #     }
-#    #     courts.append(court)
-#
-#    courts.sort(key=lambda k: k['name']) # We want to sort within category of court
-#
-#    return courts
-#
-#def save_courts_to_file():
-#    ''' Writes all courts to .json files in Playground data sources folder'''
-#    courts = [
-#        [
-#            'juvenile_courts', 'https://www.mass.gov/orgs/juvenile-court/locations'
-#        ],
-#        [
-#            'probate_and_family_courts', 'https://www.mass.gov/orgs/probate-and-family-court/locations'
-#        ],
-#        [
-#            'district_courts', 'https://www.mass.gov/orgs/district-court/locations'
-#        ],
-#        [
-#            'housing_courts', 'https://www.mass.gov/orgs/housing-court/locations'
-#        ],
-#        [
-#            'bmc', 'https://www.mass.gov/orgs/boston-municipal-court/locations'
-#        ],
-#        [
-#            'superior_courts', 'https://www.mass.gov/orgs/superior-court/locations'
-#        ],
-#        [
-#            'land_court', 'https://www.mass.gov/orgs/land-court/locations'
-#        ]
-#    ]
-#    sources = PlaygroundSection('sources')
-#    for court in courts:
-#        jdata = json.dumps(get_courts_from_massgov_url(court[1]))
-#        sources.write_file(court[0] + '.json', jdata, binary=True)
-#
-#    # for court in courts:
-#    #     #area = PlaygroundSection('sources').get_area()
-#    #     fpath = os.path.join(sources.directory, court[0] + '.json')
-#    #     jdata = text_type(json.dumps(get_courts_from_massgov_url(court[1])))
-#    #     f = open(fpath, 'w')
-#    #     f.write(jdata)
-#    #     f.close()
-#    #sources.finalize()
 
 def test_write() -> str:
     area = PlaygroundSection('sources').get_area()
@@ -236,6 +28,39 @@ def test_write() -> str:
     f.close()
     area.finalize()
     return fpath
+
+def try_to_populate_county(address: Address, force:bool = False) -> None:
+    """
+    Jurisdiction depends on exactly matching names for county, city, etc. but we can't ask
+    the user to say what county they live in as people do not know in Massachusetts.
+
+    Try to fill in the `county` attribute of the specified address by geocoding the address.
+    Sometimes Google's database is incomplete. If so, reverse geocode the latitude and longitude
+    to try to get the county again. Finally, fall back to setting the `county` attribute to "unknown". """
+    # Geocoding will fill in location attributes if not already defined
+    if not hasattr(address, "location") or not hasattr(address.location, "latitude") or not address.location.latitude:
+        try:
+            address.geocode()
+        except:
+            pass
+    # Don't reverse geocode if the address already has a county
+    if not force and hasattr(address, "county"):
+        return
+    county = 'Unknown'
+    try:
+        geocoder = GoogleV3GeoCoder(server=server)
+        geocoder.initialize()
+    except:
+        address.county = county
+        return
+    try:
+        for item in geocoder.geocoder.reverse((address.location.latitude, address.location.longitude)).raw["address_components"]:
+            if "administrative_area_level_2" in item["types"]:
+                county = item["long_name"]
+                break
+    except:
+        pass
+    address.county = county   
 
 class MACourt(Court):
     """Object representing a court in Massachusetts.
@@ -334,7 +159,8 @@ class MACourtList(DAList):
                 try:
                     # It's helpful to normalize the address, but it's OK if 
                     # geolocation fails
-                    add.geolocate()
+                    # Populating county also geocodes
+                    try_to_populate_county(add)
                 except:
                     pass
                 res = self.matching_courts_single_address(add, court_types)
@@ -342,8 +168,9 @@ class MACourtList(DAList):
                     courts.update(filter(lambda el: el is not None, res))
                 elif not res is None:
                     courts.add(res)
-            return list(courts)
+            return sorted(list(courts), key=lambda y: y.name)
         else:
+            try_to_populate_county(address)
             return self.matching_courts_single_address(address, court_types)
 
     def matching_courts_single_address(self, address: Address, court_types: Optional[Union[str, typing.Iterable[str]]]=None) -> List[MACourt]:
@@ -388,7 +215,7 @@ class MACourtList(DAList):
                     matches.add(res)
               else:
                 return []
-            return list(matches)
+            return sorted(list(matches), key=lambda y: y.name)
         else:
             raise Exception("NotAList")
         #     # Return all of the courts if court_types is not filtering the results
@@ -430,60 +257,6 @@ class MACourtList(DAList):
               pass # no longer implemented
               # self.load_courts_from_massgov_by_filename(court)
         self.sort(key=lambda y: y.name)
-        # self.elements.sort(key=lambda y: y.name)
-
-    #def load_courts_from_massgov_by_filename(self, court_name):
-    #    """Loads the specified court from Mass.gov, assuming website format hasn't changed. It has an embedded JSON we parse"""
-    #    urls = {
-    #        'district_courts': 'https://www.mass.gov/orgs/district-court/locations',
-    #        'housing_courts': 'https://www.mass.gov/orgs/housing-court/locations',
-    #        'bmc': 'https://www.mass.gov/orgs/boston-municipal-court/locations',
-    #        'superior_courts': 'https://www.mass.gov/orgs/superior-court/locations',
-    #        'land_court': 'https://www.mass.gov/orgs/land-court/locations',
-    #        'juvenile_courts': 'https://www.mass.gov/orgs/juvenile-court/locations',
-    #        'probate_and_family_courts': 'https://www.mass.gov/orgs/probate-and-family-court/locations'
-    #        }
-    #    filename = court_name
-#
-    #    courts = get_courts_from_massgov_url(urls[filename])
-#
-    #    # 'housing_courts','bmc','district_courts','superior_courts'
-    #    if court_name == 'housing_courts':
-    #        court_department = 'Housing Court'
-    #    elif court_name == 'bmc':
-    #        court_department = 'Boston Municipal Court'
-    #    elif court_name == 'district_courts':
-    #        court_department = 'District Court'
-    #    elif court_name == 'superior_courts':
-    #        court_department = 'Superior Court'
-    #    elif court_name == 'juvenile_courts':
-    #        court_department = 'Juvenile Court'
-    #    elif court_name in ['land_courts', 'land_court']:
-    #        court_department = 'Land Court'
-    #    elif court_name == 'probate_and_family_courts':
-    #        court_department = 'Probate and Family Court'
-    #    elif court_name == "appeals_court":
-    #        court_department = "Appeals Court"
-#
-    #    for item in courts:
-    #        # translate the dictionary data into an MACourt
-    #        court = self.appendObject()
-    #        court.name = item['name']
-    #        court.department = court_department
-    #        court.division = parse_division_from_name(item['name'])
-    #        court.phone = item['phone']
-    #        court.fax = item['fax']
-    #        court.location.latitude = item['location']['latitude']
-    #        court.location.longitude = item['location']['longitude']
-    #        court.has_po_box = item.get('has_po_box')
-    #        court.description = item.get('description')
-    #
-    #        court.address.address = item['address']['address']
-    #        court.address.city = item['address']['city']
-    #        court.address.state = item['address']['state']
-    #        court.address.zip = item['address']['zip']
-    #        court.address.county = item['address']['county']
-    #        court.address.orig_address = item['address'].get('orig_address')
 
     def load_courts_from_file(self, court_name, data_path='docassemble.MACourts:data/sources/'):
         """Add the list of courts at the specified JSON file into the current list"""
@@ -1394,9 +1167,3 @@ def combined_locations(locations):
                         if hasattr(place, 'description') and str(location) not in place.description:
                             place.description += "  [NEWLINE]  " + str(location)
     return places
-
-
-#if __name__ == '__main__':
-#    import pprint
-#    courts = get_courts_from_massgov_url('https://www.mass.gov/orgs/district-court/locations')
-#    pprint.pprint(courts)

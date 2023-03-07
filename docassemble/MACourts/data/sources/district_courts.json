@@ -148,7 +148,7 @@
         "email": "janice.sennott@jud.state.ma.us"
       }
     ], 
-    "description": "The Brookline District Court serves the town of Brookline. As of March 1, 2019, this location is also the interim location for the Brighton Division of the Boston Municipal Court while the Brighton courthouse undergoes renovations. "
+    "description": "The Brookline District Court serves the town of Brookline."
   },
   {
     "fax": "(781) 395-2035",
@@ -589,7 +589,7 @@
       "state": "MA",
       "address": "600 Concord St."
     },
-    "description": " The Natick District Court sits in Framingham and serves Natick and Sherborn."
+    "description": "The Natick District Court sits in Framingham and serves Natick and Sherborn."
   },  
   {
     "fax": "(978) 630-3902",
@@ -1107,7 +1107,7 @@
         "email": "cara.ring@jud.state.ma.us" 
       }
     ],
-    "description": "This court serves Amesbury, Merrimac, Newbury, Newburyport, Rowley, Salisbury, and West Newbury.\r\n\r\n"
+    "description": "This court serves Amesbury, Merrimac, Newbury, Newburyport, Rowley, Salisbury, and West Newbury."
   },
   {
     "fax": "(617) 243-7291",
@@ -1512,7 +1512,7 @@
         "email": "susanne.moultrie@jud.state.ma.us"
       }
     ],
-    "description": "This court serves Longmeadow, Springfield, and West Springfield. The courthouse is officially named the Roderick J. Ireland Courthouse. "
+    "description": "This court serves Longmeadow, Springfield, and West Springfield."
   },
   {
     "fax": "(781) 341-8744",
@@ -1783,7 +1783,7 @@
         "email": "paula.viola@jud.state.ma.us"
       }
     ],
-    "description": "This court serves  Burlington, North Reading, Reading, Stoneham, Wilmington, Winchester, and Woburn."
+    "description": "This court serves Burlington, North Reading, Reading, Stoneham, Wilmington, Winchester, and Woburn."
   },
   {
     "fax": "",
