@@ -342,7 +342,7 @@ class MACourtList(DAList):
                     courts.update(filter(lambda el: el is not None, res))
                 elif not res is None:
                     courts.add(res)
-            return list(courts)
+            return sorted(list(courts), key=lambda y: y.name)
         else:
             return self.matching_courts_single_address(address, court_types)
 
@@ -388,7 +388,7 @@ class MACourtList(DAList):
                     matches.add(res)
               else:
                 return []
-            return list(matches)
+            return sorted(list(matches), key=lambda y: y.name)
         else:
             raise Exception("NotAList")
         #     # Return all of the courts if court_types is not filtering the results
