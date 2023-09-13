@@ -31,7 +31,8 @@
     "description": "The Dudley session of the Central Division of the Housing Court serves Charlton, Dudley, Oxford, Southbridge, Sturbridge, and Webster",
     "court_code": "H85",
     "tyler_code": "535",
-    "tyler_lower_court_code": "1831"
+    "tyler_lower_court_code": "1831",
+    "tyler_prod_lower_court_code": "7060"
   },
   {
     "fax": "",
@@ -65,7 +66,8 @@
     "description": "The Leominster session of the Central Division of the Housing Court serves Ashburnham, Athol, Fitchburg, Gardner, Holden, Hubbardston, Leominster, Lunenberg, Petersham, Phillipston, Princeton, Royalston, Templeton, Westminster, and Winchendon.",
     "court_code": "H85",
     "tyler_code": "535",
-    "tyler_lower_court_code": "1831"
+    "tyler_lower_court_code": "1831",
+    "tyler_prod_lower_court_code": "7060"
   },
   {
     "fax": "",
@@ -99,7 +101,8 @@
     "description": "The Marlborough session of the Central Division of the Housing Court serves Ashland, Berlin, Bolton, Framingham, Harvard, Holliston, Hopkinton, Hudson, Marlborough, Natick, Northborough, Sherborn, Southborough, Sudbury, Wayland, and Westborough. ",
     "court_code": "H85",
     "tyler_code": "535",
-    "tyler_lower_court_code": "1831"
+    "tyler_lower_court_code": "1831",
+    "tyler_prod_lower_court_code": "7060"
   },
   {
     "fax": "",
@@ -133,7 +136,8 @@
     "description": "The Worcester session of the Central Division of the Housing Court serves Auburn, Barre, Bellingham, Blackstone, Boylston, Brookfield, Clinton, Douglas, East Brookfield, Grafton, Hardwick, Hopedale, Lancaster, Leicester, Mendon, Milford, Millbury, Millville, New Braintree, Northbridge, North Brookfield, Oakham, Oxford, Paxton, Rutland, Shrewsbury, Spencer, Sterling, Sutton, Upton, Uxbridge, Warren, West Boylston, and Worcester.",
     "court_code": "H85",
     "tyler_code": "535",
-    "tyler_lower_court_code": "1831"
+    "tyler_lower_court_code": "1831",
+    "tyler_prod_lower_court_code": "7060"
   },
   {
     "fax": "",
@@ -162,7 +166,8 @@
     "description": "The Eastern Division of the Housing Court serves Boston, Brookline and Newton.",
     "court_code": "H84",
     "tyler_code": "537",
-    "tyler_lower_court_code": "1827"
+    "tyler_lower_court_code": "1827",
+    "tyler_prod_lower_court_code": "7056"
   },
   {
     "fax": "(508) 894-4168",
@@ -249,7 +254,8 @@
     "description": "The Lawrence Session of the Northeast Housing Court serves Amesbury, Andover, Boxford, Georgetown, Groveland, Haverhill, Lawrence, Merrimac, Methuen, Newbury, Newburyport, North Andover, Rowley, Salisbury, and West Newbury.  ",
     "court_code": "H77",
     "tyler_code": "516",
-    "tyler_lower_court_code": "1828"
+    "tyler_lower_court_code": "1828",
+    "tyler_prod_lower_court_code": "7057"
   },
   {
     "fax": "",
@@ -278,7 +284,8 @@
     "description": "The Lowell session of the Northeast Housing Court serves Acton, Ashby, Ayer, Billerica, Boxborough, Carlisle, Chelmsford, Devens, Dracut, Dunstable, Groton, Littleton, Lowell, Maynard, Pepperell, Shirley, Stow, Tewksbury, Townsend, Tyngsborough, and Westford.",
     "court_code": "H77",
     "tyler_code": "516",
-    "tyler_lower_court_code": "1828"
+    "tyler_lower_court_code": "1828",
+    "tyler_prod_lower_court_code": "7057"
   },
   {
     "fax": "",
@@ -307,7 +314,8 @@
     "description": "The Lynn session of the Northeast Housing Court is located in Salem and serves Lynn, Nahant, and Saugus.",
     "court_code": "H77",
     "tyler_code": "516",
-    "tyler_lower_court_code": "1828"
+    "tyler_lower_court_code": "1828",
+    "tyler_prod_lower_court_code": "7057"
   },
   {
     "fax": "",
@@ -336,7 +344,8 @@
     "description": "The Salem session of the Northeast Housing Court serves Beverly, Danvers, Essex, Gloucester, Hamilton, Ipswich, Lynnfield, Manchester-by-The-Sea, Marblehead, Middleton, Peabody, Rockport, Salem, Swampscott, Topsfield, and Wenham.",
     "court_code": "H77",
     "tyler_code": "516",
-    "tyler_lower_court_code": "1828"
+    "tyler_lower_court_code": "1828",
+    "tyler_prod_lower_court_code": "7057"
   },
   {
     "fax": "",
@@ -366,7 +375,8 @@
     "description": "The Woburn session of the Northeast Housing Court serves Bedford, Burlington, Concord, Everett,Lexington, Lincoln, Malden, Melrose, North Reading, Reading, Stoneham, Wakefield, Waltham, Watertown, Weston, Wilmington, Winchester, and Woburn.",
     "court_code": "H77",
     "tyler_code": "516",
-    "tyler_lower_court_code": "1828"
+    "tyler_lower_court_code": "1828",
+    "tyler_prod_lower_court_code": "7057"
   },
   {
     "fax": "(508) 672-9621",
@@ -395,7 +405,8 @@
     "description": "The Fall River Session of the Southeast Housing Court serves Freetown, Westport, Fall River, Somerset and Swansea.",
     "court_code": "H83",
     "tyler_code": "555:FR",
-    "tyler_lower_court_code": "1829"
+    "tyler_lower_court_code": "1829",
+    "tyler_prod_lower_court_code": "7058"
   },
   {
     "fax": "(508) 994-7538",
@@ -424,7 +435,8 @@
     "description": "The New Bedford Session of the Southeast Housing Court serves Acushnet, Dartmouth, Fairhaven, Freetown, New Bedford and Westport.",
     "court_code": "H83",
     "tyler_code": "555:NB",
-    "tyler_lower_court_code": "1829"
+    "tyler_lower_court_code": "1829",
+    "tyler_prod_lower_court_code": "7058"
   },
   {
     "fax": "(508) 747-2017",
@@ -453,7 +465,8 @@
     "description": "The Plymouth session of the Southeast Housing Court serves Accord, Aquinnah, Assinippi, Barnstable, Bourne, Brewster, Carver, Chatham, Chilmark, Dennis, Duxbury, Edgartown, Falmouth, Halifax, Hanover, Hanson, Harwich, Hingham, Hull, Humarock, Kingston, Lakeville, Marion, Marshfield, Mashpee, Mattapoisett, Middleborough, Nantucket, Norwell, Oak Bluffs, Pembroke, Plymouth, Plympton, Provincetown, Rochester, Rockland, Sandwich, Scituate, and Wareham.",
     "court_code": "H83",
     "tyler_code": "555:PL",
-    "tyler_lower_court_code": "1829"
+    "tyler_lower_court_code": "1829",
+    "tyler_prod_lower_court_code": "7058"
   },
   {
     "fax": "(508) 977-0485",
@@ -482,7 +495,8 @@
     "description": "The Taunton Session of the Southeast Housing Court serves Attleboro, Berkley, Dighton, Easton, Mansfield, North Attleborough, Norton, Raynham, Rehoboth, Seekonk and Taunton.",
     "court_code": "H83",
     "tyler_code": "555:TA",
-    "tyler_lower_court_code": "1829"
+    "tyler_lower_court_code": "1829",
+    "tyler_prod_lower_court_code": "7058"
   },
   {
     "fax": "(413) 732-4607",
@@ -511,7 +525,8 @@
     "description": "The Western Housing Court in Greenfield serves Ashfield, Bernardston, Buckland, Charlemont, Colrain, Conway, Deerfield, Erving, Gill, Greenfield, Hawley, Heath, Leverett, Leyden, Monroe, Montague, New Salem, Northfield, Orange, Rowe, Shelburne, Shutesbury, Sunderland, Warwick, Wendell and Whately.",
     "court_code": "H79",
     "tyler_code": "527",
-    "tyler_lower_court_code": "1830"
+    "tyler_lower_court_code": "1830",
+    "tyler_prod_lower_court_code": "7059"
   },
   {
     "fax": "(413) 732-4607 ",
@@ -540,7 +555,8 @@
     "description": "The Hadley session of the Western Housing Court serves Amherst, Belchertown, Chesterfield, Cummington, Easthampton, Goshen, Granby, Hadley, Hatfield, Huntington, Middlefield, Northampton, Pelham, Plainfield, South Hadley, Southampton, Ware, Westhampton, Williamsburg and Worthington.",
     "court_code": "H79",
     "tyler_code": "527",
-    "tyler_lower_court_code": "1830"
+    "tyler_lower_court_code": "1830",
+    "tyler_prod_lower_court_code": "7059"
   },
   {
     "fax": "(413) 732-4607 ",
@@ -570,7 +586,8 @@
     "description": "The Pittsfield session of the Western Housing Court serves cities and towns in Berkshire County on Wednesday mornings.",
     "court_code": "H79",
     "tyler_code": "527",
-    "tyler_lower_court_code": "1830"
+    "tyler_lower_court_code": "1830",
+    "tyler_prod_lower_court_code": "7059"
   },
   {
     "fax": "(413) 732-4607",
@@ -599,7 +616,8 @@
     "description": "The Western Housing Court in Springfield serves Agawam, Blandford, Brimfield, Chester, Chicopee, East Longmeadow, Granville, Hampden, Holland, Holyoke, Longmeadow, Ludlow, Monson, Montgomery, Palmer, Russell, Southwick, Springfield, Tolland, Wales, West Springfield, Westfield and Wilbraham.",
     "court_code": "H79",
     "tyler_code": "527",
-    "tyler_lower_court_code": "1830"
+    "tyler_lower_court_code": "1830",
+    "tyler_prod_lower_court_code": "7059"
   },
   {
     "fax": "",
@@ -628,7 +646,8 @@
       }
     ],
     "description": "The Middlesex Session of the Eastern Housing Court serves Arlington, Belmont, and Cambridge, Medford and Somerville",
-    "tyler_lower_court_code": "1827"
+    "tyler_lower_court_code": "1827",
+    "tyler_prod_lower_court_code": "7056"
   },
   {
     "fax": "(508)362-0290",
@@ -657,7 +676,8 @@
       }
     ],
     "description": "The Barnstable session of the Southeast Housing court is located in Barnstable, MA and serves Barnstable, Nantucket, and Dukes counties.",
-    "tyler_lower_court_code": "1829"
+    "tyler_lower_court_code": "1829",
+    "tyler_prod_lower_court_code": "7058"
   },
   {
     "fax": "",
@@ -686,6 +706,7 @@
       }
     ],
     "description": "The Chelsea session of Eastern Housing Court is located in Chelsea District Court and serves Chelsea, Revere, Winthrop and East Boston.",
-    "tyler_lower_court_code": "1827"
+    "tyler_lower_court_code": "1827",
+    "tyler_prod_lower_court_code": "7056"
   }
 ]
