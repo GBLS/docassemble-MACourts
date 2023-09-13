@@ -296,6 +296,7 @@ class MACourtList(DAList):
             court.court_code = item.get('court_code')
             court.tyler_code = item.get('tyler_code')
             court.tyler_lower_court_code = item.get('tyler_lower_court_code')
+            court.tyler_prod_lower_court_code = item.get('tyler_prod_lower_court_code')
             court.name = item['name']
             court.department = court_department
             court.division = parse_division_from_name(item['name'])
