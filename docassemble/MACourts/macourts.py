@@ -1019,7 +1019,7 @@ class MACourtList(DAList):
               search_court_code = self._alt_court_codes[court_code]
             else:
               search_court_code = court_code
-            matching_courts = [court for court in self.elements if court.court_code.strip() == search_court_code]
+            matching_courts = [court for court in self.elements if court.court_code.strip().lower() == str(search_court_code).lower()]
             if not matching_courts:
               raise KeyError(f"{court_code} (i.e. {search_court_code}) (from {docket_number}) isn't a valid court code")
             return matching_courts
