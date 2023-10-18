@@ -22,7 +22,7 @@ class TestDocketNumbers(unittest.TestCase):
   def _expect_court_not_found(self, docket_number):
     try:
       courts = self.all_courts.courts_from_docket_number(docket_number)
-      self.fail(f"{docket_number} shouldn't be a valid number, but it found {courts}")
+      self.fail(f"{docket_number} shouldn't be a valid number, but it found {[str(c) for c in courts]}")
     except KeyError:
       # All good
       pass
@@ -33,6 +33,7 @@ class TestDocketNumbers(unittest.TestCase):
   def test_parse_docket_numbers(self):
     """From the examples"""
     self._check_court_name('1577CV00982', 'Essex County Superior Court')
+    self._check_court_name('1577cv00982', 'Essex County Superior Court')
     self._check_court_name('1670CV000072', 'Winchendon District Court')
     self._check_court_name('1401CV001026', 'Central Division, Boston Municipal Court')
     # The Regex doesn't yet work with the "variations". Some are ambigious, but
@@ -40,12 +41,17 @@ class TestDocketNumbers(unittest.TestCase):
     #self._check_court_name('1577-CV-00982', 'Essex County Superior Court')
     #self._check_court_name('1670-CV-000072', 'Winchendon District Court')
     #self._check_court_name('1401-CV-001026', 'Central Division, Boston Municipal Court')
-    self._check_court_names('15H84CV000436', ['Eastern Housing Court', 
+    self._check_court_names('15H84CV000436', ['Eastern Housing Court',
+      'Eastern Housing Court - Middlesex Session', 'Eastern Housing Court - Chelsea Session'])
+    self._check_court_names('15h84cv000436', ['Eastern Housing Court',
       'Eastern Housing Court - Middlesex Session', 'Eastern Housing Court - Chelsea Session'])
     self._check_court_name('07 TL 001026', 'Land Court')
     self._check_court_names('ES15A0064AD', ['Essex Probate and Family Court', 'Lawrence Probate and Family Court'])
+    self._check_court_names('es15A0064ad', ['Essex Probate and Family Court', 'Lawrence Probate and Family Court'])
     self._check_court_name('2020-P-0874', 'Massachusetts Appeals Court (Panel)')
+    self._check_court_name('2020-p-0874', 'Massachusetts Appeals Court (Panel)')
     self._check_court_name('SJC-13103', 'Supreme Judicial Court')
+    self._check_court_name('sjc-13103', 'Supreme Judicial Court')
 
     # Test some invalid ones too
     self._expect_court_not_found('')
