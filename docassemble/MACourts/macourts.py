@@ -876,6 +876,7 @@ class MACourtList(DAList):
 
     _find_case_type_code_re = re.compile(r'(?<!^)[A-Z]{2,4}(?!-)', re.I)
 
+    _any_numbers_re = re.compile(r'\d', re.I)
 
     _court_case_type_code_dict = {
         'AC' : 'Application for Criminal Complaint',
@@ -982,15 +983,17 @@ class MACourtList(DAList):
         court_code = search.group() if search else None
         if not court_code:
             for key in self._land_court_case_type_code_dict:
-                if key in docket_number:
+                if key in docket_number.upper():
                     only_land_court = self.matching_land_court(None)
                     if only_land_court:
                       return [only_land_court]
                     else:
                       return []
             else:
+                if not self._any_numbers_re.search(docket_number):
+                    raise KeyError(f"{docket_number} doesn't have any number digits in it, it's not likely a docket number")
                 for key in self._sjc_code_dict:
-                    if key in docket_number:
+                    if key in docket_number.upper():
                         # TODO(brycew): integrate this into the MA Courts properly
                         court = MACourt()
                         court.name = self._sjc_code_dict[key]
@@ -1002,7 +1005,7 @@ class MACourtList(DAList):
                         court.description = 'The Supreme Judicial Court of Massachusetts'
                         return [court]
                 for key, name in self._appellate_court_code_dict.items():
-                    if key in docket_number:
+                    if key in docket_number.upper():
                         matching_courts = [court for court in self.elements if name.lower() in court.name.rstrip().lower()]
                         if matching_courts:
                             return matching_courts
@@ -1015,8 +1018,8 @@ class MACourtList(DAList):
                     # is edited to address variations, which might not include
                     # court codes.
         else:
-            if court_code in self._alt_court_codes:
-              search_court_code = self._alt_court_codes[court_code]
+            if court_code.upper() in self._alt_court_codes:
+              search_court_code = self._alt_court_codes[court_code.upper()]
             else:
               search_court_code = court_code
             matching_courts = [court for court in self.elements if court.court_code.strip().lower() == str(search_court_code).lower()]
