@@ -93,6 +93,8 @@
   },
   {
     "fax": "(617) 788-8991",
+    "URL": "https://www.mass.gov/locations/boston-juvenile-court",
+    "hours": "monday - friday 8:30am - 4:30pm",
     "court_code": "71",
     "tyler_lower_court_code": "1852",
     "tyler_prod_lower_court_code": "7081",
@@ -316,6 +318,8 @@
   },
   {
     "fax": "",
+    "URL": "https://www.mass.gov/locations/edgartown-juvenile-court",
+    "hours": "",
     "court_code": "J35",
     "tyler_lower_court_code": "1833",
     "tyler_prod_lower_court_code": "7062",
@@ -534,6 +538,8 @@
   },
   {
     "fax": "(413) 587-0191",
+    "URL": "https://www.mass.gov/locations/hadley-juvenile-court",
+    "hours": "hours vary",
     "court_code": "J45",
     "tyler_lower_court_code": "1845",
     "tyler_prod_lower_court_code": "7074",
@@ -652,6 +658,8 @@
   },
   {
     "fax": "",
+    "URL": "https://www.mass.gov/locations/lowell-juvenile-court",
+    "hours": "monday - friday 8:30am - 4:30pm",
     "court_code": "J11",
     "tyler_lower_court_code": "1847",
     "tyler_prod_lower_court_code": "7076",
@@ -805,6 +813,8 @@
   },
   {
     "fax": "",
+    "URL": "https://www.mass.gov/locations/newburyport-juvenile-court",
+    "hours": "monday - friday 8:30am - 4:30pm",
     "court_code": "J22",
     "tyler_lower_court_code": "1844",
     "tyler_prod_lower_court_code": "7073",
@@ -919,6 +929,8 @@
   },
   {
     "fax": "",
+    "URL": "https://www.mass.gov/locations/palmer-juvenile-court",
+    "hours": "monday - friday 8:30am - 4:30pm",
     "court_code": "J43",
     "tyler_lower_court_code": "1846",
     "tyler_prod_lower_court_code": "7075",
@@ -983,6 +995,8 @@
   },
   {
     "fax": "",
+    "URL": "https://www.mass.gov/locations/plymouth-juvenile-court",
+    "hours": "hours vary",
     "court_code": "J59",
     "tyler_lower_court_code": "1837",
     "tyler_prod_lower_court_code": "7066",
@@ -1183,6 +1197,8 @@
   },
   {
     "fax": "",
+    "URL": "https://www.mass.gov/locations/taunton-juvenile-court",
+    "hours": "monday - friday 8:30am - 4:30pm",
     "court_code": "J31",
     "tyler_lower_court_code": "1842",
     "tyler_prod_lower_court_code": "7071",
