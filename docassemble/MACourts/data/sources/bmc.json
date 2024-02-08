@@ -5,6 +5,8 @@
     "tyler_lower_court_code": "1753",
     "tyler_code": "418",
     "name": "Brighton Division, Boston Municipal Court",
+    "url": "https://www.mass.gov/locations/brighton-division-boston-municipal-court",
+    "hours": "Monday - Friday: \n 8:30 am-4:30 pm",
     "phone": "(617) 782-6540, Press 5",
     "has_po_box": false,
     "location": {
@@ -27,6 +29,8 @@
     "tyler_lower_court_code": "1754",
     "tyler_code": "1245",
     "name": "Central Division, Boston Municipal Court",
+    "url": "https://www.mass.gov/locations/central-division-boston-municipal-court",
+    "hours": "Monday - Friday: \n 8:30 am-4:30 pm",
     "phone": "(617) 788-8600",
     "has_po_box": false,
     "location": {
@@ -49,6 +53,8 @@
     "tyler_lower_court_code": "1755",
     "tyler_code": "419",
     "name": "Charlestown Division, Boston Municipal Court",
+    "url": "https://www.mass.gov/locations/charlestown-division-boston-municipal-court",
+    "hours": "Monday - Friday: \n 8:30 am-4:30 pm",
     "phone": "(617) 242-5400",
     "has_po_box": false,
     "location": {
@@ -71,6 +77,8 @@
     "tyler_lower_court_code": "1756",
     "tyler_code": "420",
     "name": "Dorchester Division, Boston Municipal Court",
+    "url": "https://www.mass.gov/locations/dorchester-division-boston-municipal-court",
+    "hours": "Monday - Friday: \n 8:30 am-4:30 pm",
     "phone": "(617) 288-9500",
     "has_po_box": false,
     "location": {
@@ -93,6 +101,8 @@
     "tyler_lower_court_code": "1757",
     "tyler_code": "408",
     "name": "East Boston Division, Boston Municipal Court",
+    "url": "https://www.mass.gov/locations/east-boston-division-boston-municipal-court",
+    "hours": "Monday - Friday: \n 8:30 am-4:30 pm",
     "phone": "(617) 569-7550",
     "has_po_box": false,
     "location": {
@@ -115,6 +125,8 @@
     "tyler_lower_court_code": "1758",
     "tyler_code": "417",
     "name": "Roxbury Division, Boston Municipal Court",
+    "url": "https://www.mass.gov/locations/roxbury-division-boston-municipal-court",
+    "hours": "Monday - Friday: \n 8:30 am-4:30 pm",
     "phone": "(617) 427-7000",
     "has_po_box": false,
     "location": {
@@ -137,6 +149,8 @@
     "tyler_lower_court_code": "1760",
     "tyler_code": "665",
     "name": "West Roxbury Division, Boston Municipal Court",
+    "url": "https://www.mass.gov/locations/west-roxbury-division-boston-municipal-court",
+    "hours": "Monday - Friday: \n 8:30 am-4:30 pm",
     "phone": "(617) 971-1200",
     "has_po_box": false,
     "location": {
@@ -159,6 +173,8 @@
     "tyler_lower_court_code": "1759",
     "tyler_code": "409",
     "name": "South Boston Division, Boston Municipal Court",
+    "url": "https://www.mass.gov/locations/south-boston-division-boston-municipal-court",
+    "hours": "Monday - Friday: \n 8:30 am-4:30 pm",
     "phone": "(617) 268-9292",
     "has_po_box": false,
     "location": {
