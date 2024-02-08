@@ -92,6 +92,7 @@
     "tyler_lower_court_code": "1872",
     "tyler_prod_lower_court_code": "7101",
     "name": "Bristol County Superior Court",
+    "url": "https://www.mass.gov/locations/bristol-county-superior-court-fall-river",
     "phone": "(508) 491-3300",
     "has_po_box": false,
     "location": {
@@ -121,6 +122,7 @@
     "tyler_lower_court_code": "1872",
     "tyler_prod_lower_court_code": "7101",
     "name": "Bristol County Superior Court",
+    "url": "https://www.mass.gov/locations/bristol-county-superior-court-new-bedford",
     "phone": "(508) 996-2051",
     "has_po_box": false,
     "location": {
@@ -219,6 +221,7 @@
     "tyler_lower_court_code": "1874",
     "tyler_prod_lower_court_code": "7103",
     "name": "Essex County Superior Court",
+    "url": "https://www.mass.gov/locations/essex-county-superior-court-lawrence",
     "phone": "(978) 242-1900",
     "has_po_box": false,
     "location": {
@@ -248,6 +251,7 @@
     "tyler_lower_court_code": "1874",
     "tyler_prod_lower_court_code": "7103",
     "name": "Essex County Superior Court",
+    "url": "https://www.mass.gov/locations/essex-county-superior-court-newburyport",
     "phone": "(978) 462-4474",
     "has_po_box": false,
     "location": {
@@ -403,7 +407,8 @@
     "tyler_lower_court_code": "1877",
     "tyler_prod_lower_court_code": "7106",
     "name": "Middlesex County Superior Court",
-    "phone": "",
+    "url": "https://www.mass.gov/locations/middlesex-county-superior-court-lowell",
+    "phone": "(978) 656-7800",
     "has_po_box": false,
     "location": {
       "latitude": 42.637493,
@@ -490,6 +495,7 @@
     "tyler_lower_court_code": "1881",
     "tyler_prod_lower_court_code": "7110",
     "name": "Plymouth County Superior Court",
+    "url": "https://www.mass.gov/locations/plymouth-county-superior-court-brockton",
     "phone": "(508) 747-8400",
     "has_po_box": false,
     "location": {
