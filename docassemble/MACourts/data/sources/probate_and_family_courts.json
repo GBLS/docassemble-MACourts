@@ -39,6 +39,8 @@
     "tyler_lower_court_code": "1856",
     "tyler_prod_lower_court_code": "7085",
     "name": "Berkshire Probate and Family Court",
+    "url": "https://www.mass.gov/locations/berkshire-probate-and-family-court",
+    "hours": "Monday - Friday: \n 8:30 am-4:00 pm", 
     "phone": "(413) 442-6941",
     "has_po_box": false,
     "location": {
@@ -103,6 +105,8 @@
     "tyler_lower_court_code": "1866",
     "tyler_prod_lower_court_code": "7095",
     "name": "Brockton Probate and Family Court",
+    "url": "https://www.mass.gov/locations/brockton-probate-and-family-court",
+    "hours": "Monday - Friday: \n 8:30 am-4:30 pm", 
     "phone": "(508) 897-5400",
     "has_po_box": false,
     "location": {
@@ -161,6 +165,8 @@
     "tyler_lower_court_code": "1859",
     "tyler_prod_lower_court_code": "7088",
     "name": "Essex Probate and Family Court",
+    "url": "https://www.mass.gov/locations/essex-probate-and-family-court",
+    "hours": "Monday - Friday: \n 8:00 am-4:30 pm",
     "phone": "(978) 744-1020",
     "has_po_box": false,
     "location": {
@@ -195,6 +201,8 @@
     "tyler_lower_court_code": "1859",
     "tyler_prod_lower_court_code": "7088",
     "name": "Lawrence Probate and Family Court",
+    "url": "https://www.mass.gov/locations/lawrence-probate-and-family-court",
+    "hours": "Please note that the Registry is closed from 1:00 - 2:00 daily",
     "phone": "(978) 686-9692",
     "has_po_box": false,
     "location": {
@@ -393,6 +401,8 @@
     "tyler_lower_court_code": "1865",
     "tyler_prod_lower_court_code": "7094",
     "name": "Norfolk Probate and Family Court",
+    "url": "https://www.mass.gov/locations/norfolk-probate-and-family-court", 
+    "hours": "Monday - Friday: \n 8:30 am-4:30 pm", 
     "phone": "(781) 830-1200",
     "has_po_box": false,
     "location": {
@@ -422,6 +432,8 @@
     "tyler_lower_court_code": "1866",
     "tyler_prod_lower_court_code": "7095",
     "name": "Plymouth Probate and Family Court",
+    "url": "https://www.mass.gov/locations/plymouth-probate-and-family-court",
+    "hours": "Monday - Friday: \n 8:30 am-4:30 pm",
     "phone": "(508) 747-6204",
     "has_po_box": false,
     "location": {
