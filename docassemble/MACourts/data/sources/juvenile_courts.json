@@ -39,6 +39,7 @@
     "tyler_lower_court_code": "1832",
     "tyler_prod_lower_court_code": "7061",
     "name": "Barnstable Juvenile Court",
+    "url": "https://www.mass.gov/locations/barnstable-juvenile-court",
     "phone": "(508) 362-1389",
     "has_po_box": true,
     "location": {
@@ -320,6 +321,7 @@
     "tyler_lower_court_code": "1833",
     "tyler_prod_lower_court_code": "7062",
     "name": "Edgartown Juvenile Court",
+    "url": "https://www.mass.gov/locations/edgartown-juvenile-court",
     "phone": "(508) 627-8983",
     "has_po_box": true,
     "location": {
@@ -329,7 +331,7 @@
     "address": {
       "city": "Edgartown",
       "zip": "02539",
-      "orig_address": "12 Mariner's Way, Unit 4, P.O. Box 550, Edgartown, MA 02539",
+      "orig_address": "12 Mariners Way #4, Edgartown, MA 02539",
       "county": "Dukes County",
       "state": "MA",
       "address": "12 Mariner's Way",
@@ -343,6 +345,7 @@
     "tyler_lower_court_code": "1840",
     "tyler_prod_lower_court_code": "7069",
     "name": "Fall River Juvenile Court",
+    "url": "https://www.mass.gov/locations/fall-river-juvenile-court",
     "phone": "(508) 676-0090",
     "has_po_box": false,
     "location": {
@@ -843,6 +846,7 @@
     "tyler_lower_court_code": "1838",
     "tyler_prod_lower_court_code": "7067",
     "name": "North Adams Juvenile Court",
+    "url": "https://www.mass.gov/locations/north-adams-juvenile-court",
     "phone": "(413) 664-8700",
     "has_po_box": false,
     "location": {
@@ -987,6 +991,7 @@
     "tyler_lower_court_code": "1837",
     "tyler_prod_lower_court_code": "7066",
     "name": "Plymouth Juvenile Court",
+    "url": "https://www.mass.gov/locations/plymouth-juvenile-court",
     "phone": "(508) 747-0858",
     "has_po_box": false,
     "location": {
