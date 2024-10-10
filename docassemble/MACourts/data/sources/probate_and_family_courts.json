@@ -291,17 +291,17 @@
     "phone": "(413) 586-8500",
     "has_po_box": false,
     "location": {
-      "latitude": 42.320483,
-      "longitude": -72.630179
+      "latitude": 42.3038804,
+      "longitude": -72.6240706
     },
     "address": {
       "city": "Northampton",
       "zip": "01060",
-      "orig_address": "33 King St., Suite 3, Northampton, MA 01060",
+      "orig_address": "15 Atwood Dr, Northampton, MA 01060",
       "county": "Hampshire County",
       "state": "MA",
-      "address": "33 King St.",
-      "unit": "Suite 3"
+      "address": "15 Atwood Dr",
+      "unit": ""
     },
     "ada_coordinators": [ 
       {
