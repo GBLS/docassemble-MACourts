@@ -3,7 +3,7 @@ modules:
   - docassemble.MACourts.macourts
 ---
 objects:
-  - my_courts: MACourtList.using(courts=True)
+  - my_courts: MACourtList.using(courts=courts=['housing_courts','bmc','district_courts','superior_courts','juvenile_courts', 'probate_and_family_courts', 'land_court'])
   - xlsx_output: DAFile.using(filename="courts.xlsx")
 ---
 mandatory: True
