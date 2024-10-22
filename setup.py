@@ -53,7 +53,7 @@ setup(name='docassemble.MACourts',
       url='https://docassemble.org',
       packages=find_packages(),
       namespace_packages=['docassemble'],
-      install_requires=['Shapely>=1.0.15', 'geopandas>=0.2.0', 'usaddress>=0.5.10'],
+      install_requires=['Shapely>=1.0.15', 'geopandas>=0.2.0', 'usaddress>=0.5.10', 'shapely>=2.0.6'],
       zip_safe=False,
       package_data=find_package_data(where='docassemble/MACourts/', package='docassemble.MACourts'),
      )
